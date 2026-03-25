@@ -120,7 +120,6 @@ export default function CoursesPage() {
               )}
               <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
             </Button>
-            
             {activeFiltersCount > 0 && (
               <Button
                 variant="ghost"

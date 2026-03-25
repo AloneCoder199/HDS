@@ -57,20 +57,10 @@ const recentStudents = [
 
 export default function CallToAction() {
   const [isHovered, setIsHovered] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ hours: 18, minutes: 45, seconds: 30 });
+  
 
   // Countdown timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        return prev;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
@@ -232,49 +222,38 @@ export default function CallToAction() {
                       </span>
                     </div>
 
-                    <div className="flex items-baseline justify-center gap-3 mb-2">
-                      <span className="text-5xl font-bold text-slate-900 dark:text-white">
-                        PKR 499
-                      </span>
-                      <span className="text-lg text-slate-400 line-through">
-                        PKR 4,999
-                      </span>
-                    </div>
+                   <div className="flex flex-col items-center justify-center mb-6">
+  {/* Limited Offer Tag */}
+  <p className="text-xs font-bold uppercase tracking-widest text-[#3495EB] mb-2">
+    Limited Time Offer
+  </p>
+
+  <div className="flex items-baseline justify-center gap-4">
+    {/* New Price: PKR 100 */}
+    <span className="text-6xl font-black text-slate-900 dark:text-white tracking-tight">
+      PKR 100
+    </span>
+
+    {/* Old Price: PKR 25,000 with Red Cut */}
+    <div className="relative">
+      <span className="text-xl font-semibold text-slate-400 dark:text-slate-500 line-through decoration-red-500 decoration-2">
+        PKR 25,000
+      </span>
+      {/* Discount Badge */}
+      <span className="absolute -top-6 -right-12 animate-bounce rounded-full bg-red-600 px-2 py-1 text-[10px] font-black text-white shadow-lg">
+        99% OFF
+      </span>
+    </div>
+  </div>
+</div>
+
 
                     <p className="text-sm text-slate-500 dark:text-slate-400">
                       per month • Cancel anytime
                     </p>
                   </div>
 
-                  {/* Countdown Timer */}
-                  <div className="mb-8 p-4 rounded-xl 
-                                  bg-amber-50 dark:bg-amber-500/10 
-                                  border border-amber-200 dark:border-amber-500/20">
-                    <p className="text-center text-sm font-medium text-amber-800 dark:text-amber-300 mb-3">
-                      ⏰ Offer ends in:
-                    </p>
-                    <div className="flex justify-center gap-3">
-                      {[
-                        { value: timeLeft.hours, label: 'Hours' },
-                        { value: timeLeft.minutes, label: 'Mins' },
-                        { value: timeLeft.seconds, label: 'Secs' }
-                      ].map((item, idx) => (
-                        <div key={idx} className="text-center">
-                          <div className="w-14 h-14 rounded-lg 
-                                          bg-white dark:bg-slate-800 
-                                          border border-amber-200 dark:border-amber-500/30
-                                          flex items-center justify-center mb-1">
-                            <span className="text-xl font-bold text-amber-600 dark:text-amber-400">
-                              {String(item.value).padStart(2, '0')}
-                            </span>
-                          </div>
-                          <span className="text-xs text-amber-600 dark:text-amber-400">
-                            {item.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  
 
                   {/* CTA Button */}
                   

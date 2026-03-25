@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from 'react';
+import React, { useRef , useState , useEffect} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -36,7 +36,14 @@ const levelStyles = {
 
 export default function FeaturedCourses() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+ const [isMounted, setIsMounted] = useState(false);
 
+useEffect(() => {
+  setIsMounted(true);
+}, []);
+
+// Return mein check karein
+if (!isMounted) return null;
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 380;
@@ -206,12 +213,24 @@ export default function FeaturedCourses() {
                     </div>
 
                     {/* Price */}
-                    <div className="text-right">
-                      <span className="text-lg font-bold text-[#111827] dark:text-white">${course.price}</span>
-                      {course.originalPrice && (
-                        <span className="text-xs text-[#9CA3AF] line-through ml-1">${course.originalPrice}</span>
-                      )}
-                    </div>
+                    <div className="text-right flex flex-col items-end justify-center">
+  <div className="flex items-baseline gap-1.5">
+    {/* Main Price */}
+    <span className="text-xl font-extrabold text-[#111827] dark:text-white tracking-tight">
+      {course.price}
+    </span>
+    
+    {/* Original Price (Line-through) */}
+    {course.originalPrice && (
+      <span className="text-sm text-gray-400 dark:text-gray-500 line-through decoration-gray-400/50">
+        {course.originalPrice}
+      </span>
+    )}
+  </div>
+  
+  {/* Optional: Agar koi "Save %" badge dikhana ho toh yahan add kar sakte hain */}
+</div>
+
                   </div>
 
                   {/* Enroll Button */}

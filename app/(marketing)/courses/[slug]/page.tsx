@@ -135,7 +135,7 @@ export default function CourseDetailPage() {
                   size="lg"
                   className={`bg-linear-to-r ${course.gradient} text-white border-0 hover:cursor-pointer hover:opacity-90 px-8 py-6 text-lg rounded-xl`}
                 >
-                  Enroll Now - ${course.price}
+                  Enroll Now - {course.price}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 </Link>
@@ -324,7 +324,7 @@ export default function CourseDetailPage() {
                   size="lg"
                   className={`bg-linear-to-r ${course.gradient} text-white border-0 hover:cursor-pointer hover:opacity-90 px-8 py-6 text-lg rounded-xl`}
                 >
-                  Enroll Now - ${course.price}
+                  Enroll Now - {course.price}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 </Link>

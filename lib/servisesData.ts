@@ -71,7 +71,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "digital-marketing-mastery",
-    isAvailable : false,
+    isAvailable : true,
     title: "Digital Marketing Mastery",
     href: "/services/digital-marketing-mastery",
     description: "Learn data-driven marketing strategies across all channels. From social media to paid advertising, master the skills to drive business growth.",
@@ -99,7 +99,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "seo-content-strategy",
-    isAvailable : false,
+    isAvailable : true,
     title: "SEO & Content Strategy",
     href: "/services/seo-content-strategy",
     description: "Dominate search rankings with comprehensive SEO strategies. Learn technical SEO, content optimization, and link building for organic growth.",
@@ -127,7 +127,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "ui-ux-design-pro",
-    isAvailable : false,
+    isAvailable : true,
     title: "UI/UX Design Pro",
     href: "/services/ui-ux-design-pro",
     description: "Create stunning, user-centered designs that convert. Master Figma, design systems, and user research to build exceptional digital experiences.",
@@ -155,7 +155,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "mobile-app-development",
-    isAvailable : false,
+    isAvailable : true,
     title: "Mobile App Development",
     href: "/services/mobile-app-development",
     description: "Build native and cross-platform mobile apps for iOS and Android. Learn React Native and Flutter to create apps that users love.",
@@ -183,7 +183,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "data-science-analytics",
-    isAvailable : false,
+    isAvailable : true,
     title: "Data Science & Analytics",
     href: "/services/data-science-analytics",
     description: "Master data analysis, visualization, and machine learning. Learn Python, SQL, and modern analytics tools to drive data-informed decisions.",
@@ -211,7 +211,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "cloud-devops-engineering",
-    isAvailable : false,
+    isAvailable : true,
     title: "Cloud & DevOps Engineering",
     href: "/services/cloud-devops-engineering",
     description: "Learn cloud infrastructure, CI/CD pipelines, and modern DevOps practices. Master AWS, Docker, Kubernetes, and infrastructure as code.",
@@ -239,7 +239,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "cybersecurity-fundamentals",
-    isAvailable : false,
+    isAvailable : true,
     title: "Cybersecurity Fundamentals",
     href: "/services/cybersecurity-fundamentals",
     description: "Protect digital assets with comprehensive cybersecurity skills. Learn ethical hacking, network security, and risk management.",
@@ -267,7 +267,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "ai-machine-learning",
-    isAvailable : false,
+    isAvailable : true,
     title: "AI & Machine Learning",
     href: "/services/ai-machine-learning",
     description: "Build intelligent systems with AI and ML. Learn neural networks, deep learning, and practical AI applications using Python and TensorFlow.",
@@ -295,7 +295,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "ecommerce-mastery",
-    isAvailable : false,
+    isAvailable : true,
     title: "E-Commerce Mastery",
     href: "/services/ecommerce-mastery",
     description: "Build and scale profitable online stores. Learn Shopify, WooCommerce, dropshipping, and digital product strategies for e-commerce success.",
@@ -323,7 +323,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "content-creation-branding",
-    isAvailable : false,
+    isAvailable : true,
     title: "Content Creation & Branding",
     href: "/services/content-creation-branding",
     description: "Master visual storytelling and brand building. Learn video editing, graphic design, and social media content that engages and converts.",
@@ -351,7 +351,7 @@ export const servicesData: Service[] = [
   },
   {
     id: "product-management",
-    isAvailable : false,
+    isAvailable : true,
     title: "Product Management",
     href: "/services/product-management",
     description: "Lead product development from idea to launch. Learn agile methodologies, user research, and strategic product planning for tech companies.",

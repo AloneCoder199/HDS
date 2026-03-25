@@ -70,6 +70,71 @@ export interface Course {
 
 export const coursesData: Course[] = [
   {
+    id: "dm-002",
+    isAvailable:true,
+   title: "Social Media Marketing Mastery",
+slug: "social-media-marketing-mastery",
+    description: "Learn data-driven marketing across all channels. Master SEO, social media, paid ads, and analytics to drive business growth.",
+    shortDesc: "Growth marketing expertise",
+    fullDescription: "Become a complete digital marketer with skills in SEO, content marketing, social media, PPC, email marketing, and analytics. Work on real campaigns and build a portfolio that impresses employers.",
+    icon: Megaphone,
+    category: "Marketing",
+    level: "Beginner",
+    duration: "4 Weeks",
+    weeks: 12,
+    hours: 180,
+    price: 100,
+    originalPrice: 25000,
+    rating: 4.8,
+    students: 2850,
+    color: "text-violet-600",
+    bgColor: "bg-violet-600/10",
+    borderColor: "border-violet-200 dark:border-violet-800",
+    gradient: "from-violet-600 via-purple-500 to-fuchsia-500",
+    features: [
+      "80+ Hours of Content",
+      "Real Campaign Projects",
+      "Google & Meta Certifications",
+      "Industry Mentors",
+      "Job Placement Support",
+      "Analytics Mastery"
+    ],
+    modules: [
+      {
+        title: "Marketing Foundations",
+        duration: "1 Weeks",
+        topics: ["Marketing Strategy", "Customer Journey", "Brand Building", "Market Research"]
+      },
+      {
+        title: "Content & SEO",
+        duration: "1 Weeks",
+        topics: ["Content Strategy", "SEO Fundamentals", "Blogging", "Keyword Research"]
+      },
+      {
+        title: "Paid Advertising",
+        duration: "1 Weeks",
+        topics: ["Google Ads", "Facebook Ads", "LinkedIn Ads", "Budget Optimization"]
+      },
+      {
+        title: "Analytics & Growth",
+        duration: "1 Weeks",
+        topics: ["Google Analytics", "A/B Testing", "CRO", "Marketing Automation"]
+      }
+    ],
+    instructors: [
+      { name: "Fatima Ali", role: "Marketing Director", company: "Unilever", avatar: "/instructors/fatima.jpg" },
+      { name: "Omar Farooq", role: "Growth Lead", company: "Careem", avatar: "/instructors/omar.jpg" }
+    ],
+    outcomes: [
+      "Run profitable ad campaigns",
+      "Build marketing strategies",
+      "Analyze and optimize ROI",
+      "Get hired as a marketer"
+    ],
+    certification: "HDS Certified Digital Marketing Professional",
+    prerequisites: ["No experience required", "Laptop with internet"]
+  },
+  {
     id: "fsd-001",
     isAvailable:false,
     title: "Full-Stack Development Bootcamp",
@@ -134,71 +199,7 @@ export const coursesData: Course[] = [
     certification: "HDS Certified Full-Stack Developer",
     prerequisites: ["Basic computer skills", "No coding experience needed"]
   },
-  {
-    id: "dm-002",
-    isAvailable:true,
-    title: "Digital Marketing Mastery",
-    slug: "digital-marketing-mastery",
-    description: "Learn data-driven marketing across all channels. Master SEO, social media, paid ads, and analytics to drive business growth.",
-    shortDesc: "Growth marketing expertise",
-    fullDescription: "Become a complete digital marketer with skills in SEO, content marketing, social media, PPC, email marketing, and analytics. Work on real campaigns and build a portfolio that impresses employers.",
-    icon: Megaphone,
-    category: "Marketing",
-    level: "Beginner",
-    duration: "12 Weeks",
-    weeks: 12,
-    hours: 180,
-    price: 1499,
-    originalPrice: 1999,
-    rating: 4.8,
-    students: 2850,
-    color: "text-violet-600",
-    bgColor: "bg-violet-600/10",
-    borderColor: "border-violet-200 dark:border-violet-800",
-    gradient: "from-violet-600 via-purple-500 to-fuchsia-500",
-    features: [
-      "180+ Hours of Content",
-      "Real Campaign Projects",
-      "Google & Meta Certifications",
-      "Industry Mentors",
-      "Job Placement Support",
-      "Analytics Mastery"
-    ],
-    modules: [
-      {
-        title: "Marketing Foundations",
-        duration: "3 Weeks",
-        topics: ["Marketing Strategy", "Customer Journey", "Brand Building", "Market Research"]
-      },
-      {
-        title: "Content & SEO",
-        duration: "3 Weeks",
-        topics: ["Content Strategy", "SEO Fundamentals", "Blogging", "Keyword Research"]
-      },
-      {
-        title: "Paid Advertising",
-        duration: "3 Weeks",
-        topics: ["Google Ads", "Facebook Ads", "LinkedIn Ads", "Budget Optimization"]
-      },
-      {
-        title: "Analytics & Growth",
-        duration: "3 Weeks",
-        topics: ["Google Analytics", "A/B Testing", "CRO", "Marketing Automation"]
-      }
-    ],
-    instructors: [
-      { name: "Fatima Ali", role: "Marketing Director", company: "Unilever", avatar: "/instructors/fatima.jpg" },
-      { name: "Omar Farooq", role: "Growth Lead", company: "Careem", avatar: "/instructors/omar.jpg" }
-    ],
-    outcomes: [
-      "Run profitable ad campaigns",
-      "Build marketing strategies",
-      "Analyze and optimize ROI",
-      "Get hired as a marketer"
-    ],
-    certification: "HDS Certified Digital Marketing Professional",
-    prerequisites: ["No experience required", "Laptop with internet"]
-  },
+  
   {
     id: "seo-003",
     isAvailable:false,

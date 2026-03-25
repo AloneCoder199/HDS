@@ -10,6 +10,8 @@ import {
   Smartphone,
   Building2,
   Banknote,
+  Copy,
+  Check,
   X,
   Award,
 } from 'lucide-react';
@@ -63,15 +65,7 @@ const paymentMethods = [
     color: 'text-blue-600',
     activeBorder: 'border-blue-500',
     activeBg: 'bg-blue-50 dark:bg-blue-900/20',
-  },
-  {
-    value: 'CASH',
-    label: 'Cash Payment',
-    icon: Banknote,
-    color: 'text-amber-600',
-    activeBorder: 'border-amber-500',
-    activeBg: 'bg-amber-50 dark:bg-amber-900/20',
-  },
+  }
 ];
 
 // ✅ FIXED: Added scholarshipId parameter
@@ -101,25 +95,19 @@ export function EnrollmentForm({ type, courseId, scholarshipId, onBack, onSucces
   
   // Calculate discounted price
   const getDiscountedPrice = () => {
-    if (!scholarship) return originalPrice;
-    
-    // Parse discount percentage from string like "50% OFF"
-    const discountMatch = scholarship.discount.match(/(\d+)%/);
-    if (discountMatch) {
-      const discountPercent = parseInt(discountMatch[1], 10);
-      return Math.round(originalPrice * (1 - discountPercent / 100));
-    }
-    
-    // If discount is in amount format like "5000 PKR OFF"
-    const amountMatch = scholarship.discount.match(/(\d+)/);
-    if (amountMatch) {
-      const discountAmount = parseInt(amountMatch[1], 10);
-      return Math.max(0, originalPrice - discountAmount);
-    }
-    
-    return originalPrice;
+  // Logic updated: Hamesha original price return hogi, koi discount deduct nahi hoga
+  return originalPrice;
+};
+
+   const [copied, setCopied] = useState(false);
+  const num = "03096813140";
+
+  const copyNum = () => {
+    navigator.clipboard.writeText(num);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
-  
+
   const finalPrice = getDiscountedPrice();
   const hasDiscount = scholarship && finalPrice < originalPrice;
 
@@ -209,7 +197,7 @@ export function EnrollmentForm({ type, courseId, scholarshipId, onBack, onSucces
       phone: phone.trim(),
       preferredTime: type === 'ONE_TO_ONE' ? preferredTime : undefined,
       specificRequirements: type === 'ONE_TO_ONE' ? specificRequirements.trim() : undefined,
-      paymentMethod: paymentMethod as 'EASYPAISA' | 'JAZZCASH' | 'BANK_TRANSFER' | 'CASH',
+      paymentMethod: paymentMethod as 'EASYPAISA' | 'JAZZCASH' | 'BANK_TRANSFER',
       transactionId: transactionId.trim(),
       paymentAmount: parseInt(paymentAmount, 10),
       paymentScreenshot,
@@ -392,6 +380,36 @@ export function EnrollmentForm({ type, courseId, scholarshipId, onBack, onSucces
             </span>
             Payment Details
           </h3>
+
+
+         <div className="p-6 border-2 border-dashed border-[#3495EB]/30 rounded-2xl bg-white dark:bg-[#0B1220] max-w-sm mx-auto shadow-sm">
+      <h3 className="text-sm font-bold text-gray-500 uppercase tracking-tight mb-4">Payment Details</h3>
+      
+      <div className="space-y-4">
+        {/* Name */}
+        <div>
+          <p className="text-xs text-gray-400">Account Holder</p>
+          <p className="text-lg font-bold text-[#111827] dark:text-white uppercase">Ali Hassan</p>
+        </div>
+
+        {/* Number & Copy */}
+        <div className="bg-gray-50 dark:bg-[#111827] p-3 rounded-lg flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-[#3495EB] font-bold">EasyPaisa / JazzCash</p>
+            <p className="text-xl font-mono font-bold tracking-wider">{num}</p>
+          </div>
+          
+          <button 
+            onClick={copyNum}
+            className="p-2 hover:bg-[#3495EB]/10 rounded-full transition-colors"
+          >
+            {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5 text-gray-400" />}
+          </button>
+        </div>
+      </div>
+    </div>
+           <br/>
+
 
           {/* Fee Notice */}
           <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-6 text-sm text-amber-800 dark:text-amber-400">

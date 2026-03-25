@@ -58,15 +58,15 @@ export const iconMap: Record<string, LucideIcon> = {
 
 export const scholarshipsData: Scholarship[] = [
   {
-    id: "meta-ads-001",
+    id: "Social Media Marketing Mastery",
     isAvailable: true,
-    slug: "meta-ads-marketing-mastery",
-    title: "Meta Ads Marketing Mastery",
+    title: "Social Media Marketing Mastery",
+    slug: "social-media-marketing-mastery",
     subtitle: "Professional Digital Marketing Certification",
-    price: "99",
-    originalPrice: "15,000",
+    price: "100",
+    originalPrice: "25,000",
     currency: "PKR",
-    duration: "8 Weeks Intensive",
+    duration: "4 Weeks Intensive",
     level: "Beginner to Advanced",
     mode: "Online Live + Recordings",
     description: "Master Meta Advertising with AI-powered techniques. Learn Facebook, Instagram, WhatsApp & Messenger marketing with latest Andromeda updates.",
