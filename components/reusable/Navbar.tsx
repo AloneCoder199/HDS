@@ -112,39 +112,41 @@ export default function Navbar() {
               
               {/* Logo Section - Premium Style */}
               <Link 
-                href="/" 
-                className="flex items-center gap-3 group relative z-10"
-              >
-                {/* Logo with Soft Glow */}
-                <div className="relative">
-                  {/* Soft Glow on Hover */}
-                  <div className="absolute -inset-2 bg-linear-to-r from-[#3495EB]/30 to-[#8B5CF6]/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Logo Container */}
-                  <div className="relative w-10 h-10 rounded-xl bg-linear-to-br from-[#3495EB] via-[#347ce0] to-[#8B5CF6] p-0.5 shadow-lg shadow-[#3495EB]/20 group-hover:shadow-[#3495EB]/40 transition-all duration-300 group-hover:scale-105">
-                    <div className="w-full h-full rounded-[10px] bg-white dark:bg-[#111827] flex items-center justify-center overflow-hidden">
-                      <Image
-                        src="/logo.webp"
-                        alt="Logo"
-                        width={32}
-                        height={32}
-                        className="object-cover"
-                        priority
-                      />
-                    </div>
-                  </div>
-                </div>
+  href="/" 
+  className="flex items-center gap-3 group relative z-10"
+>
+  {/* Logo with Soft Glow */}
+  <div className="relative">
+    {/* Soft Glow on Hover - Isay bhi square kar diya */}
+    <div className="absolute -inset-2 bg-linear-to-r from-[#3495EB]/30 to-[#8B5CF6]/30 rounded-none blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    
+    {/* Logo Container - rounded-none added */}
+    <div className="relative w-10 h-10 rounded-none bg-linear-to-br from-[#3495EB] via-[#347ce0] to-[#8B5CF6] p-0.5 shadow-lg shadow-[#3495EB]/20 group-hover:shadow-[#3495EB]/40 transition-all duration-300 group-hover:scale-105">
+      {/* Inner Container - rounded-none added */}
+      <div className="w-full h-full rounded-none bg-white dark:bg-[#111827] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/logo.webp"
+          alt="Logo"
+          width={40} // Width barha di taaky poora cover kary
+          height={40} // Height barha di
+          className="object-cover w-full h-full" // w-full h-full se image poori fill ho jayegi
+          priority
+        />
+      </div>
+    </div>
+  </div>
 
-                {/* Brand Text */}
-                <div className="hidden sm:flex flex-col">
-                  <span className="text-lg font-bold tracking-tight text-[#111827] dark:text-white leading-none group-hover:text-[#3495EB] transition-colors duration-300">
-                    Hassan Digital
-                  </span>
-                  <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-[#6B7280] dark:text-[#9CA3AF] mt-0.5">
-                    Skills
-                  </span>
-                </div>
-              </Link>
+  {/* Brand Text */}
+  <div className="hidden sm:flex flex-col">
+    <span className="text-lg font-bold tracking-tight text-[#111827] dark:text-white leading-none group-hover:text-[#3495EB] transition-colors duration-300">
+      Hassan Digital
+    </span>
+    <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-[#6B7280] dark:text-[#9CA3AF] mt-0.5">
+      Skills
+    </span>
+  </div>
+</Link>
+
 
               {/* Desktop Navigation - Modern Pill Design */}
               <div className="hidden lg:flex items-center">

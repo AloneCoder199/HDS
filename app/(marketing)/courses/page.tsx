@@ -317,9 +317,9 @@ function CourseCard({
               {/* Price badge only for available courses */}
               {isAvailable && course.originalPrice && (
                 <div className="flex flex-col items-end">
-                  <span className="text-xs text-[#111827]/40 dark:text-white/40 line-through">${course.originalPrice}</span>
+                  <span className="text-xs text-[#111827]/40 dark:text-white/40 line-through">{course.originalPrice}</span>
                   <Badge className={`${course.bgColor} ${course.color} border-0`}>
-                    Save ${course.originalPrice - course.price}
+                    Save {course.originalPrice - course.price}
                   </Badge>
                 </div>
               )}
@@ -366,7 +366,7 @@ function CourseCard({
             <div className="flex items-center justify-between">
               <div>
                 {isAvailable ? (
-                  <span className="text-2xl font-bold text-[#111827] dark:text-white">${course.price}</span>
+                  <span className="text-2xl font-bold text-[#111827] dark:text-white">{course.price}</span>
                 ) : (
                   <span className="text-sm font-medium text-[#111827]/50 dark:text-white/50 italic">Not available</span>
                 )}

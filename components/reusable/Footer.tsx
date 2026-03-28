@@ -293,7 +293,7 @@ export default function Footer() {
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#3495EB]/10 dark:bg-[#3495EB]/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px]">
         <p className="text-[#3495EB] font-bold text-lg animate-pulse">Coming Soon</p>
         <p className="text-[11px] font-medium text-gray-600 dark:text-gray-300 mt-1">
-          Handcrafted by <span className="text-[#3495EB]">CodEarn Tech</span>
+          Handcrafted by <span className="text-[#3495EB]">HDS Team</span>
         </p>
       </div>
 
@@ -316,11 +316,11 @@ export default function Footer() {
         <div className="flex items-center gap-1.5 group">
           <span className="text-[#9CA3AF] dark:text-[#6B7280]">Developed by</span>
           <a 
-            href="https://codearntech.cloud" // Apni link dain
+            href="https://hassandigitalskills.com" // Apni link dain
             className="text-[#111827] dark:text-white font-semibold hover:text-[#3495EB] transition-colors duration-300 flex items-center gap-1"
           >
             <div className="w-1.5 h-1.5 rounded-full bg-[#3495EB] animate-pulse" />
-            CodEarn Tech
+            HDS Team
           </a>
         </div>
       </div>

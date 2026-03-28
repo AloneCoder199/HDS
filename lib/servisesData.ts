@@ -65,7 +65,7 @@ export const servicesData: Service[] = [
       { value: "16", label: "Weeks Program" },
       { value: "240+", label: "Learning Hours" }
     ],
-    price: "$1,999",
+    price: "1,999",
     duration: "16 Weeks",
     level: "Beginner to Advanced"
   },
@@ -93,7 +93,7 @@ export const servicesData: Service[] = [
       { value: "12", label: "Weeks Program" },
       { value: "180+", label: "Learning Hours" }
     ],
-    price: "$1,499",
+    price: "1,499",
     duration: "12 Weeks",
     level: "Beginner to Intermediate"
   },
@@ -121,7 +121,7 @@ export const servicesData: Service[] = [
       { value: "10", label: "Weeks Program" },
       { value: "150+", label: "Learning Hours" }
     ],
-    price: "$1,299",
+    price: "1,299",
     duration: "10 Weeks",
     level: "Beginner to Advanced"
   },
@@ -149,7 +149,7 @@ export const servicesData: Service[] = [
       { value: "14", label: "Weeks Program" },
       { value: "210+", label: "Learning Hours" }
     ],
-    price: "$1,799",
+    price: "1,799",
     duration: "14 Weeks",
     level: "Beginner to Advanced"
   },
@@ -177,7 +177,7 @@ export const servicesData: Service[] = [
       { value: "16", label: "Weeks Program" },
       { value: "240+", label: "Learning Hours" }
     ],
-    price: "$2,199",
+    price: "2,199",
     duration: "16 Weeks",
     level: "Intermediate"
   },
@@ -205,7 +205,7 @@ export const servicesData: Service[] = [
       { value: "20", label: "Weeks Program" },
       { value: "300+", label: "Learning Hours" }
     ],
-    price: "$2,499",
+    price: "2,499",
     duration: "20 Weeks",
     level: "Beginner to Advanced"
   },
@@ -233,7 +233,7 @@ export const servicesData: Service[] = [
       { value: "18", label: "Weeks Program" },
       { value: "270+", label: "Learning Hours" }
     ],
-    price: "$2,299",
+    price: "2,299",
     duration: "18 Weeks",
     level: "Intermediate"
   },
@@ -261,7 +261,7 @@ export const servicesData: Service[] = [
       { value: "16", label: "Weeks Program" },
       { value: "240+", label: "Learning Hours" }
     ],
-    price: "$2,199",
+    price: "2,199",
     duration: "16 Weeks",
     level: "Beginner to Intermediate"
   },
@@ -289,7 +289,7 @@ export const servicesData: Service[] = [
       { value: "24", label: "Weeks Program" },
       { value: "360+", label: "Learning Hours" }
     ],
-    price: "$2,999",
+    price: "2,999",
     duration: "24 Weeks",
     level: "Intermediate to Advanced"
   },
@@ -317,7 +317,7 @@ export const servicesData: Service[] = [
       { value: "12", label: "Weeks Program" },
       { value: "180+", label: "Learning Hours" }
     ],
-    price: "$1,599",
+    price: "1,599",
     duration: "12 Weeks",
     level: "Beginner to Intermediate"
   },
@@ -345,7 +345,7 @@ export const servicesData: Service[] = [
       { value: "10", label: "Weeks Program" },
       { value: "150+", label: "Learning Hours" }
     ],
-    price: "$1,299",
+    price: "1,299",
     duration: "10 Weeks",
     level: "Beginner"
   },
@@ -373,7 +373,7 @@ export const servicesData: Service[] = [
       { value: "12", label: "Weeks Program" },
       { value: "180+", label: "Learning Hours" }
     ],
-    price: "$1,699",
+    price: "1,699",
     duration: "12 Weeks",
     level: "Intermediate"
   }

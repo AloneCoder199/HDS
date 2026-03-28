@@ -9,11 +9,11 @@ export default function about(){
     return(
         <>
        <AboutHero/>
-       <MissionVision/>
+       {/* <MissionVision/> */}
        {/* <PlatformStats/> */}
-       <StoryTimeline/>
-       <CurriculumBreakdown/>
-       <TheDifference/>
+       {/* <StoryTimeline/> */}
+       {/* <CurriculumBreakdown/> */}
+       {/* <TheDifference/> */}
         </>
     )
 }

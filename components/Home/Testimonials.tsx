@@ -1,321 +1,312 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
-import { 
-  Quote,
-  ArrowRight,
-  Star,
-  ChevronLeft,
-  ChevronRight,
-  BadgeCheck,
-  Facebook,
-  ExternalLink,
-  TrendingUp,
-  Users,
-  ThumbsUp,
-  MessageCircle
-} from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
-// Sample testimonials data - replace with your actual data or fetch from API
-const testimonialsData = [
-  {
-    id: '1',
-    name: 'Ali Shah',
-    role: 'Senior Software Engineer',
-    company: 'Systems Limited',
-    image: '/testimonials/ali-shah.jpg',
-    quote: 'HDS completely transformed my career. The React & Next.js course gave me practical skills that I applied immediately. Within 3 months, I landed a senior role with a 150% salary increase.',
-    rating: 5,
-    course: 'React & Next.js Mastery',
-    verified: true,
-    featured: true,
-    source: 'facebook'
-  },
-  {
-    id: '2',
-    name: 'Fatima Zahra',
-    role: 'UI/UX Designer',
-    company: 'VentureDive',
-    image: '/testimonials/fatima-zahra.jpg',
-    quote: 'The UI/UX Design course exceeded all my expectations. The project-based approach helped me build a portfolio that actually got me hired.',
-    rating: 5,
-    course: 'UI/UX Design Professional',
-    verified: true,
-    source: 'facebook'
-  },
-  {
-    id: '3',
-    name: 'Bilal Ahmed',
-    role: 'Digital Marketing Manager',
-    company: 'Daraz Pakistan',
-    image: '/testimonials/bilal-ahmed.jpg',
-    quote: 'I switched careers from sales to digital marketing through HDS. The SEO and analytics modules were incredibly comprehensive.',
-    rating: 5,
-    course: 'Digital Marketing Essentials',
-    verified: true,
-    featured: true,
-    source: 'facebook'
-  }
+// Review images data (30 items)
+const reviewImages = [
+  { id: 1, src: "/reviews/review (1).jpeg", name: "Ali R.", location: "Lahore", rating: 5 },
+  { id: 2, src: "/reviews/review (2).jpeg", name: "Sara K.", location: "Karachi", rating: 5 },
+  { id: 3, src: "/reviews/review (3).jpeg", name: "Ahmed M.", location: "Islamabad", rating: 5 },
+  { id: 4, src: "/reviews/review (4).jpeg", name: "Fatima S.", location: "Faisalabad", rating: 5 },
+  { id: 5, src: "/reviews/review (5).jpeg", name: "Hassan A.", location: "Rawalpindi", rating: 5 },
+  { id: 6, src: "/reviews/review (6).jpeg", name: "Ayesha B.", location: "Multan", rating: 5 },
+  { id: 7, src: "/reviews/review (7).jpeg", name: "Usman T.", location: "Gujranwala", rating: 5 },
+  { id: 8, src: "/reviews/review (8).jpeg", name: "Maria G.", location: "Sialkot", rating: 5 },
+  { id: 9, src: "/reviews/review (9).jpeg", name: "Bilal K.", location: "Peshawar", rating: 5 },
+  { id: 10, src: "/reviews/review (10).jpeg", name: "Zainab H.", location: "Quetta", rating: 5 },
+  { id: 11, src: "/reviews/review (11).jpeg", name: "Tariq M.", location: "Sargodha", rating: 5 },
+  { id: 12, src: "/reviews/review (12).jpeg", name: "Nida F.", location: "Bahawalpur", rating: 5 },
+  { id: 13, src: "/reviews/review (13).jpeg", name: "Kamran S.", location: "Sheikhupura", rating: 5 },
+  { id: 14, src: "/reviews/review (14).jpeg", name: "Rabia A.", location: "Gujrat", rating: 5 },
+  { id: 15, src: "/reviews/review (15).jpeg", name: "Fahad J.", location: "Sahiwal", rating: 5 },
+  { id: 16, src: "/reviews/review (16).jpeg", name: "Sana I.", location: "Okara", rating: 5 },
+  { id: 17, src: "/reviews/review (17).jpeg", name: "Imran H.", location: "Mardan", rating: 5 },
+  { id: 18, src: "/reviews/review (18).jpeg", name: "Mehwish T.", location: "Larkana", rating: 5 },
+  { id: 19, src: "/reviews/review (19).jpeg", name: "Shahid K.", location: "Mingora", rating: 5 },
+  { id: 20, src: "/reviews/review (20).jpeg", name: "Asma L.", location: "Kasur", rating: 5 },
+  { id: 21, src: "/reviews/review (21).jpeg", name: "Zara M.", location: "Hyderabad", rating: 5 },
+  { id: 22, src: "/reviews/review (22).jpeg", name: "Omar F.", location: "Sukkur", rating: 5 },
+  { id: 23, src: "/reviews/review (23).jpeg", name: "Nadia S.", location: "Jhang", rating: 5 },
+  { id: 24, src: "/reviews/review (24).jpeg", name: "Waqar H.", location: "Rahim Yar Khan", rating: 5 },
+  { id: 25, src: "/reviews/review (25).jpeg", name: "Saima R.", location: "Abbottabad", rating: 5 },
+  { id: 26, src: "/reviews/review (26).jpeg", name: "Tahir J.", location: "Wah", rating: 5 },
+  { id: 27, src: "/reviews/review (27).jpeg", name: "Farah K.", location: "Mirpur", rating: 5 },
+  { id: 28, src: "/reviews/review (28).jpeg", name: "Adnan M.", location: "Gujar Khan", rating: 5 },
+  { id: 29, src: "/reviews/review (29).jpeg", name: "Samina T.", location: "Chiniot", rating: 5 },
+  { id: 30, src: "/reviews/review (30).jpeg", name: "Babar A.", location: "Swat", rating: 5 },
 ];
 
-const trustStats = [
-  { label: 'Success Stories', value: '2,500+', icon: TrendingUp },
-  { label: 'Average Rating', value: '4.9/5', icon: Star },
-  { label: 'Active Students', value: '15K+', icon: Users },
-];
+export default function ReviewsSection() {
+  const [isPaused, setIsPaused] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<typeof reviewImages[0] | null>(null);
 
-// Facebook Page URL - replace with your actual Facebook page
-const FACEBOOK_PAGE_URL = 'https://www.facebook.com/HassanDigitalSkills';
+  // Triple the array for seamless infinite scroll
+  const tripleReviews = [...reviewImages, ...reviewImages, ...reviewImages];
+  const tripleReviewsReverse = [...reviewImages.slice().reverse(), ...reviewImages.slice().reverse(), ...reviewImages.slice().reverse()];
 
-export default function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  // Auto-rotate testimonials
+  // Close modal on escape key
   useEffect(() => {
-    if (!isAutoPlaying) return;
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonialsData.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const handlePrev = useCallback(() => {
-    setIsAutoPlaying(false);
-    setActiveIndex((prev) => (prev - 1 + testimonialsData.length) % testimonialsData.length);
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedImage(null);
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
   }, []);
-
-  const handleNext = useCallback(() => {
-    setIsAutoPlaying(false);
-    setActiveIndex((prev) => (prev + 1) % testimonialsData.length);
-  }, []);
-
-  const handleDotClick = (index: number) => {
-    setIsAutoPlaying(false);
-    setActiveIndex(index);
-  };
 
   return (
-    <section className="relative py-20 bg-[#F9FAFB] dark:bg-[#0B1220] overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-white dark:bg-[#0B1220] overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] mb-6">
-            <ThumbsUp className="w-4 h-4 text-[#3495EB]" />
-            <span className="text-sm font-medium text-[#6B7280] dark:text-[#9CA3AF]">Student Success</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#111827] dark:text-white mb-4">
-            Trusted by <span className="text-[#3495EB]">2,500+</span> Students
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto">
+          <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 mb-4">
+            ⭐ Success Stories
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4">
+            What Our Students <span className="text-[#3495EB]">Say</span>
           </h2>
-          <p className="text-[#6B7280] dark:text-[#9CA3AF] max-w-2xl mx-auto">
-            Real stories from real students who transformed their careers with HDS.
+          <p className="text-gray-600 dark:text-gray-300">
+            Join 10,000+ successful students who transformed their careers with HDS
           </p>
         </div>
+      </div>
 
-        {/* Trust Stats */}
-        <div className="grid grid-cols-3 gap-6 mb-12">
-          {trustStats.map((stat, index) => (
-            <Card key={index} className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937]">
-              <CardContent className="p-6 text-center">
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#3495EB]/10 mb-3">
-                  <stat.icon className="w-5 h-5 text-[#3495EB]" />
-                </div>
-                <div className="text-2xl font-bold text-[#111827] dark:text-white mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-[#9CA3AF]">
-                  {stat.label}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Main Testimonial Carousel */}
-        <div className="relative">
-          {/* Navigation Buttons */}
-          <div className="absolute -left-4 top-1/2 -translate-y-1/2 z-20 hidden lg:block">
-            <button 
-              onClick={handlePrev}
-              className="w-10 h-10 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] flex items-center justify-center text-[#6B7280] hover:text-[#3495EB] hover:border-[#3495EB]/50 transition-all shadow-sm"
+      {/* Row 1 - Left to Right */}
+      <div 
+        className="relative mb-6 group"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div 
+          className="flex gap-5"
+          style={{
+            animation: isPaused ? 'none' : 'scrollLeft 60s linear infinite',
+            width: 'fit-content'
+          }}
+        >
+          {tripleReviews.map((review, index) => (
+            <div 
+              key={`row1-${review.id}-${index}`}
+              className="flex-shrink-0 w-64 cursor-pointer transform transition-transform duration-300 hover:scale-105"
+              onClick={() => setSelectedImage(review)}
             >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          </div>
-
-          <div className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 hidden lg:block">
-            <button 
-              onClick={handleNext}
-              className="w-10 h-10 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] flex items-center justify-center text-[#6B7280] hover:text-[#3495EB] hover:border-[#3495EB]/50 transition-all shadow-sm"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Testimonial Cards */}
-          <div className="relative h-[400px] md:h-[350px] overflow-hidden">
-            {testimonialsData.map((testimonial, index) => (
-              <div 
-                key={testimonial.id}
-                className={cn(
-                  "absolute inset-0 transition-all duration-500",
-                  index === activeIndex 
-                    ? 'opacity-100 translate-x-0 z-10' 
-                    : index < activeIndex 
-                      ? 'opacity-0 -translate-x-full z-0' 
-                      : 'opacity-0 translate-x-full z-0'
-                )}
-              >
-                <Card className="h-full bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937]">
-                  <CardContent className="p-8 h-full flex flex-col">
-                    {/* Quote Icon */}
-                    <div className="absolute top-6 right-6 opacity-10">
-                      <Quote className="w-12 h-12 text-[#3495EB]" />
+              <div className="bg-[#F9FAFB] dark:bg-[#111827] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937] overflow-hidden hover:shadow-xl hover:border-[#3495EB]/30 transition-all duration-300">
+                {/* Full Image Container - No Cropping */}
+                <div className="relative w-full h-auto min-h-[200px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-2">
+                  <Image
+                    src={review.src}
+                    alt={`Review by ${review.name} from ${review.location}`}
+                    width={256}
+                    height={300}
+                    className="w-full h-auto object-contain rounded-lg"
+                    style={{ maxHeight: '350px' }}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-[#3495EB]/0 hover:bg-[#3495EB]/10 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
+                    <div className="w-12 h-12 rounded-full bg-[#3495EB] flex items-center justify-center text-white shadow-lg">
+                      <span className="text-xl">🔍</span>
                     </div>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={cn(
-                            "w-4 h-4",
-                            i < testimonial.rating 
-                              ? 'text-[#F59E0B] fill-[#F59E0B]' 
-                              : 'text-[#E5E7EB] dark:text-[#1F2937]'
-                          )}
-                        />
-                      ))}
-                      <span className="ml-2 text-sm font-medium text-[#111827] dark:text-white">
-                        {testimonial.rating}.0
-                      </span>
-                      {testimonial.verified && (
-                        <BadgeCheck className="w-4 h-4 text-[#3495EB] ml-2" />
-                      )}
-                    </div>
-
-                    {/* Quote */}
-                    <p className="text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed mb-6 flex-1 text-lg">
-                      "{testimonial.quote}"
-                    </p>
-
-                    {/* Course Tag */}
-                    <div className="mb-6">
-                      <Badge variant="outline" className="bg-[#3495EB]/5 text-[#3495EB] border-[#3495EB]/20">
-                        {testimonial.course}
-                      </Badge>
-                    </div>
-
-                    {/* Author */}
-                    <div className="flex items-center gap-4 pt-4 border-t border-[#E5E7EB] dark:border-[#1F2937]">
-                      <Avatar className="w-12 h-12 border-2 border-[#E5E7EB] dark:border-[#1F2937]">
-                        <AvatarImage src={testimonial.image} alt={testimonial.name} />
-                        <AvatarFallback className="bg-[#3495EB] text-white">
-                          {testimonial.name.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h4 className="font-bold text-[#111827] dark:text-white">
-                          {testimonial.name}
-                        </h4>
-                        <p className="text-sm text-[#9CA3AF]">
-                          {testimonial.role} at {testimonial.company}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile Navigation */}
-          <div className="flex justify-center gap-2 mt-4 lg:hidden">
-            <button 
-              onClick={handlePrev}
-              className="w-10 h-10 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] flex items-center justify-center"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={handleNext}
-              className="w-10 h-10 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] flex items-center justify-center"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Dots Navigation */}
-        <div className="flex justify-center gap-2 mt-6">
-          {testimonialsData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className={cn(
-                "h-2 rounded-full transition-all duration-300",
-                index === activeIndex 
-                  ? 'w-8 bg-[#3495EB]' 
-                  : 'w-2 bg-[#E5E7EB] dark:bg-[#1F2937] hover:bg-[#9CA3AF]'
-              )}
-            />
-          ))}
-        </div>
-
-        {/* Facebook Reviews CTA */}
-        <div className="mt-12">
-          <Card className="bg-[#1877F2] border-0">
-            <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl  flex items-center justify-center">
-                  <Facebook className="w-6 h-6 text-white" />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-1">See More Reviews on Facebook</h3>
-                  <p className="text-white/80 text-sm">Join 2,500+ students sharing their success stories</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <Link href={FACEBOOK_PAGE_URL} target='_blank'>
-                <Button 
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-blue-50 dark:bg-white dark:text-blue-600 
-                         shadow-lg transition-all duration-300 hover:scale-105"
-            >
-              Visit FaceBook Page
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
                 
+                {/* Compact Info */}
+                <div className="p-3 border-t border-[#E5E7EB] dark:border-[#1F2937]">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-[#3495EB]/10 flex items-center justify-center text-xs font-bold text-[#3495EB]">
+                        {review.name.charAt(0)}
+                      </div>
+                      <span className="text-sm font-medium text-[#111827] dark:text-white">{review.name}</span>
+                    </div>
+                    <div className="flex text-yellow-500 text-xs">
+                      {"★".repeat(review.rating)}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                    <span>📍</span>
+                    {review.location}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Gradient Overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-[#0B1220] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-[#0B1220] to-transparent z-10 pointer-events-none" />
+      </div>
+
+      {/* Row 2 - Right to Left */}
+      <div 
+        className="relative group"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div 
+          className="flex gap-5"
+          style={{
+            animation: isPaused ? 'none' : 'scrollRight 55s linear infinite',
+            width: 'fit-content'
+          }}
+        >
+          {tripleReviewsReverse.map((review, index) => (
+            <div 
+              key={`row2-${review.id}-${index}`}
+              className="flex-shrink-0 w-64 cursor-pointer transform transition-transform duration-300 hover:scale-105"
+              onClick={() => setSelectedImage(review)}
+            >
+              <div className="bg-[#F9FAFB] dark:bg-[#111827] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937] overflow-hidden hover:shadow-xl hover:border-[#3495EB]/30 transition-all duration-300">
+                <div className="relative w-full h-auto min-h-[200px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-2">
+                  <Image
+                    src={review.src}
+                    alt={`Review by ${review.name} from ${review.location}`}
+                    width={256}
+                    height={300}
+                    className="w-full h-auto object-contain rounded-lg"
+                    style={{ maxHeight: '350px' }}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-[#3495EB]/0 hover:bg-[#3495EB]/10 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
+                    <div className="w-12 h-12 rounded-full bg-[#3495EB] flex items-center justify-center text-white shadow-lg">
+                      <span className="text-xl">🔍</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-3 border-t border-[#E5E7EB] dark:border-[#1F2937]">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-[#3495EB]/10 flex items-center justify-center text-xs font-bold text-[#3495EB]">
+                        {review.name.charAt(0)}
+                      </div>
+                      <span className="text-sm font-medium text-[#111827] dark:text-white">{review.name}</span>
+                    </div>
+                    <div className="flex text-yellow-500 text-xs">
+                      {"★".repeat(review.rating)}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                    <span>📍</span>
+                    {review.location}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-[#0B1220] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-[#0B1220] to-transparent z-10 pointer-events-none" />
+      </div>
+
+      {/* Stats & CTA */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
+          {[
+            { label: "Total Reviews", value: "500+", icon: "⭐" },
+            { label: "Success Stories", value: "10K+", icon: "🎓" },
+            { label: "Cities", value: "50+", icon: "📍" },
+            { label: "Success Rate", value: "95%", icon: "📈" }
+          ].map((stat, index) => (
+            <div key={index} className="text-center p-4 bg-[#F9FAFB] dark:bg-[#111827] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937]">
+              <div className="text-2xl mb-1">{stat.icon}</div>
+              <div className="text-xl font-bold text-[#111827] dark:text-white">{stat.value}</div>
+              <div className="text-xs text-gray-500">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <p className="text-gray-600 dark:text-gray-300 mb-4">Ready to write your own success story?</p>
+          <Link href="/enroll">
+            <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white px-8 h-12 rounded-lg font-semibold shadow-lg shadow-[#3495EB]/20">
+              Join HDS Today
+              <span className="ml-2">→</span>
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Image Popup Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div 
+            className="relative max-w-4xl w-full bg-white dark:bg-[#0B1220] rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors"
+            >
+              ✕
+            </button>
+
+            {/* Image Container */}
+            <div className="relative w-full max-h-[80vh] bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-4">
+              <Image
+                src={selectedImage.src}
+                alt={`Review by ${selectedImage.name}`}
+                width={800}
+                height={1000}
+                className="w-full h-auto object-contain max-h-[70vh]"
+                priority
+              />
+            </div>
+
+            {/* Info Footer */}
+            <div className="p-6 border-t border-[#E5E7EB] dark:border-[#1F2937]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#3495EB]/10 flex items-center justify-center text-xl font-bold text-[#3495EB]">
+                    {selectedImage.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-[#111827] dark:text-white">
+                      {selectedImage.name}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <span>📍 {selectedImage.location}</span>
+                      <span>•</span>
+                      <span className="text-yellow-500">{"★".repeat(selectedImage.rating)}</span>
+                    </div>
+                  </div>
+                </div>
+                <Link href="/enroll">
+                  <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white rounded-lg">
+                    Start Your Journey
+                  </Button>
                 </Link>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-[#6B7280] dark:text-[#9CA3AF]">
-          <div className="flex items-center gap-2">
-            <BadgeCheck className="w-4 h-4 text-[#10B981]" />
-            <span>Verified Reviews</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MessageCircle className="w-4 h-4 text-[#10B981]" />
-            <span>Real Student Feedback</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-[#10B981]" />
-            <span>Proven Results</span>
+            </div>
           </div>
         </div>
+      )}
 
-      </div>
+      {/* CSS Animations */}
+      <style jsx global>{`
+        @keyframes scrollLeft {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        @keyframes scrollRight {
+          0% { transform: translateX(-33.333%); }
+          100% { transform: translateX(0); }
+        }
+      `}</style>
     </section>
   );
 }

@@ -17,6 +17,8 @@ export function enrollmentSubmittedTemplate(
         .status { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 15px; margin: 20px 0; }
         .payment-box { background: #DBEAFE; border: 2px solid #3B82F6; padding: 20px; margin: 20px 0; border-radius: 8px; }
         .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+        .signature { text-align: center; margin-top: 20px; padding: 15px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+        .signature a { color: #2563EB; text-decoration: none; font-weight: 600; }
       </style>
     </head>
     <body>
@@ -63,6 +65,9 @@ export function enrollmentSubmittedTemplate(
         <div class="footer">
           <p>© 2026 Hassan Digital Skills. All rights reserved.</p>
         </div>
+        <div class="signature">
+          Powered by <strong>CodEarn Tech</strong> — Need a website? <a href="https://codearntech.cloud/services">Click here</a>
+        </div>
       </div>
     </body>
     </html>
@@ -90,6 +95,8 @@ export function enrollmentApprovedTemplate(
         .student-id { font-size: 24px; font-weight: bold; color: #2563EB; text-align: center; margin: 20px 0; }
         .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
         .btn { display: inline-block; background: #2563EB; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+        .signature { text-align: center; margin-top: 20px; padding: 15px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+        .signature a { color: #2563EB; text-decoration: none; font-weight: 600; }
       </style>
     </head>
     <body>
@@ -132,12 +139,14 @@ export function enrollmentApprovedTemplate(
         <div class="footer">
           <p>© 2026 Hassan Digital Skills. All rights reserved.</p>
         </div>
+        <div class="signature">
+          Powered by <strong>CodEarn Tech</strong> — Need a website? <a href="https://codearntech.cloud/services">Click here</a>
+        </div>
       </div>
     </body>
     </html>
   `;
 }
-
 
 export function supportReplyTemplate(
   studentName: string, 
@@ -159,6 +168,8 @@ export function supportReplyTemplate(
         .status-resolved { background: #D1FAE5; color: #059669; }
         .status-progress { background: #FEF3C7; color: #D97706; }
         .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+        .signature { text-align: center; margin-top: 20px; padding: 15px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+        .signature a { color: #2563EB; text-decoration: none; font-weight: 600; }
       </style>
     </head>
     <body>
@@ -186,6 +197,9 @@ export function supportReplyTemplate(
         <div class="footer">
           <p>© 2026 Hassan Digital Skills. All rights reserved.</p>
         </div>
+        <div class="signature">
+          Powered by <strong>CodEarn Tech</strong> — Need a website? <a href="https://codearntech.cloud/services">Click here</a>
+        </div>
       </div>
     </body>
     </html>
@@ -203,6 +217,8 @@ export function enrollmentRejectedTemplate(fullName: string, courseTitle: string
         .header { background: linear-gradient(135deg, #EF4444, #F87171); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
         .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
         .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+        .signature { text-align: center; margin-top: 20px; padding: 15px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+        .signature a { color: #2563EB; text-decoration: none; font-weight: 600; }
       </style>
     </head>
     <body>
@@ -233,13 +249,14 @@ export function enrollmentRejectedTemplate(fullName: string, courseTitle: string
         <div class="footer">
           <p>© 2026 Hassan Digital Skills. All rights reserved.</p>
         </div>
+        <div class="signature">
+          Powered by <strong>CodEarn Tech</strong> — Need a website? <a href="https://codearntech.cloud/services">Click here</a>
+        </div>
       </div>
     </body>
     </html>
   `;
 }
-
-
 
 export function adminContactNotificationTemplate(data: {
   name: string;
@@ -263,6 +280,8 @@ export function adminContactNotificationTemplate(data: {
         .message-box { background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0; }
         .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
         .btn { display: inline-block; background: #2563EB; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+        .signature { text-align: center; margin-top: 20px; padding: 15px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+        .signature a { color: #2563EB; text-decoration: none; font-weight: 600; }
       </style>
     </head>
     <body>
@@ -295,15 +314,14 @@ export function adminContactNotificationTemplate(data: {
         <div class="footer">
           <p>© 2026 Hassan Digital Skills. Admin Dashboard</p>
         </div>
+        <div class="signature">
+          Powered by <strong>CodEarn Tech</strong> — Need a website? <a href="https://codearntech.cloud/services">Click here</a>
+        </div>
       </div>
     </body>
     </html>
   `;
 }
-
-
-
-
 
 export function userContactConfirmationTemplate(data: {
   name: string;
@@ -324,6 +342,8 @@ export function userContactConfirmationTemplate(data: {
         .ref-box { background: #DBEAFE; border: 2px solid #3B82F6; padding: 20px; margin: 20px 0; border-radius: 8px; text-align: center; }
         .ref-number { font-size: 24px; font-weight: bold; color: #2563EB; font-family: monospace; }
         .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+        .signature { text-align: center; margin-top: 20px; padding: 15px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+        .signature a { color: #2563EB; text-decoration: none; font-weight: 600; }
       </style>
     </head>
     <body>
@@ -362,6 +382,9 @@ export function userContactConfirmationTemplate(data: {
           <p style="font-size: 12px; margin-top: 10px;">
             This is an automated confirmation. Please do not reply to this email.
           </p>
+        </div>
+        <div class="signature">
+          Powered by <strong>CodEarn Tech</strong> — Need a website? <a href="https://codearntech.cloud/services">Click here</a>
         </div>
       </div>
     </body>
