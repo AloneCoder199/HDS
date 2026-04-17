@@ -18,6 +18,31 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
+// Import Lucide React icons
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Zap,
+  MessageCircle,
+  Rocket,
+  Send,
+  Loader2,
+  CheckCircle,
+  HelpCircle,
+  BookOpen,
+  GraduationCap,
+  Wrench,
+  CreditCard,
+  Store,
+  Users,
+  FileText,
+  ChevronDown,
+  HeadphonesIcon,
+  ArrowRight
+} from 'lucide-react';
+
 // Contact Info
 const contactDetails = {
   phone: "03271543140",
@@ -112,13 +137,13 @@ const faqs = [
 ];
 
 const subjects = [
-  { value: 'course-inquiry', label: 'Course Inquiry', icon: '📚' },
-  { value: 'enrollment-help', label: 'Enrollment Help', icon: '🎓' },
-  { value: 'technical-support', label: 'Technical Support', icon: '🔧' },
-  { value: 'payment-question', label: 'Payment Question', icon: '💳' },
-  { value: 'franchise', label: 'Franchise Partnership', icon: '🏪' },
-  { value: 'mentorship', label: 'Become a Mentor', icon: '👨‍🏫' },
-  { value: 'other', label: 'Other', icon: '📋' },
+  { value: 'course-inquiry', label: 'Course Inquiry', icon: BookOpen },
+  { value: 'enrollment-help', label: 'Enrollment Help', icon: GraduationCap },
+  { value: 'technical-support', label: 'Technical Support', icon: Wrench },
+  { value: 'payment-question', label: 'Payment Question', icon: CreditCard },
+  { value: 'franchise', label: 'Franchise Partnership', icon: Store },
+  { value: 'mentorship', label: 'Become a Mentor', icon: Users },
+  { value: 'other', label: 'Other', icon: FileText },
 ];
 
 export default function ContactPage() {
@@ -129,7 +154,7 @@ export default function ContactPage() {
     subject: '',
     message: '',
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -137,43 +162,43 @@ export default function ContactPage() {
 
   function validateForm() {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.name.trim() || formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters';
     }
-    
+
     if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-    
+
     if (!formData.subject) {
       newErrors.subject = 'Please select a subject';
     }
-    
+
     if (!formData.message.trim() || formData.message.length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         setIsSuccess(true);
         setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -183,7 +208,7 @@ export default function ContactPage() {
     } catch (error) {
       setErrors({ submit: 'Network error. Please check your connection.' });
     }
-    
+
     setIsSubmitting(false);
   }
 
@@ -196,19 +221,20 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0B1220]">
-      
+
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 bg-[#F9FAFB] dark:bg-[#111827]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto">
-            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 mb-4">
-              📞 Get in Touch
+            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 mb-4 inline-flex items-center gap-2">
+              <HeadphonesIcon className="w-4 h-4" />
+              Get in Touch
             </Badge>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-4">
               Contact <span className="text-[#3495EB]">HDS</span>
             </h1>
             <p className="text-gray-600 dark:text-gray-300">
-              Have questions? We're here to help. Reach out to us for course inquiries, 
+              Have questions? We&apos;re here to help. Reach out to us for course inquiries, 
               enrollment support, or partnership opportunities.
             </p>
           </div>
@@ -219,15 +245,15 @@ export default function ContactPage() {
       <section className="py-16 -mt-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            
+
             {/* Contact Info Cards */}
             <div className="lg:col-span-1 space-y-4">
               {/* Phone */}
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-colors">
+              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-colors group">
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#3495EB]/10 flex items-center justify-center text-2xl">
-                      📱
+                    <div className="w-12 h-12 rounded-xl bg-[#3495EB]/10 flex items-center justify-center group-hover:bg-[#3495EB]/20 transition-colors">
+                      <Phone className="w-6 h-6 text-[#3495EB]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-[#111827] dark:text-white mb-1">Phone/WhatsApp</h3>
@@ -237,18 +263,21 @@ export default function ContactPage() {
                       >
                         {contactDetails.phone}
                       </a>
-                      <p className="text-xs text-gray-500 mt-1">Available 9AM - 6PM</p>
+                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        Available 9AM - 6PM
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Email */}
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-colors">
+              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#8B5CF6]/30 transition-colors group">
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center text-2xl">
-                      ✉️
+                    <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center group-hover:bg-[#8B5CF6]/20 transition-colors">
+                      <Mail className="w-6 h-6 text-[#8B5CF6]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-[#111827] dark:text-white mb-1">Email</h3>
@@ -265,11 +294,11 @@ export default function ContactPage() {
               </Card>
 
               {/* Address */}
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-colors">
+              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#10B981]/30 transition-colors group">
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#10B981]/10 flex items-center justify-center text-2xl">
-                      📍
+                    <div className="w-12 h-12 rounded-xl bg-[#10B981]/10 flex items-center justify-center group-hover:bg-[#10B981]/20 transition-colors">
+                      <MapPin className="w-6 h-6 text-[#10B981]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-[#111827] dark:text-white mb-1">Location</h3>
@@ -285,7 +314,7 @@ export default function ContactPage() {
               {/* Quick Actions */}
               <div className="bg-gradient-to-br from-[#3495EB] to-[#347ce0] rounded-xl p-5 text-white">
                 <h3 className="font-bold mb-3 flex items-center gap-2">
-                  <span>⚡</span> Quick Actions
+                  <Zap className="w-5 h-5" /> Quick Actions
                 </h3>
                 <div className="space-y-2">
                   <a 
@@ -294,13 +323,13 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 py-2.5 rounded-lg text-sm font-medium transition-colors"
                   >
-                    <span>💬</span> Chat on WhatsApp
+                    <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
                   </a>
                   <Link 
                     href="/enroll"
                     className="flex items-center justify-center gap-2 bg-white text-[#3495EB] py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-colors"
                   >
-                    <span>🚀</span> Apply Now
+                    <Rocket className="w-4 h-4" /> Apply Now
                   </Link>
                 </div>
               </div>
@@ -310,22 +339,22 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] shadow-lg">
                 <CardContent className="p-6 md:p-8">
-                  
+
                   {isSuccess ? (
                     <div className="text-center py-12">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-                        ✅
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <CheckCircle className="w-8 h-8 text-green-600" />
                       </div>
                       <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">
                         Message Sent!
                       </h3>
                       <p className="text-gray-600 dark:text-gray-300 mb-6">
-                        Thank you for contacting us. We'll get back to you within 24-48 hours.
+                        Thank you for contacting us. We&apos;ll get back to you within 24-48 hours.
                       </p>
                       <Button 
                         onClick={() => setIsSuccess(false)}
                         variant="outline"
-                        className="border-[#3495EB] text-[#3495EB]"
+                        className="border-[#3495EB] text-[#3495EB] hover:bg-[#3495EB]/10"
                       >
                         Send Another Message
                       </Button>
@@ -334,7 +363,8 @@ export default function ContactPage() {
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="grid md:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium">
+                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
+                            <Users className="w-4 h-4 text-gray-400" />
                             Full Name *
                           </Label>
                           <Input
@@ -350,7 +380,8 @@ export default function ContactPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium">
+                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
+                            <Mail className="w-4 h-4 text-gray-400" />
                             Email Address *
                           </Label>
                           <Input
@@ -369,7 +400,8 @@ export default function ContactPage() {
 
                       <div className="grid md:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium">
+                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-gray-400" />
                             Phone Number
                           </Label>
                           <Input
@@ -381,7 +413,8 @@ export default function ContactPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium">
+                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
+                            <HelpCircle className="w-4 h-4 text-gray-400" />
                             Subject *
                           </Label>
                           <Select 
@@ -395,12 +428,17 @@ export default function ContactPage() {
                               <SelectValue placeholder="Select topic" />
                             </SelectTrigger>
                             <SelectContent>
-                              {subjects.map((subject) => (
-                                <SelectItem key={subject.value} value={subject.value}>
-                                  <span className="mr-2">{subject.icon}</span>
-                                  {subject.label}
-                                </SelectItem>
-                              ))}
+                              {subjects.map((subject) => {
+                                const IconComponent = subject.icon;
+                                return (
+                                  <SelectItem key={subject.value} value={subject.value}>
+                                    <div className="flex items-center gap-2">
+                                      <IconComponent className="w-4 h-4 text-[#3495EB]" />
+                                      {subject.label}
+                                    </div>
+                                  </SelectItem>
+                                );
+                              })}
                             </SelectContent>
                           </Select>
                           {errors.subject && <p className="text-xs text-red-500">{errors.subject}</p>}
@@ -408,7 +446,8 @@ export default function ContactPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label className="text-[#111827] dark:text-white text-sm font-medium">
+                        <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
+                          <MessageCircle className="w-4 h-4 text-gray-400" />
                           Message *
                         </Label>
                         <Textarea
@@ -437,11 +476,11 @@ export default function ContactPage() {
                       >
                         {isSubmitting ? (
                           <span className="flex items-center gap-2">
-                            <span className="animate-spin">⏳</span> Sending...
+                            <Loader2 className="w-5 h-5 animate-spin" /> Sending...
                           </span>
                         ) : (
                           <span className="flex items-center gap-2">
-                            Send Message <span>→</span>
+                            Send Message <Send className="w-4 h-4" />
                           </span>
                         )}
                       </Button>
@@ -463,8 +502,9 @@ export default function ContactPage() {
       <section className="py-20 bg-[#F9FAFB] dark:bg-[#111827]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 max-w-2xl mx-auto">
-            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 mb-4">
-              ❓ FAQ
+            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 mb-4 inline-flex items-center gap-2">
+              <HelpCircle className="w-4 h-4" />
+              FAQ
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4">
               Frequently Asked <span className="text-[#3495EB]">Questions</span>
@@ -490,14 +530,14 @@ export default function ContactPage() {
                   <span className="font-semibold text-[#111827] dark:text-white text-sm md:text-base pr-8">
                     {index + 1}. {faq.question}
                   </span>
-                  <span className={cn(
-                    "text-[#3495EB] text-xl font-bold transition-transform duration-300 flex-shrink-0",
-                    openFaq === index ? "rotate-45" : ""
+                  <div className={cn(
+                    "w-6 h-6 rounded-full bg-[#3495EB]/10 flex items-center justify-center flex-shrink-0 transition-all duration-300",
+                    openFaq === index ? "bg-[#3495EB] text-white rotate-180" : "text-[#3495EB]"
                   )}>
-                    +
-                  </span>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
                 </button>
-                
+
                 <AnimatePresence>
                   {openFaq === index && (
                     <motion.div
@@ -528,7 +568,7 @@ export default function ContactPage() {
                 href={`tel:${contactDetails.phone}`}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#3495EB] text-white rounded-lg font-semibold hover:bg-[#347ce0] transition-colors"
               >
-                <span>📞 Call Us Now</span> 
+                <Phone className="w-4 h-4" /> Call Us Now
               </a>
               <a 
                 href={`https://wa.me/92${contactDetails.whatsapp}`}
@@ -536,7 +576,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-lg font-semibold hover:bg-[#22c35e] transition-colors"
               >
-                <span className='text-black dark:text-white'>💬 WhatsApp</span> 
+                <MessageCircle className="w-4 h-4" /> WhatsApp
               </a>
             </div>
           </div>

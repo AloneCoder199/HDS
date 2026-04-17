@@ -5,12 +5,23 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { 
+  GraduationCap, 
+  Building2, 
+  Star, 
+  TrendingUp, 
+  Rocket, 
+  User, 
+  CheckCircle, 
+  ArrowRight,
+  MapPin
+} from 'lucide-react';
 
 const heroStats = [
-  { icon: "👨‍🎓", value: "10K+", label: "Students" },
-  { icon: "🏪", value: "20+", label: "Franchises" },
-  { icon: "⭐", value: "4.8", label: "Rating" },
-  { icon: "💰", value: "95%", label: "Success" }
+  { icon: GraduationCap, value: "10K+", label: "Students" },
+  { icon: Building2, value: "20+", label: "Franchises" },
+  { icon: Star, value: "4.8", label: "Rating" },
+  { icon: TrendingUp, value: "95%", label: "Success" }
 ];
 
 const keyBenefits = [
@@ -73,7 +84,7 @@ export default function Hero() {
                   key={index}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F9FAFB] dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] rounded-lg text-xs font-medium text-gray-700 dark:text-gray-300"
                 >
-                  <span className="text-[#3495EB]">✓</span>
+                  <CheckCircle className="w-3.5 h-3.5 text-[#3495EB]" />
                   {benefit}
                 </span>
               ))}
@@ -84,7 +95,7 @@ export default function Hero() {
               <Link href="/enroll">
                 <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white h-10 px-6 text-sm font-semibold rounded-lg shadow-md">
                   Apply Now
-                  <span className="ml-1.5">→</span>
+                  <ArrowRight className="ml-1.5 w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/courses">
@@ -117,7 +128,7 @@ export default function Hero() {
               <div className="relative h-32 bg-gradient-to-br from-[#3495EB] to-[#347ce0] rounded-xl mb-4 overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center text-center p-4">
                   <div>
-                    <div className="text-3xl mb-1">🎓</div>
+                    <GraduationCap className="w-10 h-10 text-white mx-auto mb-1" />
                     <h3 className="text-white font-bold text-sm">HDS Scholarship 2026</h3>
                     <p className="text-blue-100 text-xs mt-0.5">Only PKR 100 Registration</p>
                   </div>
@@ -128,7 +139,7 @@ export default function Hero() {
               <div className="grid grid-cols-4 gap-2 mb-4">
                 {heroStats.map((stat, index) => (
                   <div key={index} className="text-center p-2 bg-white dark:bg-[#0B1220] rounded-lg border border-[#E5E7EB] dark:border-[#1F2937]">
-                    <div className="text-lg mb-0.5">{stat.icon}</div>
+                    <stat.icon className="w-5 h-5 mx-auto mb-1 text-[#3495EB]" />
                     <div className="text-sm font-bold text-[#111827] dark:text-white leading-none">{stat.value}</div>
                     <div className="text-[10px] text-gray-500 mt-0.5">{stat.label}</div>
                   </div>
@@ -139,8 +150,8 @@ export default function Hero() {
               <div className="bg-white dark:bg-[#0B1220] rounded-lg p-3 border border-[#E5E7EB] dark:border-[#1F2937]">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-md bg-[#3495EB]/10 flex items-center justify-center text-base">
-                      🚀
+                    <div className="w-8 h-8 rounded-md bg-[#3495EB]/10 flex items-center justify-center">
+                      <Rocket className="w-4 h-4 text-[#3495EB]" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-[#111827] dark:text-white text-xs">AI Social Media Marketing</h4>
@@ -155,16 +166,23 @@ export default function Hero() {
 
               {/* Small Testimonial */}
               <div className="mt-3 flex items-center gap-2 p-2 bg-white dark:bg-[#0B1220] rounded-lg border border-[#E5E7EB] dark:border-[#1F2937]">
-                <div className="w-6 h-6 rounded-full bg-[#3495EB]/10 flex items-center justify-center text-xs flex-shrink-0">
-                  👤
+                <div className="w-6 h-6 rounded-full bg-[#3495EB]/10 flex items-center justify-center flex-shrink-0">
+                  <User className="w-3.5 h-3.5 text-[#3495EB]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[10px] text-gray-600 dark:text-gray-300 truncate">
                     "Got my first client in 2 weeks!"
                   </p>
-                  <p className="text-[9px] text-gray-400">Ali Raza, Lahore</p>
+                  <p className="text-[9px] text-gray-400 flex items-center gap-0.5">
+                    <MapPin className="w-2.5 h-2.5" />
+                    Ali Raza, Lahore
+                  </p>
                 </div>
-                <span className="text-yellow-500 text-xs">★★★★★</span>
+                <div className="flex text-yellow-500">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-current" />
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>

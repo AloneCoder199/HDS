@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 export default function Page() {
   return (
     <>
-    <HDSWelcomePopup/>
+   {/* <HDSWelcomePopup/>  */}
     <Hero/>
     <ImpactSection/>
     <FeaturedCourses/>
