@@ -31,6 +31,7 @@ const navLinks = [
   { name: 'Courses', href: '/courses' },
   { name: 'Scholarship', href: '/scholarship' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Verify Certificate', href: '/verify-certificate' },
 ];
 
 export default function Navbar() {
