@@ -43,7 +43,7 @@ import {
 const impactStats = [
   {
     icon: Users,
-    value: 15000,
+    value: 10000,
     suffix: "+",
     label: "Students Trained",
     description: "Across Pakistan and beyond",

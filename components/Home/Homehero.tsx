@@ -1,209 +1,148 @@
-"use client";
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { 
-  GraduationCap, 
-  Building2, 
-  Star, 
-  TrendingUp, 
-  Rocket, 
-  User, 
-  CheckCircle, 
-  ArrowRight,
-  MapPin
-} from 'lucide-react';
 
-const heroStats = [
-  { icon: GraduationCap, value: "10K+", label: "Students" },
-  { icon: Building2, value: "20+", label: "Franchises" },
-  { icon: Star, value: "4.8", label: "Rating" },
-  { icon: TrendingUp, value: "95%", label: "Success" }
-];
-
-const keyBenefits = [
-  "100% Scholarship (PKR 100 Only)",
-  "1-Month Real Internship",
-  "Govt Verified Certificate",
-  "Live + Recorded Access"
-];
-
-export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+export default function PremiumHero() {
+  const features = [
+    "Live Interactive Classes",
+    "Hardcopy Certificate",
+    "Internship Letter",
+    "AI-Powered Learning",
+    "Expert Mentorship",
+    "WhatsApp Community Support",
+    "Career & Freelancing",
+    "Scholarship Program"
+  ];
 
   return (
-    <section className="relative min-h-[85vh] bg-white dark:bg-[#0B1220] overflow-hidden flex items-center">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 opacity-[0.015]" style={{
-        backgroundImage: `radial-gradient(circle at 1px 1px, #3495EB 1px, transparent 0)`,
-        backgroundSize: '32px 32px'
-      }} />
+    <section className="relative min-h-[90vh] flex items-center bg-white overflow-hidden selection:bg-blue-200 selection:text-blue-900">
       
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#3495EB]/3 rounded-full blur-[100px] -translate-y-1/2" />
+      {/* Unique Professional Background: Subtle Tech Grid & Glows */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#3b82f60a_1px,transparent_1px),linear-gradient(to_bottom,#3b82f60a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+      <div className="absolute top-0 right-0 -mr-40 -mt-40 w-[600px] h-[600px] rounded-full bg-blue-50 blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 -ml-40 -mb-40 w-[500px] h-[500px] rounded-full bg-blue-100 blur-[100px] opacity-60 pointer-events-none"></div>
 
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
-          {/* LEFT SIDE - Compact Content */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-5"
-          >
-            {/* Small Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#3495EB]/10 text-[#3495EB] text-xs font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3495EB] animate-pulse"></span>
-              Admissions Open 2026
+          {/* Left Content Area (Spans 7 Columns) */}
+          <div className="lg:col-span-7 space-y-8">
+            
+            {/* Sleek Trust Badges */}
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100">
+                <span className="relative flex h-2.5 w-2.5 mr-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+                </span>
+                <span className="text-xs md:text-sm font-semibold text-blue-900 tracking-wide">SECP Registered</span>
+              </div>
+              <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs md:text-sm font-semibold text-slate-600 tracking-wide">
+                Established 2023
+              </div>
             </div>
 
-            {/* Headline - Tight */}
-            <div className="space-y-2">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white leading-[1.15] tracking-tight">
-                Learn Digital Skills & <span className="text-[#3495EB]">Start Earning</span> in 30 Days
+            {/* Main Typography Setup */}
+            <div className="space-y-4">
+              <h2 className="text-blue-600 font-bold tracking-widest uppercase text-sm md:text-base">
+                Hassan Digital Skills (HDS)
+              </h2>
+              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
+                Master Skills.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-400">
+                  Build Your Future.
+                </span>
               </h1>
-              <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
-                Pakistan's largest scholarship-based platform. Master Social Media Marketing, 
-                Web Development, and Freelancing with hands-on training.
+              <p className="text-xl md:text-2xl font-medium text-slate-700 mt-4 border-l-4 border-blue-500 pl-4">
+                Pakistan's Leading Digital Skills & Career Platform
               </p>
             </div>
 
-            {/* Compact Benefits */}
-            <div className="flex flex-wrap gap-2">
-              {keyBenefits.map((benefit, index) => (
-                <span 
-                  key={index}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F9FAFB] dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] rounded-lg text-xs font-medium text-gray-700 dark:text-gray-300"
-                >
-                  <CheckCircle className="w-3.5 h-3.5 text-[#3495EB]" />
-                  {benefit}
+            <p className="text-lg text-slate-600 leading-relaxed max-w-2xl font-light">
+              A premium, scholarship-based ecosystem designed to help students, freelancers, and professionals master high-income digital skills through practical training and real-world projects.
+            </p>
+
+            {/* Interactive Call To Actions */}
+            <div className="flex flex-col sm:flex-row gap-5 pt-4">
+              <Link 
+                href="/scholarship" 
+                className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-blue-600 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(37,99,235,0.25)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.4)] hover:-translate-y-1"
+              >
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-blue-500 group-hover:scale-105 transition-transform duration-500"></div>
+                <span className="relative flex items-center">
+                  Apply For Scholarship
+                  <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </span>
-              ))}
-            </div>
-
-            {/* Buttons Row */}
-            <div className="flex flex-wrap gap-3 pt-1">
-              <Link href="/enroll">
-                <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white h-10 px-6 text-sm font-semibold rounded-lg shadow-md">
-                  Apply Now
-                  <ArrowRight className="ml-1.5 w-4 h-4" />
-                </Button>
               </Link>
-              <Link href="/courses">
-                <Button variant="outline" className="border-[#E5E7EB] dark:border-[#1F2937] text-[#111827] dark:text-white h-10 px-6 text-sm font-medium rounded-lg hover:bg-[#F9FAFB]">
-                  View Courses
-                </Button>
+              <Link 
+                href="/courses" 
+                className="inline-flex justify-center items-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-200 hover:border-blue-600 hover:text-blue-600 rounded-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                Explore Courses
               </Link>
             </div>
-
-            {/* Trust Text - Compact */}
-            <div className="flex items-center gap-4 text-xs text-gray-500 pt-1">
-              <span>SECP Registered</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-              <span>Google Partner</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-              <span>No Hidden Charges</span>
-            </div>
-          </motion.div>
-
-          {/* RIGHT SIDE - Compact Visual */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative"
-          >
-            <div className="bg-[#F9FAFB] dark:bg-[#111827] rounded-2xl p-5 border border-[#E5E7EB] dark:border-[#1F2937] shadow-lg">
-              
-              {/* Top Banner - Small */}
-              <div className="relative h-32 bg-gradient-to-br from-[#3495EB] to-[#347ce0] rounded-xl mb-4 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center text-center p-4">
-                  <div>
-                    <GraduationCap className="w-10 h-10 text-white mx-auto mb-1" />
-                    <h3 className="text-white font-bold text-sm">HDS Scholarship 2026</h3>
-                    <p className="text-blue-100 text-xs mt-0.5">Only PKR 100 Registration</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Compact Stats Grid */}
-              <div className="grid grid-cols-4 gap-2 mb-4">
-                {heroStats.map((stat, index) => (
-                  <div key={index} className="text-center p-2 bg-white dark:bg-[#0B1220] rounded-lg border border-[#E5E7EB] dark:border-[#1F2937]">
-                    <stat.icon className="w-5 h-5 mx-auto mb-1 text-[#3495EB]" />
-                    <div className="text-sm font-bold text-[#111827] dark:text-white leading-none">{stat.value}</div>
-                    <div className="text-[10px] text-gray-500 mt-0.5">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Featured Course - Compact */}
-              <div className="bg-white dark:bg-[#0B1220] rounded-lg p-3 border border-[#E5E7EB] dark:border-[#1F2937]">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-md bg-[#3495EB]/10 flex items-center justify-center">
-                      <Rocket className="w-4 h-4 text-[#3495EB]" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-[#111827] dark:text-white text-xs">AI Social Media Marketing</h4>
-                      <p className="text-[10px] text-gray-500">Most Popular • 4 Weeks</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-green-100 text-green-600 border-0 text-[10px] px-2 py-0.5 h-5">
-                    Open
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Small Testimonial */}
-              <div className="mt-3 flex items-center gap-2 p-2 bg-white dark:bg-[#0B1220] rounded-lg border border-[#E5E7EB] dark:border-[#1F2937]">
-                <div className="w-6 h-6 rounded-full bg-[#3495EB]/10 flex items-center justify-center flex-shrink-0">
-                  <User className="w-3.5 h-3.5 text-[#3495EB]" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] text-gray-600 dark:text-gray-300 truncate">
-                    "Got my first client in 2 weeks!"
-                  </p>
-                  <p className="text-[9px] text-gray-400 flex items-center gap-0.5">
-                    <MapPin className="w-2.5 h-2.5" />
-                    Ali Raza, Lahore
-                  </p>
-                </div>
-                <div className="flex text-yellow-500">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-current" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom Bar - Minimal */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 pt-6 border-t border-[#E5E7EB] dark:border-[#1F2937] flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto"
-        >
-          <p className="text-xs text-gray-500">
-            Trusted by 10,000+ students from 50+ cities
-          </p>
-          <div className="flex items-center gap-6 text-xs font-semibold text-gray-400">
-            <span>Google Partner</span>
-            <span>Meta Certified</span>
-            <span>SECP Registered</span>
           </div>
-        </motion.div>
+
+          {/* Right Content Area: Unique Glassmorphism Feature Deck (Spans 5 Columns) */}
+          <div className="lg:col-span-5 relative mt-10 lg:mt-0">
+            
+            {/* Floating Stats Badge (Top Right) */}
+            <div className="absolute -top-8 -right-4 md:-right-8 z-20 bg-white p-4 rounded-2xl shadow-xl border border-blue-50 animate-bounce" style={{ animationDuration: '3s' }}>
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-3">
+                  <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=1" alt="User" />
+                  <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=5" alt="User" />
+                  <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-600 flex items-center justify-center text-xs font-bold text-white">+</div>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900">10,000+</p>
+                  <p className="text-xs font-medium text-slate-500">Students Trained</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Feature Glass Card */}
+            <div className="relative z-10 bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_20px_50px_rgb(15,23,42,0.08)] border border-white border-b-blue-100 border-r-blue-100">
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-2xl font-bold text-slate-900">Why Choose HDS?</h3>
+                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Grid of Features with Custom Checkmarks */}
+              <ul className="space-y-4">
+                {features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center group">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-4 group-hover:bg-blue-600 transition-colors duration-300">
+                      <svg className="w-3.5 h-3.5 text-blue-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-slate-700 font-medium group-hover:text-blue-700 transition-colors duration-300">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Bottom Card Footer */}
+              <div className="mt-8 pt-6 border-t border-slate-100">
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-bold uppercase tracking-wider">AI-Integrated</span>
+                  <span className="px-3 py-1 bg-slate-50 text-slate-600 rounded-lg text-xs font-bold uppercase tracking-wider">Career-Focused</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative abstract elements behind the card */}
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiMzYjgyZjYiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+')] z-0"></div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

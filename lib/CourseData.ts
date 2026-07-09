@@ -27,7 +27,7 @@ import { LucideIcon } from "lucide-react";
 import { boolean } from "zod";
 
 export type CourseLevel = "Beginner" | "Intermediate" | "Advanced" | "All Levels";
-export type CourseCategory = "Development" | "Design" | "Marketing" | "Data" | "Business" | "Security";
+export type CourseCategory = "Development" | "Design" | "Marketing"| "Finance" | "Data" | "Business" | "Security";
 
 export interface Course {
   id: string;
@@ -69,87 +69,107 @@ export interface Course {
 }
 
 export const coursesData: Course[] = [
-  {
+{
     id: "dm-002",
-    isAvailable:true,
-   title: "Social Media Marketing Mastery",
-slug: "social-media-marketing-mastery",
-    description: "Learn data-driven marketing across all channels. Master SEO, social media, paid ads, and analytics to drive business growth.",
-    shortDesc: "Growth marketing expertise",
-    fullDescription: "Become a complete digital marketer with skills in SEO, content marketing, social media, PPC, email marketing, and analytics. Work on real campaigns and build a portfolio that impresses employers.",
+    isAvailable: true,
+    title: "Social Media Marketing Mastery",
+    slug: "ai-social-media-marketing-mentorship",
+    description: "Master AI-powered content creation, Meta ads deployment, scaling strategies, and client acquisition in this practical one-month mentorship.",
+    shortDesc: "AI & Meta Ads Expert Marketing",
+    fullDescription: "Become an expert digital marketer with high-income AI skills. Master Facebook, Instagram, Threads, and WhatsApp marketing, learn advanced Meta ads scaling, and launch your own digital marketing agency with live interactive classes and a guaranteed 1-month internship.",
     icon: Megaphone,
     category: "Marketing",
-    level: "Beginner",
+    level: "All Levels",
     duration: "4 Weeks",
-    weeks: 12,
-    hours: 180,
-    price: 100,
+    weeks: 4,
+    hours: 40,
+    price: 99,
     originalPrice: 25000,
-    rating: 4.8,
+    rating: 4.9,
     students: 2850,
     color: "text-violet-600",
     bgColor: "bg-violet-600/10",
     borderColor: "border-violet-200 dark:border-violet-800",
     gradient: "from-violet-600 via-purple-500 to-fuchsia-500",
     features: [
-      "80+ Hours of Content",
-      "Real Campaign Projects",
-      "Google & Meta Certifications",
-      "Industry Mentors",
-      "Job Placement Support",
-      "Analytics Mastery"
+      "100% Live Interactive Classes",
+      "Daily Practical Assignments & Projects",
+      "1-Month Internship Program",
+      "Government Verified Certificate",
+      "Private WhatsApp Community Support",
+      "Freelancing & Job Opportunities"
     ],
     modules: [
       {
-        title: "Marketing Foundations",
+        title: "Market Fundamentals & AI Content System",
         duration: "1 Weeks",
-        topics: ["Marketing Strategy", "Customer Journey", "Brand Building", "Market Research"]
+        topics: [
+          "Digital Marketing Ecosystem",
+          "AI Tools & Prompt Engineering",
+          "Copywriting Psychology",
+          "Canva & Content Calendars"
+        ]
       },
       {
-        title: "Content & SEO",
+        title: "Meta Ads Setup & Core Campaigns",
         duration: "1 Weeks",
-        topics: ["Content Strategy", "SEO Fundamentals", "Blogging", "Keyword Research"]
+        topics: [
+          "Page Setup & Organic Growth",
+          "Business Manager Settings",
+          "Pixel & Campaign Structure",
+          "Targeting & Campaign Launch"
+        ]
       },
       {
-        title: "Paid Advertising",
+        title: "Advanced Ads Scaling & Automation",
         duration: "1 Weeks",
-        topics: ["Google Ads", "Facebook Ads", "LinkedIn Ads", "Budget Optimization"]
+        topics: [
+          "Performance & ROI Analysis",
+          "Budget Scaling & A/B Testing",
+          "Retargeting & Funnel Strategy",
+          "Account Recovery & Automation"
+        ]
       },
       {
-        title: "Analytics & Growth",
+        title: "Freelancing & Agency Launch",
         duration: "1 Weeks",
-        topics: ["Google Analytics", "A/B Testing", "CRO", "Marketing Automation"]
+        topics: [
+          "Fiverr, Upwork & Gig SEO",
+          "Client Hunting & Proposals",
+          "Personal Branding Framework",
+          "Agency Launch & Shopify E-com"
+        ]
       }
     ],
     instructors: [
-      { name: "Fatima Ali", role: "Marketing Director", company: "Unilever", avatar: "/instructors/fatima.jpg" },
-      { name: "Omar Farooq", role: "Growth Lead", company: "Careem", avatar: "/instructors/omar.jpg" }
+      { name: "Ali Hassan", role: "Lead Marketing Mentor", company: "HDS Training", avatar: "/instructors/hassan.jpg" }
     ],
     outcomes: [
-      "Run profitable ad campaigns",
-      "Build marketing strategies",
-      "Analyze and optimize ROI",
-      "Get hired as a marketer"
+      "Launch profitable Meta ad campaigns and scale budgets",
+      "Create high-converting AI content and ad copy",
+      "Acquire high-ticket international and local clients",
+      "Establish a personal brand or digital marketing agency"
     ],
-    certification: "HDS Certified Digital Marketing Professional",
-    prerequisites: ["No experience required", "Laptop with internet"]
-  },
-  {
+    certification: "Government Verified Certificate",
+    prerequisites: ["No marketing experience required", "Laptop with internet connection"]
+}
+,
+{
     id: "fsd-001",
-    isAvailable:false,
-    title: "Full-Stack Development Bootcamp",
-    slug: "full-stack-development-bootcamp",
-    description: "Master modern web development from frontend to backend. Build real-world applications with React, Next.js, Node.js, and PostgreSQL.",
-    shortDesc: "Complete web development mastery",
-    fullDescription: "This comprehensive bootcamp takes you from beginner to job-ready full-stack developer. You'll master React and Next.js for frontend, Node.js and Express for backend, and PostgreSQL for databases. By the end, you'll have built 5 portfolio projects and be ready for your first developer role.",
+    isAvailable: true,
+    title: "Artificial Intelligence Mastery Program",
+    slug: "artificial-intelligence-mastery-program",
+    description: "Master real-world AI applications, prompt engineering, AI content systems, automation, vibe coding, and personal branding to launch your tech career.",
+    shortDesc: "Complete AI & Automation Mastery",
+    fullDescription: "This comprehensive program takes you from AI basics to an advanced practitioner. You will master prompt engineering, AI content and video creation, AI-assisted programming (vibe coding), automation workflows, smart AI agents, and personal branding. Build powerful AI tools and learn how to secure high-ticket clients.",
     icon: Code2,
     category: "Development",
     level: "Beginner",
-    duration: "16 Weeks",
-    weeks: 16,
+    duration: "4 Weeks",
+    weeks: 4,
     hours: 240,
-    price: 1999,
-    originalPrice: 2499,
+    price: 99,
+    originalPrice: 50000,
     rating: 4.9,
     students: 3420,
     color: "text-blue-600",
@@ -158,32 +178,32 @@ slug: "social-media-marketing-mastery",
     gradient: "from-blue-600 via-blue-500 to-sky-500",
     features: [
       "240+ Hours of Content",
-      "5 Portfolio Projects",
-      "1-on-1 Mentorship",
-      "Job Guarantee",
+      "Real-World AI Automation Projects",
+      "AI Video & Content Portfolio",
+      "Vibe Coding App Projects",
       "Lifetime Access",
       "Community Support"
     ],
     modules: [
       {
-        title: "Frontend Fundamentals",
+        title: "AI Foundation & Prompt Engineering",
         duration: "4 Weeks",
-        topics: ["HTML5 & CSS3", "JavaScript ES6+", "React Basics", "State Management"]
+        topics: ["AI Foundations & Assistants", "Advanced Prompting Frameworks", "Copywriting & Optimization", "Reusable Prompt Templates"]
       },
       {
-        title: "Backend Development",
+        title: "AI Content Creation & Video Production",
         duration: "4 Weeks",
-        topics: ["Node.js & Express", "REST APIs", "Authentication", "Middleware"]
+        topics: ["AI Image & Brand Design", "Viral Instagram Reels", "Cinematic Video (Kling AI)", "Motion Graphics (Runway ML)"]
       },
       {
-        title: "Database & DevOps",
+        title: "AI Programming, Vibe Coding & Automation",
         duration: "4 Weeks",
-        topics: ["PostgreSQL", "Prisma ORM", "Docker Basics", "Deployment"]
+        topics: ["No-Code & Vibe Coding", "Website Creation (Lovable)", "Google Flow Workflows", "Task Automation Systems"]
       },
       {
-        title: "Advanced & Career",
+        title: "AI Agents & Personal Branding",
         duration: "4 Weeks",
-        topics: ["Next.js Advanced", "Testing", "Portfolio", "Interview Prep"]
+        topics: ["Smart AI Agents & Chatbots", "Niche & Profile Optimization", "AI Lead Gen & Client Closing", "Authority Building Framework"]
       }
     ],
     instructors: [
@@ -191,31 +211,32 @@ slug: "social-media-marketing-mastery",
       { name: "Sarah Khan", role: "Tech Lead", company: "Microsoft", avatar: "/instructors/sarah.jpg" }
     ],
     outcomes: [
-      "Build full-stack applications",
-      "Deploy production-ready apps",
-      "Pass technical interviews",
-      "Land your first dev job"
+      "Build and deploy AI automation systems",
+      "Create high-quality AI videos and designs",
+      "Develop websites and tools using Vibe Coding",
+      "Acquire high-ticket clients via personal branding"
     ],
-    certification: "HDS Certified Full-Stack Developer",
+    certification: "HDS Certified AI Mastery Professional",
     prerequisites: ["Basic computer skills", "No coding experience needed"]
-  },
+},
+
   
   {
     id: "seo-003",
-    isAvailable:false,
-    title: "SEO & Content Strategy Pro",
-    slug: "seo-content-strategy-pro",
-    description: "Dominate search rankings with comprehensive SEO strategies. Master technical SEO, content optimization, and link building.",
-    shortDesc: "Rank #1 on Google",
-    fullDescription: "Learn the complete SEO workflow from technical audits to content strategy. Master tools like Ahrefs, SEMrush, and Google Search Console. Build a track record of ranking websites on page one.",
+    isAvailable: true,
+    title: "Crypto Trading Mastery",
+    slug: "hads-crypto-trading-mentorship",
+    description: "Master Crypto Trading from scratch. Learn advanced Price Action, simplified Smart Money Concepts (SMC), and live execution in a 30-day roadmap.",
+    shortDesc: "30 Days Crypto Trading Roadmap",
+    fullDescription: "Go from zero to an active, disciplined crypto trader in 30 days. Master spot & futures trading, advanced Price Action, simplified Smart Money Concepts (SMC), and strict risk management frameworks. Packed with action-oriented live market execution, strategy backtesting, and psychology conditioning.",
     icon: Search,
-    category: "Marketing",
-    level: "Intermediate",
-    duration: "10 Weeks",
-    weeks: 10,
-    hours: 150,
-    price: 1299,
-    originalPrice: 1699,
+    category: "Finance",
+    level: "All Levels",
+    duration: "4 Weeks",
+    weeks: 4,
+    hours: 40,
+    price: 99,
+    originalPrice: 25000,
     rating: 4.9,
     students: 1920,
     color: "text-emerald-600",
@@ -223,48 +244,71 @@ slug: "social-media-marketing-mastery",
     borderColor: "border-emerald-200 dark:border-emerald-800",
     gradient: "from-emerald-600 via-teal-500 to-cyan-500",
     features: [
-      "150+ Hours of Content",
-      "Live SEO Projects",
-      "Industry Tool Access",
-      "Expert-Led Workshops",
-      "Client Simulation",
-      "Freelance Blueprint"
+      "30 Days Action-Backed Roadmap",
+      "Simplified SMC Execution",
+      "Live Daily Market Analysis",
+      "Risk Management Blueprint",
+      "Trading Psychology System",
+      "Strategy Backtesting Practice"
     ],
     modules: [
       {
-        title: "Technical SEO",
-        duration: "2.5 Weeks",
-        topics: ["Site Audits", "Crawlability", "Site Speed", "Mobile SEO"]
+        title: "Trading Kickstart & Chart Mastery",
+        duration: "1 Weeks",
+        topics: [
+          "Crypto Basics & Exchange Setup",
+          "TradingView Practical Setup",
+          "Candlestick Psychology Secrets",
+          "Spot vs Futures & Order Types"
+        ]
       },
       {
-        title: "Keyword Mastery",
-        duration: "2.5 Weeks",
-        topics: ["Keyword Research", "Search Intent", "Competitor Analysis", "Content Gaps"]
+        title: "Technical Analysis Core & Trends",
+        duration: "1 Weeks",
+        topics: [
+          "Support, Resistance & Volume Analysis",
+          "Bullish, Bearish & Sideways Trends",
+          "Market Structure & Trendlines",
+          "RSI, MACD & Moving Averages"
+        ]
       },
       {
-        title: "Content & On-Page",
-        duration: "2.5 Weeks",
-        topics: ["Content Optimization", "Meta Tags", "Internal Linking", "Schema Markup"]
+        title: "Price Action & Simplified SMC",
+        duration: "1 Weeks",
+        topics: [
+          "Liquidity & Stop Hunt Reality",
+          "Order Blocks & Demand/Supply Zones",
+          "BOS, CHOCH & Fair Value Gaps",
+          "Inducement & Fake Breakouts"
+        ]
       },
       {
-        title: "Off-Page & Advanced",
-        duration: "2.5 Weeks",
-        topics: ["Link Building", "Outreach", "Local SEO", "SEO Strategy"]
+        title: "Risk, Psychology & Live Execution",
+        duration: "1 Weeks",
+        topics: [
+          "Risk Per Trade & Position Sizing",
+          "Fear, Greed & Trading Journal",
+          "Confluence Strategy & Backtesting",
+          "Live Market Entry & Demo Shift"
+        ]
       }
     ],
     instructors: [
-      { name: "Zain Malik", role: "SEO Director", company: "Rozee.pk", avatar: "/instructors/zain.jpg" },
-      { name: "Ayesha Tariq", role: "Content Strategist", company: "Daraz", avatar: "/instructors/ayesha.jpg" }
+      { name: "Ali Hassan", role: "Crypto Analyst", company: "HDS Training", avatar: "/instructors/zain.jpg" }
     ],
     outcomes: [
-      "Audit and fix any website",
-      "Rank sites on Google page 1",
-      "Build quality backlinks",
-      "Start SEO consulting"
+      "Analyze crypto charts independently",
+      "Execute profitable Spot and Futures trades",
+      "Apply Smart Money Concepts confidently",
+      "Manage risk and control trading emotions"
     ],
-    certification: "HDS Certified SEO Specialist",
-    prerequisites: ["Basic website knowledge", "Understanding of content"]
-  },
+    certification: "HDS Certified Crypto Trader",
+    prerequisites: ["Basic smartphone or computer skills", "Internet connection and learning mindset"]
+},
+
+
+
+
   {
     id: "ux-004",
     isAvailable:false,
