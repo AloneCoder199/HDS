@@ -57,7 +57,7 @@ const processSteps = [
   {
     step: "04",
     icon: "💳",
-    title: "Pay PKR 100 Registration",
+    title: "Pay PKR 200 Registration",
     description: "A small fee to confirm serious applicants — 100% scholarship covers the rest, no hidden charges."
   },
   {
@@ -71,7 +71,7 @@ const processSteps = [
 // FAQ data
 const faqs = [
   {
-    question: "Why is only PKR 100 charged?",
+    question: "Why is only PKR 200 charged?",
     answer: "This small registration fee ensures that only serious and committed students enroll. The actual training worth thousands is provided under a scholarship model. This helps us maintain quality and dedicated support for genuine learners."
   },
   {
@@ -136,13 +136,13 @@ export default function ScholarshipDetailPage() {
             </p>
 
             <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Hassan Digital Skills (HDS) offers a scholarship-based mentorship program for students across Pakistan. Get started with just a <span className="font-bold text-[#3495EB]">PKR 100</span> registration fee and unlock a complete system designed to take you from learning to earning.
+              Hassan Digital Skills (HDS) offers a scholarship-based mentorship program for students across Pakistan. Get started with just a <span className="font-bold text-[#3495EB]">PKR 200</span> registration fee and unlock a complete system designed to take you from learning to earning.
             </p>
 
             {/* Registration Fee Highlight */}
             <div className="inline-block bg-white dark:bg-[#0B1220] rounded-2xl p-8 border-2 border-[#3495EB]/20 shadow-xl shadow-[#3495EB]/5 mb-10">
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">Registration Fee Only</div>
-              <div className="text-5xl font-bold text-[#3495EB] mb-2">PKR 100</div>
+              <div className="text-5xl font-bold text-[#3495EB] mb-2">PKR 200</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Full scholarship covers the rest</div>
             </div>
 
@@ -465,7 +465,7 @@ export default function ScholarshipDetailPage() {
               <div className="flex items-center justify-center gap-3 mb-2">
                 <span className="text-2xl text-gray-500 line-through">Worth PKR 25,000</span>
               </div>
-              <div className="text-5xl font-bold text-[#3495EB] mb-2">PKR 100</div>
+              <div className="text-5xl font-bold text-[#3495EB] mb-2">PKR 200</div>
               <div className="text-sm text-gray-400">Registration fee only • Scholarship covers rest</div>
             </div>
 

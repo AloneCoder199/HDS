@@ -333,7 +333,7 @@ export default function LimitedSeatsSection() {
       <div className="mt-1 flex items-baseline gap-3">
         {/* New Price */}
         <span className="text-4xl font-extrabold text-white">
-          PKR 100
+          PKR 200
         </span>
         {/* Old Price with Cut (Line-through) */}
         <span className="text-lg font-medium text-white/40 line-through decoration-red-500/50">

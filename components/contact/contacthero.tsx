@@ -56,7 +56,7 @@ const contactDetails = {
 const faqs = [
   {
     question: "What is Hassan Digital Skills (HDS)?",
-    answer: "HDS is Pakistan's largest scholarship-based digital education platform offering practical training in Social Media Marketing, Web Development, and Freelancing with just PKR 100 registration fee."
+    answer: "HDS is Pakistan's largest scholarship-based digital education platform offering practical training in Social Media Marketing, Web Development, and Freelancing with just PKR 200 registration fee."
   },
   {
     question: "How can I contact HDS support?",
@@ -67,12 +67,12 @@ const faqs = [
     answer: "We offer AI Social Media Marketing, Meta Ads Mastery, SEO Content Writing, Graphic Design, WordPress Development, and YouTube Content Creation - all with 1-month internship included."
   },
   {
-    question: "Is the scholarship really only PKR 100?",
-    answer: "Yes! We charge only PKR 100 as a registration fee to ensure serious learners. The actual course worth thousands is provided under our scholarship model."
+    question: "Is the scholarship really only PKR 200?",
+    answer: "Yes! We charge only PKR 200 as a registration fee to ensure serious learners. The actual course worth thousands is provided under our scholarship model."
   },
   {
     question: "How do I enroll in a course?",
-    answer: "Click 'Apply Now', fill the form, pay PKR 100 registration fee, and you'll receive access to your private WhatsApp group and learning materials within 24 hours."
+    answer: "Click 'Apply Now', fill the form, pay PKR 200 registration fee, and you'll receive access to your private WhatsApp group and learning materials within 24 hours."
   },
   {
     question: "Are the courses online or physical?",
@@ -108,7 +108,7 @@ const faqs = [
   },
   {
     question: "Can I pay the fee in installments?",
-    answer: "The PKR 100 registration is a one-time small fee. For any additional services, contact our support team for flexible options."
+    answer: "The PKR 200 registration is a one-time small fee. For any additional services, contact our support team for flexible options."
   },
   {
     question: "Do you offer franchise opportunities?",
@@ -116,7 +116,7 @@ const faqs = [
   },
   {
     question: "What makes HDS different from other institutes?",
-    answer: "We focus on practical execution, not just theory. Live mentorship, real internship, income-focused skills, and a complete earning ecosystem - all for just PKR 100."
+    answer: "We focus on practical execution, not just theory. Live mentorship, real internship, income-focused skills, and a complete earning ecosystem - all for just PKR 200."
   },
   {
     question: "How many students have you trained?",

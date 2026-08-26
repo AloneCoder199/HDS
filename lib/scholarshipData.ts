@@ -63,7 +63,7 @@ export const scholarshipsData: Scholarship[] = [
     title: "Social Media Marketing Mastery",
     slug: "social-media-marketing-mastery",
     subtitle: "Professional Digital Marketing Certification",
-    price: "100",
+    price: "200",
     originalPrice: "25,000",
     currency: "PKR",
     duration: "4 Weeks Intensive",

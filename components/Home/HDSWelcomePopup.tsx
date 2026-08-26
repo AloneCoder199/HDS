@@ -147,7 +147,7 @@ export default function HDSWelcomePopup() {
               <div className="flex flex-col gap-2 pt-2">
                 <Link href="/enroll" className="w-full">
                   <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white h-10 text-sm font-semibold rounded-lg w-full">
-                    Apply Now - PKR 100
+                    Apply Now - PKR 200
                   </Button>
                 </Link>
                 <Link href="/courses" className="w-full">

@@ -229,9 +229,9 @@ export default function CallToAction() {
   </p>
 
   <div className="flex items-baseline justify-center gap-4">
-    {/* New Price: PKR 100 */}
+    {/* New Price: PKR 200 */}
     <span className="text-6xl font-black text-slate-900 dark:text-white tracking-tight">
-      PKR 100
+      PKR 200
     </span>
 
     {/* Old Price: PKR 25,000 with Red Cut */}
