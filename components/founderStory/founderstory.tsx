@@ -7,118 +7,193 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-// Timeline data based on Ali Hassan's journey
+import {
+  Users,
+  GraduationCap,
+  Rocket,
+  TrendingUp,
+  Target,
+  Eye,
+  Award,
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Clock,
+  Zap,
+  Video,
+  MessageSquare,
+  FileCheck,
+  Layers,
+  PlayCircle,
+  UserCheck,
+  Briefcase,
+  CheckCircle,
+  Quote,
+  BookOpen,
+  MapPin,
+  Phone,
+} from "lucide-react";
+
+// ═══════════════════════════════════════════════════════════
+// REAL JOURNEY TIMELINE (only brief-backed milestones)
+// ═══════════════════════════════════════════════════════════
 const journeyTimeline = [
   {
-    year: "2018-2019",
-    title: "The Village Struggle",
-    description: "Born in a small village near Samundri with limited internet access. Started learning digital skills at age 21 with no resources, facing isolation and financial constraints.",
-    milestone: "First Steps"
+    year: "2023",
+    title: "The Foundation",
+    description:
+      "Ali Hassan (Meta & Google Certified) founded Hassan Digital Skills with a mission to make practical digital skills accessible to every common person in Pakistan. Started with live online mentorship.",
+    milestone: "HDS Born",
+    icon: Rocket,
   },
   {
-    year: "2020",
-    title: "Birth of HDS",
-    description: "Founded Hassan Digital Skills with a vision to provide free digital education. Started training students completely free of cost from a small room.",
-    milestone: "Foundation Laid"
+    year: "2024–2025",
+    title: "Building the Ecosystem",
+    description:
+      "Refined the complete learning model — 100% live Zoom classes, class recordings, daily assignments, real client-based projects, private WhatsApp community, and 1-month internships. Result: 15,000+ students trained.",
+    milestone: "15,000+ Students",
+    icon: TrendingUp,
   },
   {
-    year: "2020-2021",
-    title: "HDS Software House",
-    description: "Established HDS Software in Samundri to serve real clients. Created a practical learning ecosystem where students work on live projects.",
-    milestone: "Industry Entry"
+    year: "2026",
+    title: "Batch 18 Launch",
+    description:
+      "Launching Batch 18 with three top-demand mentorships — Artificial Intelligence (9:15 PM), Social Media Marketing (8:00 PM), and Crypto Trading (10:15 PM). 10,000 total seats available.",
+    milestone: "Batch 18 · 6 Dec",
+    icon: GraduationCap,
   },
   {
-    year: "2022-2023",
-    title: "Franchise Expansion",
-    description: "Expanded to 20+ active franchise partners across Pakistan. Verified by Google and Meta as a certified training partner.",
-    milestone: "20+ Franchises"
+    year: "2030",
+    title: "Vision X 2030",
+    description:
+      "From Learner, to Leader, to Investor. A focused roadmap to build a future where every learner can transform digital skills into real, lasting opportunity.",
+    milestone: "The Vision",
+    icon: Award,
   },
-  {
-    year: "2024-Present",
-    title: "National Impact",
-    description: "Training 10,000+ students monthly on scholarship basis. SECP registered entity with global reach and worldwide learners.",
-    milestone: "10K Monthly"
-  }
 ];
 
-// Stats data
+// ═══════════════════════════════════════════════════════════
+// REAL IMPACT STATS
+// ═══════════════════════════════════════════════════════════
 const impactStats = [
   {
-    icon: "👨‍🎓",
-    value: 10000,
+    icon: Users,
+    value: 15000,
     suffix: "+",
     label: "Students Trained",
-    description: "Monthly scholarship-based training",
-    color: "#3495EB"
+    description: "Since 2023",
+    color: "#3495EB",
+    isYear: false,
   },
   {
-    icon: "🏪",
-    value: 20,
-    suffix: "+",
-    label: "Franchise Partners",
-    description: "Active across Pakistan",
-    color: "#8B5CF6"
+    icon: GraduationCap,
+    value: 3,
+    suffix: "",
+    label: "Top Mentorships",
+    description: "AI · SMM · Crypto",
+    color: "#8B5CF6",
+    isYear: false,
   },
   {
-    icon: "🌍",
-    value: 5,
-    suffix: "+",
-    label: "Countries Reach",
-    description: "Global student community",
-    color: "#10B981"
+    icon: Layers,
+    value: 18,
+    suffix: "",
+    label: "Batch 18",
+    description: "Registration open",
+    color: "#10B981",
+    isYear: false,
+    prefix: "Batch ",
   },
   {
-    icon: "📅",
-    value: 5,
-    suffix: " Years",
-    label: "Of Excellence",
-    description: "Since 2020",
-    color: "#F59E0B"
-  }
+    icon: Clock,
+    value: 2023,
+    suffix: "",
+    label: "Founded",
+    description: "Empowering youth",
+    color: "#F59E0B",
+    isYear: true,
+  },
 ];
 
-// Core values based on Ali Hassan's philosophy
+// ═══════════════════════════════════════════════════════════
+// FOUNDER'S REAL PHILOSOPHY
+// ═══════════════════════════════════════════════════════════
 const coreValues = [
   {
-    title: "Accessibility",
-    description: "Free digital education for every Pakistani regardless of background, location, or financial status.",
-    icon: "🎯"
+    title: "Practical Skills",
+    description:
+      "No theoretical fluff. Every module focuses on real-world implementation — building tools, running campaigns, analyzing markets — so you can actually earn.",
+    icon: Zap,
+    color: "#3495EB",
   },
   {
-    title: "Practical Learning",
-    description: "Hands-on training through HDS Software House with real client projects and industry experience.",
-    icon: "⚡"
+    title: "Live Mentorship",
+    description:
+      "Direct access to Ali Hassan in every session. Ask questions, get feedback, and learn from someone who is actively running the same skills being taught.",
+    icon: MessageSquare,
+    color: "#8B5CF6",
   },
   {
-    title: "Community Building",
-    description: "Creating a network of learners, freelancers, entrepreneurs, and mentors supporting each other.",
-    icon: "🤝"
+    title: "Real Experience",
+    description:
+      "Live client-based projects, portfolio building, and a 1-month internship path. Learning is just the start — practice is where the real change happens.",
+    icon: Briefcase,
+    color: "#10B981",
   },
   {
-    title: "Income Generation",
-    description: "Transforming skills into sustainable income sources through freelancing and entrepreneurship.",
-    icon: "💰"
-  }
+    title: "Accessible Pricing",
+    description:
+      "Rs. 25,000 market value mentorship — offered through our scholarship program for a Rs. 200 seat confirmation fee. Quality education for every common person.",
+    icon: ShieldCheck,
+    color: "#F59E0B",
+  },
 ];
 
-// Achievement badges
-const achievements = [
-  "✓ Google Verified Partner",
-  "✓ Meta Certified Trainer", 
-  "✓ SECP Registered",
-  "✓ 95% Success Rate",
-  "✓ Village to National Impact"
+// ═══════════════════════════════════════════════════════════
+// REAL CREDENTIALS (only what's confirmed)
+// ═══════════════════════════════════════════════════════════
+const credentials = [
+  { icon: Award, text: "Meta & Google Certified" },
+  { icon: Users, text: "15,000+ Students Trained" },
+  { icon: Clock, text: "Since 2023" },
+  { icon: FileCheck, text: "HDS Certified e-Certificate" },
+  { icon: Phone, text: "0327 1543140" },
 ];
 
-function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+// ═══════════════════════════════════════════════════════════
+// ANIMATED COUNTER
+// ═══════════════════════════════════════════════════════════
+function AnimatedCounter({
+  value,
+  suffix,
+  prefix = "",
+}: {
+  value: number;
+  suffix: string;
+  prefix?: string;
+}) {
   const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const duration = 2500;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const duration = 1800;
     const steps = 60;
     const increment = value / steps;
     let current = 0;
-    
+
     const timer = setInterval(() => {
       current += increment;
       if (current >= value) {
@@ -130,116 +205,150 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [value]);
+  }, [isVisible, value]);
 
   return (
-    <span className="tabular-nums">
-      {count.toLocaleString()}{suffix}
-    </span>
+    <div ref={ref} className="tabular-nums">
+      {prefix}
+      {count.toLocaleString()}
+      {suffix}
+    </div>
   );
 }
 
-export function FounderStoryPage() {
+// React import fix
+import * as React from "react";
+
+// ═══════════════════════════════════════════════════════════
+// PAGE
+// ═══════════════════════════════════════════════════════════
+export default function FounderStoryPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0B1220]">
-      
-      {/* Hero Section - Village to Vision */}
-      <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
-        <div className="absolute inset-0 bg-[#F9FAFB] dark:bg-[#111827] opacity-50" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #3495EB 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
-        
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            
-            {/* Content */}
-            <div className="space-y-8 max-w-2xl">
-              <div className="space-y-4">
-                <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 px-4 py-1.5">
-                  Founder & CEO
-                </Badge>
-                
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#111827] dark:text-white leading-tight">
-                  From <span className="text-[#3495EB]">Village Beginnings</span> to Building Pakistan's Digital Future
-                </h1>
-                
-                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Ali Hassan's journey from a small village near Samundri to creating Pakistan's most impactful digital education platform—training 10,000+ students monthly completely free.
-                </p>
+    <main className="min-h-screen bg-background overflow-x-hidden">
+      {/* ═══════════════════════ HERO ═══════════════════════ */}
+      <section className="relative pt-12 pb-16 lg:pt-16 lg:pb-20 overflow-hidden">
+        {/* Background Orbs */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[140px] animate-pulse duration-[7000ms]" />
+          <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] animate-pulse duration-[5000ms]" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* ─── Left: Content ─── */}
+            <div className="animate-in fade-in slide-in-from-left-8 duration-700">
+              <Badge className="bg-primary/10 text-primary-text border border-primary/20 px-3 py-1 mb-4 inline-flex items-center gap-1.5 text-[11px] font-bold">
+                <Sparkles className="w-3.5 h-3.5" />
+                Founder & Mentor
+              </Badge>
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
+                Building Pakistan's{" "}
+                <span className="text-gradient">Digital Future</span>
+              </h1>
+
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
+                Ali Hassan (Meta & Google Certified) founded{" "}
+                <strong className="text-foreground">Hassan Digital Skills</strong> in
+                2023 with one mission — to make practical, income-focused
+                digital skills accessible to every common person in Pakistan.
+                Since then,{" "}
+                <strong className="text-foreground">15,000+ students</strong>{" "}
+                have been trained through live mentorship.
+              </p>
+
+              {/* Credentials */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {credentials.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <span
+                      key={i}
+                      className="px-3 py-1.5 bg-card border border-border rounded-full text-[11px] font-medium text-foreground shadow-sm inline-flex items-center gap-1.5 hover:border-primary/30 transition-colors animate-in fade-in"
+                      style={{ animationDelay: `${i * 80}ms` }}
+                    >
+                      <Icon className="w-3 h-3 text-primary-text" />
+                      {item.text}
+                    </span>
+                  );
+                })}
               </div>
 
-              {/* Achievement Pills */}
+              {/* CTAs */}
               <div className="flex flex-wrap gap-3">
-                {achievements.map((item, index) => (
-                  <span 
-                    key={index}
-                    className="px-4 py-2 bg-white dark:bg-[#0B1220] border border-[#E5E7EB] dark:border-[#1F2937] rounded-full text-sm font-medium text-[#111827] dark:text-gray-200 shadow-sm"
+                <Link href="/enroll">
+                  <Button className="gradient-primary text-white px-6 h-11 text-sm font-bold rounded-xl shadow-glow hover:scale-105 transition-all inline-flex items-center gap-2">
+                    Start Your Journey
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link href="/mentorships">
+                  <Button
+                    variant="outline"
+                    className="border-border text-foreground px-6 h-11 text-sm font-semibold rounded-xl hover:bg-muted transition-all"
                   >
-                    {item}
-                  </span>
-                ))}
+                    Explore Mentorships
+                  </Button>
+                </Link>
               </div>
+            </div>
 
-              <div className="flex flex-wrap gap-4 pt-2">
-  {/* Enroll Page Link */}
-  <Link href="/enroll" className="w-full sm:w-auto">
-    <Button 
-      className="w-full bg-[#3495EB] hover:bg-[#347ce0] text-white px-8 h-12 text-base font-semibold rounded-lg shadow-lg shadow-[#3495EB]/20"
-    >
-      Start Your Journey
-    </Button>
-  </Link>
-
-  {/* Contact Page Link */}
-  <Link href="/contact" className="w-full sm:w-auto">
-    <Button 
-      variant="outline"
-      className="w-full border-[#E5E7EB] dark:border-[#1F2937] text-[#111827] dark:text-white px-8 h-12 text-base font-semibold rounded-lg hover:bg-[#F9FAFB] dark:hover:bg-[#111827]"
-    >
-      View Franchise Network
-    </Button>
-  </Link>
-</div>
-</div>
-            {/* Founder Image Card */}
-            <div className="relative">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gray-200 dark:bg-gray-800 shadow-2xl shadow-[#3495EB]/10 border border-[#E5E7EB] dark:border-[#1F2937]">
+            {/* ─── Right: Founder Image ─── */}
+            <div className="relative animate-in fade-in slide-in-from-right-8 duration-700">
+              {/* Main Image Card */}
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-muted shadow-2xl border border-border">
                 <Image
                   src="/founder.jpeg"
-                  alt="Ali Hassan - Founder of Hassan Digital Skills"
+                  alt="Ali Hassan — Founder of Hassan Digital Skills"
                   fill
                   className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                {/* Overlay Info */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-                  <h3 className="text-3xl font-bold text-white mb-1">Ali Hassan</h3>
-                  <p className="text-[#3495EB] font-semibold text-lg">Digital Mentor & Entrepreneur</p>
-                  <p className="text-gray-300 mt-2 text-sm">"Every Pakistani deserves free access to digital skills"</p>
+
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+
+                {/* Name Tag */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                    Ali Hassan
+                  </h3>
+                  <p className="text-primary text-sm font-semibold">
+                    Founder & Mentor · HDS
+                  </p>
+                  <p className="text-slate-300 mt-2 text-xs italic leading-relaxed">
+                    "Empowering Youth With Digital Skills"
+                  </p>
                 </div>
               </div>
-              
-              {/* Floating Stats Card */}
-              <div className="absolute -bottom-6 -left-6 bg-white dark:bg-[#0B1220] rounded-2xl p-5 shadow-xl border border-[#E5E7EB] dark:border-[#1F2937]">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-[#3495EB]/10 dark:bg-[#3495EB]/20 flex items-center justify-center text-2xl">
-                    🏆
+
+              {/* Floating Badge: Certified */}
+              <div className="absolute -bottom-4 -left-4 bg-background border border-border rounded-xl p-3 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Award className="w-5 h-5 text-primary-text" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#111827] dark:text-white">Verified</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Google & Meta Partner</div>
+                    <p className="text-[11px] font-bold text-foreground leading-tight">
+                      Meta & Google
+                    </p>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Certified
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* Second Floating Card */}
-              <div className="absolute -top-4 -right-4 bg-white dark:bg-[#0B1220] rounded-2xl p-4 shadow-xl border border-[#E5E7EB] dark:border-[#1F2937] hidden sm:block">
+              {/* Floating Badge: Since 2023 */}
+              <div className="absolute -top-3 -right-3 bg-background border border-border rounded-xl p-3 shadow-xl hidden sm:block animate-in fade-in slide-in-from-top-4 duration-700 delay-500">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-[#3495EB]">10K+</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">Monthly Students</div>
+                  <p className="text-xl font-bold text-primary-text leading-none">
+                    2023
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-1">
+                    Founded
+                  </p>
                 </div>
               </div>
             </div>
@@ -247,111 +356,257 @@ export function FounderStoryPage() {
         </div>
       </section>
 
-      {/* The Struggle Section */}
-      <section className="py-24 bg-white dark:bg-[#0B1220]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <Badge className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-0 mb-4">
-                The Journey
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4">
-                The Early Struggle
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
-                Every success story has a beginning. This is where it all started.
-              </p>
-            </div>
-
-            <Card className="bg-[#F9FAFB] dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] overflow-hidden">
-              <CardContent className="p-8 lg:p-12">
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3">
-                      <span className="text-4xl">📍</span>
-                      <span className="text-lg font-semibold text-[#111827] dark:text-white">Samundri, Punjab</span>
+      {/* ═══════════════════════ IMPACT STATS ═══════════════════════ */}
+      <section className="py-12 bg-muted/20 border-y border-border">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {impactStats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <Card
+                  key={index}
+                  className="bg-card border-border hover:shadow-md hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group animate-in fade-in slide-in-from-bottom-4"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="p-4 sm:p-5 text-center">
+                    <div
+                      className="w-11 h-11 mx-auto mb-2.5 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: `${stat.color}15` }}
+                    >
+                      <Icon
+                        className="w-5 h-5"
+                        style={{ color: stat.color }}
+                      />
                     </div>
-                    
-                    <h3 className="text-2xl font-bold text-[#111827] dark:text-white">
-                      Limited Resources, Unlimited Dreams
-                    </h3>
-                    
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      Born in a village near Samundri, Ali Hassan had limited access to the internet and digital resources. Like many beginners, he faced confusion, isolation, and financial constraints.
-                    </p>
-                    
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      But he had a vision: to master digital skills and help others achieve what he dreamed of. At age 21, he started from scratch, experimenting with online marketing, ads, and freelance work.
-                    </p>
-
-                    <div className="pt-4 border-t border-[#E5E7EB] dark:border-[#1F2937]">
-                      <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-                        "Every small success, every first campaign, and every challenge taught me how the digital world works—and that anyone can succeed with the right guidance."
-                      </p>
+                    <div
+                      className="text-xl sm:text-2xl font-bold mb-0.5"
+                      style={{ color: stat.color }}
+                    >
+                      {stat.isYear ? (
+                        <span>{stat.value}</span>
+                      ) : (
+                        <AnimatedCounter
+                          value={stat.value}
+                          suffix={stat.suffix}
+                          prefix={stat.prefix}
+                        />
+                      )}
                     </div>
-                  </div>
-                  
-                  <div className="relative">
-                    <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#3495EB] to-[#8B5CF6] p-8 flex items-center justify-center text-white text-center">
-                      <div>
-                        <div className="text-6xl mb-4">💡</div>
-                        <h4 className="text-2xl font-bold mb-2">The Turning Point</h4>
-                        <p className="text-white/90">Realizing that education, not just skills, was the key to transforming Pakistan's digital landscape.</p>
-                      </div>
+                    <div className="text-[11px] font-semibold text-foreground mb-0.5">
+                      {stat.label}
                     </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                    <div className="text-[10px] text-muted-foreground">
+                      {stat.description}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Timeline Section - The Rise */}
-      <section className="py-24 bg-[#F9FAFB] dark:bg-[#111827]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 mb-4">
-              Timeline
+      {/* ═══════════════════════ THE STORY ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-background">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Left: The Story */}
+            <div className="animate-in fade-in slide-in-from-left-8 duration-700">
+              <Badge className="bg-accent/10 text-accent border border-accent/20 mb-4 inline-flex items-center gap-1.5 text-[11px] font-bold">
+                <Quote className="w-3.5 h-3.5" />
+                The Story
+              </Badge>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight">
+                From Learning to Teaching
+              </h2>
+
+              <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                <p>
+                  Ali Hassan started his own digital skills journey as a
+                  self-taught learner — mastering AI, social media marketing,
+                  and trading through hands-on practice and real client work.
+                </p>
+                <p>
+                  In <strong className="text-foreground">2023</strong>, he
+                  turned that experience into{" "}
+                  <strong className="text-foreground">Hassan Digital Skills</strong>{" "}
+                  — a platform built specifically for Pakistani students who
+                  want practical skills, not just theory.
+                </p>
+                <p>
+                  Since then, HDS has trained{" "}
+                  <strong className="text-foreground">15,000+ students</strong>{" "}
+                  through live Zoom mentorship, class recordings, and real
+                  project work. The focus has always been the same: real
+                  skills, real support, real outcomes.
+                </p>
+              </div>
+
+              {/* Quote from founder */}
+              <div className="mt-6 p-4 rounded-xl border border-border bg-card relative">
+                <Quote className="absolute top-3 right-3 w-6 h-6 text-primary/10" />
+                <p className="text-xs italic text-foreground leading-relaxed pr-8">
+                  "I don't teach theory. My mission is to equip every student
+                  with the practical skills they need to earn, grow, and become
+                  self-reliant."
+                </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-0.5 w-6 bg-primary rounded-full" />
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                    Ali Hassan
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: What HDS Provides */}
+            <div className="animate-in fade-in slide-in-from-right-8 duration-700">
+              <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                <Layers className="w-4 h-4 text-primary" />
+                What HDS Provides
+              </h3>
+
+              <div className="space-y-2.5">
+                {[
+                  {
+                    title: "100% Live Interactive Classes",
+                    description:
+                      "Zoom sessions with Ali Hassan + class recordings",
+                    icon: Video,
+                  },
+                  {
+                    title: "Daily Practical Assignments",
+                    description:
+                      "Real client-based projects to build your portfolio",
+                    icon: PlayCircle,
+                  },
+                  {
+                    title: "Private WhatsApp Community",
+                    description:
+                      "Direct mentor support and peer networking",
+                    icon: MessageSquare,
+                  },
+                  {
+                    title: "HDS Certified e-Certificate",
+                    description:
+                      "Verifiable online with unique ID and QR code",
+                    icon: FileCheck,
+                  },
+                  {
+                    title: "Internship Opportunities",
+                    description:
+                      "1-month internship for students who complete training",
+                    icon: Briefcase,
+                  },
+                ].map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <Card
+                      key={i}
+                      className="bg-card border-border hover:shadow-sm hover:border-primary/30 transition-all animate-in fade-in"
+                      style={{ animationDelay: `${i * 80}ms` }}
+                    >
+                      <CardContent className="p-3 flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                          <Icon className="w-4 h-4 text-primary-text" />
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className="text-xs font-bold text-foreground">
+                            {item.title}
+                          </h4>
+                          <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                            {item.description}
+                          </p>
+                        </div>
+                        <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ TIMELINE ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-muted/20 relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-primary/10 text-primary-text border border-primary/20 mb-3 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <Clock className="w-3.5 h-3.5" />
+              The Journey
             </Badge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-4">
-              The Rise: Beginner to <span className="text-[#3495EB]">Digital Entrepreneur</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+              From 2023 to <span className="text-gradient">Vision 2030</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              From a single laptop to a nationwide network. Every milestone represents thousands of transformed lives.
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              Real milestones, real progress — building Pakistan's digital
+              workforce one batch at a time.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto relative">
-            {/* Center Line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-[#E5E7EB] dark:bg-[#1F2937] md:-translate-x-1/2" />
+          <div className="relative">
+            {/* Vertical Line */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-[#10B981] md:-translate-x-1/2" />
 
-            <div className="space-y-12">
+            <div className="space-y-6 lg:space-y-8">
               {journeyTimeline.map((item, index) => {
                 const isLeft = index % 2 === 0;
+                const Icon = item.icon;
                 return (
-                  <div key={index} className={`relative flex items-center md:gap-8 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                    
-                    {/* Content Card */}
-                    <div className={`flex-1 md:w-1/2 ${isLeft ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                      <Card className={`bg-white dark:bg-[#0B1220] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-all duration-300 ${isLeft ? 'md:ml-auto' : 'md:mr-auto'}`}>
-                        <CardContent className="p-6">
-                          <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
-                            <span className="text-2xl font-bold text-[#3495EB]">{item.year}</span>
-                            <Badge variant="outline" className="border-[#3495EB]/30 text-[#3495EB] text-xs">
+                  <div
+                    key={index}
+                    className={`relative flex items-center md:gap-6 ${
+                      isLeft ? "md:flex-row" : "md:flex-row-reverse"
+                    } animate-in fade-in slide-in-from-bottom-4`}
+                    style={{ animationDelay: `${index * 120}ms` }}
+                  >
+                    {/* Content */}
+                    <div
+                      className={`flex-1 md:w-1/2 pl-12 md:pl-0 ${
+                        isLeft ? "md:pr-8 md:text-right" : "md:pl-8"
+                      }`}
+                    >
+                      <Card className="bg-card border-border hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+                        <CardContent className="p-4 sm:p-5">
+                          <div
+                            className={`flex items-center gap-2 mb-2 flex-wrap ${
+                              isLeft ? "md:justify-end" : ""
+                            }`}
+                          >
+                            <span className="text-sm font-bold text-primary-text">
+                              {item.year}
+                            </span>
+                            <Badge
+                              variant="outline"
+                              className="bg-primary/5 text-primary-text border-primary/20 text-[9px] inline-flex items-center gap-1"
+                            >
+                              <Zap className="w-2.5 h-2.5" />
                               {item.milestone}
                             </Badge>
                           </div>
-                          <h3 className="text-xl font-bold text-[#111827] dark:text-white mb-2">{item.title}</h3>
-                          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.description}</p>
+                          <h3 className="text-sm font-bold text-foreground mb-1">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            {item.description}
+                          </p>
                         </CardContent>
                       </Card>
                     </div>
 
-                    {/* Center Dot */}
-                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#3495EB] border-4 border-white dark:border-[#0B1220] shadow-lg z-10" />
+                    {/* Center Icon */}
+                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-background border-2 border-primary flex items-center justify-center shadow-md z-10">
+                      <Icon className="w-4 h-4 text-primary-text" />
+                    </div>
 
-                    {/* Empty Space */}
+                    {/* Spacer */}
                     <div className="hidden md:block flex-1 md:w-1/2" />
                   </div>
                 );
@@ -361,262 +616,156 @@ export function FounderStoryPage() {
         </div>
       </section>
 
-      {/* Mission & Vision Section */}
-      <section className="py-24 bg-white dark:bg-[#0B1220]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            
-            {/* Mission Content */}
-            <div className="space-y-8">
-              <div>
-                <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 mb-4">
-                  Our Mission
-                </Badge>
-                <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-6">
-                  Free Digital Education for <span className="text-[#3495EB]">Every Pakistani</span>
+      {/* ═══════════════════════ PHILOSOPHY ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-background">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 mb-3 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <Target className="w-3.5 h-3.5" />
+              Our Philosophy
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
+              The HDS <span className="text-gradient">Approach</span>
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {coreValues.map((value, index) => {
+              const Icon = value.icon;
+              return (
+                <Card
+                  key={index}
+                  className="bg-card border-border hover:border-primary/30 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group animate-in fade-in slide-in-from-bottom-4"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="p-5">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
+                      style={{ backgroundColor: `${value.color}15` }}
+                    >
+                      <Icon
+                        className="w-6 h-6"
+                        style={{ color: value.color }}
+                      />
+                    </div>
+                    <h3 className="text-sm font-bold text-foreground mb-1.5">
+                      {value.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {value.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ VISION 2030 ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-muted/20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <Card className="bg-card border-border overflow-hidden relative animate-in fade-in zoom-in-95 duration-700">
+            <div className="absolute inset-0 gradient-primary opacity-[0.05]" />
+            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
+
+            <CardContent className="relative p-6 sm:p-8 lg:p-10">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary-text px-3 py-1 text-[11px] font-bold mb-3">
+                  <Eye className="w-3.5 h-3.5" />
+                  Vision X 2030
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+                  From Learner, to Leader, to Investor
                 </h2>
-                <blockquote className="text-xl text-gray-600 dark:text-gray-300 italic border-l-4 border-[#3495EB] pl-6 py-2 mb-6">
-                  "Every Pakistani deserves free access to digital skills, practical experience, and income opportunities."
-                </blockquote>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                  Ali Hassan's mission is simple yet powerful. Through HDS, he has created a complete learning ecosystem that transforms beginners into professionals, and professionals into entrepreneurs.
+                <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+                  A focused pathway where digital skills education leads to
+                  real, lasting opportunity.
                 </p>
               </div>
 
-              <div className="space-y-4">
-                <h3 className="font-bold text-[#111827] dark:text-white text-lg">What We Provide:</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#3495EB] mt-1">✓</span>
-                    <span className="text-gray-600 dark:text-gray-300">Free monthly courses for 10,000 students on scholarship basis</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#3495EB] mt-1">✓</span>
-                    <span className="text-gray-600 dark:text-gray-300">Hands-on training through HDS Software House with real clients</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#3495EB] mt-1">✓</span>
-                    <span className="text-gray-600 dark:text-gray-300">20+ franchise partners across Pakistan for local accessibility</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#3495EB] mt-1">✓</span>
-                    <span className="text-gray-600 dark:text-gray-300">Global reach connecting students, freelancers, and investors</span>
-                  </li>
-                </ul>
+              {/* 3-step journey */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-8">
+                <div className="flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 w-full sm:w-auto justify-center">
+                  <CheckCircle className="w-4 h-4 text-primary-text" />
+                  <span className="text-sm font-semibold text-foreground">
+                    Learner
+                  </span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-muted-foreground rotate-90 sm:rotate-0" />
+                <div className="flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 w-full sm:w-auto justify-center">
+                  <TrendingUp className="w-4 h-4 text-accent" />
+                  <span className="text-sm font-semibold text-foreground">
+                    Leader
+                  </span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-muted-foreground rotate-90 sm:rotate-0" />
+                <div className="flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 w-full sm:w-auto justify-center">
+                  <Award className="w-4 h-4 text-[#10B981]" />
+                  <span className="text-sm font-semibold text-foreground">
+                    Investor
+                  </span>
+                </div>
               </div>
-            </div>
 
-            {/* Vision 2030 Card */}
-            <div className="relative">
-              <Card className="bg-[#F9FAFB] dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] p-8 lg:p-12 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#3495EB]/5 rounded-full -mr-16 -mt-16" />
-                
-                <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-2xl bg-[#3495EB]/10 dark:bg-[#3495EB]/20 flex items-center justify-center text-3xl mb-6">
-                    🚀
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-4">
-                    Vision 2030
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                    Building Pakistan's most comprehensive digital education and entrepreneurship ecosystem by 2030. A future where:
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4 p-4 bg-white dark:bg-[#0B1220] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937]">
-                      <span className="text-2xl">🎓</span>
-                      <div>
-                        <div className="font-semibold text-[#111827] dark:text-white">Students</div>
-                        <div className="text-sm text-gray-500">Learn in-demand skills free</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 bg-white dark:bg-[#0B1220] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937]">
-                      <span className="text-2xl">💼</span>
-                      <div>
-                        <div className="font-semibold text-[#111827] dark:text-white">Freelancers</div>
-                        <div className="text-sm text-gray-500">Earn through global platforms</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 bg-white dark:bg-[#0B1220] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937]">
-                      <span className="text-2xl">🏢</span>
-                      <div>
-                        <div className="font-semibold text-[#111827] dark:text-white">Entrepreneurs</div>
-                        <div className="text-sm text-gray-500">Build scalable businesses</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 bg-white dark:bg-[#0B1220] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937]">
-                      <span className="text-2xl">💰</span>
-                      <div>
-                        <div className="font-semibold text-[#111827] dark:text-white">Investors</div>
-                        <div className="text-sm text-gray-500">Fund digital startups</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Values */}
-      <section className="py-24 bg-[#F9FAFB] dark:bg-[#111827]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 mb-4">
-              Our Philosophy
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4">
-              Core Values That Drive <span className="text-[#3495EB]">HDS</span>
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {coreValues.map((value, index) => (
-              <Card 
-                key={index}
-                className="bg-white dark:bg-[#0B1220] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 hover:shadow-lg transition-all duration-300 group"
-              >
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-[#3495EB]/10 dark:bg-[#3495EB]/20 flex items-center justify-center text-3xl mx-auto mb-6 group-hover:scale-110 transition-transform">
-                    {value.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-[#111827] dark:text-white mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Impact Stats Section */}
-      <section className="py-24 bg-[#3495EB] relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Impact That Speaks
-            </h2>
-            <p className="text-blue-100 text-lg max-w-2xl mx-auto">
-              Numbers that reflect trust, growth, and transformed lives across Pakistan and beyond.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {impactStats.map((stat, index) => (
-              <Card 
-                key={index}
-                className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-              >
-                <CardContent className="p-8 text-center">
-                  <div className="text-4xl mb-4">{stat.icon}</div>
-                  <div className="text-4xl sm:text-5xl font-bold mb-2">
-                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                  </div>
-                  <div className="text-xl font-semibold mb-1">{stat.label}</div>
-                  <div className="text-blue-100 text-sm">{stat.description}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Additional Trust Badges */}
-          <div className="mt-16 flex flex-wrap justify-center gap-6">
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-              <span className="text-xl">📋</span>
-              <span className="text-white font-semibold">SECP Registered</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-              <span className="text-xl">🌐</span>
-              <span className="text-white font-semibold">Global Certification</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-              <span className="text-xl">🎓</span>
-              <span className="text-white font-semibold">Scholarship Based</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The Promise Section */}
-      <section className="py-24 bg-white dark:bg-[#0B1220]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 mb-6">
-              The Promise
-            </Badge>
-            
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-8">
-              From Village to <span className="text-[#3495EB]">Victory</span>
-            </h2>
-            
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-12">
-              Ali Hassan believes no student should be denied opportunity because of background, location, or resources. From village beginnings to running a nationwide institute, his journey proves:
-            </p>
-
-            <div className="grid sm:grid-cols-5 gap-4 mb-12">
-              {['Beginner', 'Learner', 'Freelancer', 'Entrepreneur', 'Mentor'].map((step, index) => (
-                <div key={index} className="relative">
-                  <div className="bg-[#F9FAFB] dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#1F2937] rounded-xl p-4 text-center hover:border-[#3495EB]/30 transition-colors">
-                    <div className="text-2xl mb-2">
-                      {index === 0 && '👶'}
-                      {index === 1 && '📖'}
-                      {index === 2 && '💻'}
-                      {index === 3 && '🚀'}
-                      {index === 4 && '👨‍🏫'}
-                    </div>
-                    <div className="font-bold text-[#111827] dark:text-white text-sm">{step}</div>
-                  </div>
-                  {index < 4 && (
-                    <div className="hidden sm:block absolute top-1/2 -right-2 transform -translate-y-1/2 text-[#3495EB]">
-                      →
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-[#F9FAFB] dark:bg-[#111827] rounded-2xl p-8 lg:p-12 border border-[#E5E7EB] dark:border-[#1F2937]">
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 italic">
-                "Challenges are stepping stones, not barriers. Free, accessible education is the key to a thriving digital future."
+              <p className="mt-6 text-center text-[11px] text-muted-foreground">
+                Focused purely on education and skills — a real path from
+                learning to giving back.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-  {/* Join HDS Today -> Enroll Page */}
-  <Button 
-    asChild
-    className="bg-[#3495EB] hover:bg-[#347ce0] text-white px-8 h-12 text-base font-semibold rounded-lg shadow-lg shadow-[#3495EB]/20"
-  >
-    <Link href="/enroll">
-      Join HDS Today
-    </Link>
-  </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-  {/* Become a Franchise Partner -> Contact Page */}
-  <Button 
-    asChild
-    variant="outline"
-    className="border-[#E5E7EB] dark:border-[#1F2937] text-[#111827] dark:text-white px-8 h-12 text-base font-semibold rounded-lg hover:bg-[#F9FAFB] dark:hover:bg-[#111827]"
-  >
-    <Link href="/contact">
-      Become a Franchise Partner
-    </Link>
-  </Button>
-</div>
+      {/* ═══════════════════════ FINAL CTA ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:32px_32px]" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-sm sm:text-base text-white/85 mb-6 max-w-xl mx-auto leading-relaxed">
+              Join Batch 18 — starting{" "}
+              <strong className="text-white">6 December 2026</strong>. Market
+              value Rs. 25,000, scholarship seat fee just Rs. 200.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+              <Link href="/enroll">
+                <Button className="bg-white text-primary hover:bg-white/90 px-6 h-11 text-sm font-bold rounded-xl shadow-lg w-full sm:w-auto inline-flex items-center gap-2">
+                  <Rocket className="w-4 h-4" />
+                  Enroll in Batch 18
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  variant="outline"
+                  className="border-white/40 text-black hover:bg-white/10 px-6 h-11 text-sm font-semibold rounded-xl w-full sm:w-auto inline-flex items-center gap-2 backdrop-blur-sm"
+                >
+                  <MapPin className="w-4 h-4" />
+                  Contact Us
+                </Button>
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 text-white/70 text-[11px]">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-white" />
+                Rs. 200 seat fee
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-white" />
+                HDS Certified e-Certificate
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Briefcase className="w-3.5 h-3.5 text-white" />
+                Internship opportunities
+              </div>
             </div>
           </div>
         </div>

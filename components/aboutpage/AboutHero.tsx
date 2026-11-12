@@ -1,231 +1,257 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 
-// Import Lucide React icons
-import { 
-  Users, 
-  Store, 
-  GraduationCap, 
-  MapPin, 
-  Lightbulb, 
-  BookOpen, 
-  Settings, 
-  Rocket, 
-  Briefcase, 
+import {
+  Users,
+  GraduationCap,
+  MapPin,
+  Lightbulb,
+  BookOpen,
+  Rocket,
+  Briefcase,
   TrendingUp,
   Target,
   Eye,
-  Gift,
   Award,
   Globe,
   Monitor,
   UserCheck,
   CheckCircle,
-  XCircle,
-  BookOpenCheck,
-  Hammer,
-  DollarSign,
   ArrowRight,
   Sparkles,
   ShieldCheck,
   Clock,
-  Zap
+  Zap,
+  Video,
+  MessageSquare,
+  FileCheck,
+  Layers,
+  PlayCircle,
+  Mail,
+  Phone,
 } from "lucide-react";
 
-// Stats data with Lucide icons
+// ═══════════════════════════════════════════════════════════════
+// REAL STATS (from brief)
+// ═══════════════════════════════════════════════════════════════
 const impactStats = [
   {
-    icon: Users,
-    value: 10000,
-    suffix: "+",
-    label: "Students Trained",
-    description: "Across Pakistan and beyond",
-    color: "#3495EB"
+    icon: Rocket,
+    value: 2023,
+    suffix: "",
+    label: "Founded",
+    description: "Empowering youth since",
+    color: "#3495EB",
+    isYear: true,
   },
   {
-    icon: Store,
-    value: 10,
+    icon: Users,
+    value: 15000,
     suffix: "+",
-    label: "Franchise Partners",
-    description: "Multiple cities covered",
-    color: "#8B5CF6"
+    label: "Students Trained",
+    description: "Across Pakistan",
+    color: "#8B5CF6",
+    isYear: false,
   },
   {
     icon: GraduationCap,
-    value: 9,
-    suffix: "+",
-    label: "Batches Conducted",
-    description: "Consistent learning cycles",
-    color: "#10B981"
+    value: 3,
+    suffix: "",
+    label: "Top Mentorships",
+    description: "AI · SMM · Crypto",
+    color: "#10B981",
+    isYear: false,
   },
   {
-    icon: MapPin,
-    value: 25,
-    suffix: "+",
-    label: "Cities Reached",
-    description: "Nationwide presence",
-    color: "#F59E0B"
-  }
+    icon: Layers,
+    value: 18,
+    suffix: "",
+    label: "Current Batch",
+    description: "Registration open",
+    color: "#F59E0B",
+    isYear: false,
+    prefix: "Batch ",
+  },
 ];
 
-// Timeline data with Lucide icons
+// ═══════════════════════════════════════════════════════════════
+// REAL TIMELINE (only brief-backed milestones)
+// ═══════════════════════════════════════════════════════════════
 const timelineData = [
   {
-    year: "2020",
-    title: "The Reality Hit",
-    description: "As digital skills gained popularity, one thing became clear: people were learning, but not earning. This gap sparked a mission — to turn learning into real income.",
-    highlight: "Mission Born",
-    icon: Lightbulb
-  },
-  {
-    year: "2021",
-    title: "Deep Learning & Ground Work",
-    description: "Focused on mastering freelancing, social media marketing, and client handling. The priority was not just learning skills, but developing income-generating abilities.",
-    highlight: "Skill Mastery",
-    icon: BookOpen
-  },
-  {
-    year: "2022",
-    title: "System Testing",
-    description: "Multiple models were tested — courses, freelancing workflows, and client acquisition systems. Key insight: people don't just need courses, they need a complete earning system.",
-    highlight: "System Design",
-    icon: Settings
-  },
-  {
     year: "2023",
-    title: "Birth of HDS",
-    description: "Officially launched with scholarship-based access, live mentorship, and practical learning. The mission was clear: help every student move from learning to earning.",
-    highlight: "Official Launch",
-    icon: Rocket
+    title: "HDS Founded",
+    description:
+      "Hassan Digital Skills was established by Ali Hassan (Meta & Google Certified) with a mission to make practical digital skills accessible to every Pakistani student.",
+    highlight: "The Beginning",
+    icon: Lightbulb,
   },
   {
-    year: "2024",
-    title: "Internship Ecosystem",
-    description: "Evolved beyond training with real internship opportunities, hands-on project experience, and a clear path: Learning → Practice → Experience.",
-    highlight: "Practical Exposure",
-    icon: Briefcase
+    year: "2024–2025",
+    title: "Growth & Refinement",
+    description:
+      "Refined the mentorship model with 100% live Zoom classes, class recordings, hands-on projects, and real internship opportunities — resulting in 15,000+ students trained.",
+    highlight: "15,000+ Students",
+    icon: TrendingUp,
   },
   {
-    year: "2025",
-    title: "Scaling Results",
-    description: "HDS evolved into a complete income-focused ecosystem. Students started earning, systems refined, focus on scale, consistency, and real outcomes.",
-    highlight: "Income Generation",
-    icon: TrendingUp
-  }
+    year: "2026",
+    title: "Batch 18 Launching",
+    description:
+      "Batch 18 begins on 6 December 2026. Three top-demand mentorships — AI, Social Media Marketing, and Crypto Trading — with 10,000 total seats available.",
+    highlight: "Batch 18 · 6 Dec 2026",
+    icon: Rocket,
+  },
+  {
+    year: "2030",
+    title: "Vision X 2030",
+    description:
+      "From Learner, to Leader, to Investor — building a future where education and digital skills create real, lasting opportunity for every common person.",
+    highlight: "The Future",
+    icon: Award,
+  },
 ];
 
-// Why HDS features with Lucide icons
+// ═══════════════════════════════════════════════════════════════
+// REAL FEATURES (from brief — "Why HDS")
+// ═══════════════════════════════════════════════════════════════
 const differentiators = [
   {
-    icon: Gift,
-    title: "Free Monthly Courses",
-    description: "10,000 students trained every month without any cost. Quality education shouldn't have a price barrier. We believe in democratizing digital education for every Pakistani.",
-    stat: "10K/month"
+    icon: Video,
+    title: "100% Live Interactive Classes",
+    description:
+      "Attend live sessions on Zoom with Ali Hassan. Ask questions in real-time, get feedback, and learn interactively — not from pre-recorded videos.",
+    stat: "Live Zoom",
   },
   {
-    icon: Award,
-    title: "Govt-Verified Certificates",
-    description: "Official certification that adds credibility to your profile and helps in job applications and freelancing. Our certificates are recognized by top employers across Pakistan.",
-    stat: "Recognized"
+    icon: PlayCircle,
+    title: "Class Recordings",
+    description:
+      "Missed a session? Every lecture is recorded and available to watch anytime. Revise at your own pace without missing anything.",
+    stat: "On-Demand",
   },
   {
     icon: Briefcase,
-    title: "1-Month Real Internship",
-    description: "Convert theoretical skills into actual work experience with real projects and client exposure. Work on live projects with industry professionals and build your portfolio.",
-    stat: "Hands-on"
+    title: "Live Client-Based Projects",
+    description:
+      "Work on real-world projects to build a portfolio that actually gets you hired. Complete daily practical assignments alongside the theory.",
+    stat: "Real Work",
   },
   {
-    icon: Globe,
-    title: "Franchise Network",
-    description: "Nationwide learning centers with consistent quality and local accessibility across Pakistan. From Karachi to Peshawar, we're building a network of excellence.",
-    stat: "10+ Cities"
-  },
-  {
-    icon: Monitor,
-    title: "Career-Ready Skills",
-    description: "Curriculum designed for immediate income generation through freelancing or remote work. Learn the exact skills that clients and employers are actively seeking in 2025.",
-    stat: "Job-ready"
+    icon: MessageSquare,
+    title: "Private WhatsApp Community",
+    description:
+      "Join an exclusive community of fellow students. Network, ask questions, and stay updated on new opportunities — directly from your phone.",
+    stat: "Direct Access",
   },
   {
     icon: UserCheck,
-    title: "Live Mentorship",
-    description: "Direct access to industry experts, successful freelancers, and entrepreneurs for guidance. Weekly Q&A sessions, portfolio reviews, and career counseling included.",
-    stat: "Expert-led"
-  }
-];
-
-// Core pillars with Lucide icons
-const pillars = [
-  {
-    title: "Our Purpose",
-    subtitle: "Empowering Every Pakistani",
-    description: "To equip individuals across Pakistan with the right skills, practical tools, and continuous support needed to earn online, advance their careers, and build a stable future. We exist to bridge the gap between education and employment.",
-    icon: Target,
-    color: "from-[#3495EB] to-[#347ce0]"
+    title: "Direct Mentor Support",
+    description:
+      "Get your questions answered directly by Ali Hassan — not by bots or moderators. Personal guidance throughout your learning journey.",
+    stat: "Mentor-Led",
   },
   {
+    icon: FileCheck,
+    title: "HDS Certified e-Certificate",
+    description:
+      "Receive a verifiable HDS Certified e-Certificate after completing your training. Unique ID, QR verification, and industry-recognized for your portfolio.",
+    stat: "Verifiable",
+  },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// MISSION / VISION / PURPOSE (from brief)
+// ═══════════════════════════════════════════════════════════════
+const pillars = [
+  {
     title: "Our Mission",
-    subtitle: "Free Education at Scale",
-    description: "Educate 10,000 students every month through practical digital skills courses, completely free, followed by real 1-month internships to turn learning into real-world experience. No student left behind due to financial constraints.",
-    icon: Rocket,
-    color: "from-[#8B5CF6] to-[#7c3aed]"
+    subtitle: "Skills for Every Pakistani",
+    description:
+      "To make practical, income-focused digital skills accessible to every common person in Pakistan — regardless of background or prior experience. Quality education, real mentorship, and genuine support.",
+    icon: Target,
+    gradient: "from-[#3495EB] to-[#347ce0]",
   },
   {
     title: "Our Vision",
-    subtitle: "Digital Pakistan 2030",
-    description: "Create a holistic ecosystem where every student learns for free, gains hands-on experience, and connects with a network of freelancers, entrepreneurs, and opportunities. Building Pakistan's largest digital workforce.",
+    subtitle: "Success for Every Common Person",
+    description:
+      "A future where every learner can transform digital skills into real opportunities. A complete ecosystem: from learning to practical experience to freelancing or job readiness.",
     icon: Eye,
-    color: "from-[#10B981] to-[#059669]"
-  }
-];
-
-// Challenge cards data
-const challenges = [
-  {
-    icon: XCircle,
-    title: "Traditional Education Gap",
-    description: "The conventional education system was not enough to prepare students for digital careers and modern workplace demands.",
-    type: "problem"
+    gradient: "from-[#8B5CF6] to-[#7c3aed]",
   },
   {
-    icon: XCircle,
-    title: "Unaffordable Courses",
-    description: "High-priced courses were out of reach for talented individuals, creating a barrier to entry for quality digital education.",
-    type: "problem"
+    title: "Vision X 2030",
+    subtitle: "From Learner, to Leader, to Investor",
+    description:
+      "Building a pathway where skills education leads to real outcomes — learning, building a career, and giving back to the community. Focused purely on education and growth.",
+    icon: Award,
+    gradient: "from-[#10B981] to-[#059669]",
   },
-  {
-    icon: CheckCircle,
-    title: "The HDS Solution",
-    description: "A clear system guiding students from learning → earning, completely free. Quality education accessible to every Pakistani regardless of financial background.",
-    type: "solution"
-  }
 ];
 
-// Ecosystem steps data
+// ═══════════════════════════════════════════════════════════════
+// ECOSYSTEM STEPS (real from brief)
+// ═══════════════════════════════════════════════════════════════
 const ecosystemSteps = [
-  { step: "01", title: "Learn", desc: "Free digital skills training with industry-standard curriculum", icon: BookOpenCheck, color: "#3495EB" },
-  { step: "02", title: "Practice", desc: "Hands-on project work with real-world scenarios", icon: Hammer, color: "#8B5CF6" },
-  { step: "03", title: "Intern", desc: "1-month real experience with client projects", icon: Briefcase, color: "#F59E0B" },
-  { step: "04", title: "Earn", desc: "Freelance or job ready with portfolio", icon: DollarSign, color: "#10B981" }
+  {
+    step: "01",
+    title: "Learn",
+    desc: "Live classes, recordings, and daily practical work",
+    icon: BookOpen,
+    color: "#3495EB",
+  },
+  {
+    step: "02",
+    title: "Practice",
+    desc: "Real client-based projects and assignments",
+    icon: Briefcase,
+    color: "#8B5CF6",
+  },
+  {
+    step: "03",
+    title: "Certify",
+    desc: "HDS Certified e-Certificate, verifiable online",
+    icon: Award,
+    color: "#F59E0B",
+  },
+  {
+    step: "04",
+    title: "Grow",
+    desc: "Internship, freelancing & job opportunities",
+    icon: TrendingUp,
+    color: "#10B981",
+  },
 ];
 
-// Trust badges
+// ═══════════════════════════════════════════════════════════════
+// TRUST BADGES (real & verified only)
+// ═══════════════════════════════════════════════════════════════
 const trustBadges = [
-  { icon: ShieldCheck, text: "SECP Registered" },
-  { icon: Award, text: "Google Partner" },
-  { icon: CheckCircle, text: "Meta Certified" },
-  { icon: Gift, text: "Scholarship Based" },
-  { icon: TrendingUp, text: "95% Success Rate" }
+  { icon: ShieldCheck, text: "Meta & Google Certified Mentor" },
+  { icon: Award, text: "HDS Certified e-Certificate" },
+  { icon: Clock, text: "Since 2023" },
+  { icon: Users, text: "15,000+ Students Trained" },
+  { icon: Phone, text: "0327 1543140" },
 ];
 
-function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+// ═══════════════════════════════════════════════════════════════
+// ANIMATED COUNTER
+// ═══════════════════════════════════════════════════════════════
+function AnimatedCounter({
+  value,
+  suffix,
+  prefix = "",
+}: {
+  value: number;
+  suffix: string;
+  prefix?: string;
+}) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -233,24 +259,17 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     if (!isVisible) return;
-
-    const duration = 2000;
+    const duration = 1800;
     const steps = 60;
     const increment = value / steps;
     let current = 0;
@@ -270,76 +289,103 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
   return (
     <div ref={ref} className="tabular-nums">
-      {count.toLocaleString()}{suffix}
+      {prefix}
+      {count.toLocaleString()}
+      {suffix}
     </div>
   );
 }
 
+// ═══════════════════════════════════════════════════════════════
+// PAGE
+// ═══════════════════════════════════════════════════════════════
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0B1220] overflow-x-hidden">
-
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-[#F9FAFB] dark:bg-[#111827]">
-          <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #3495EB 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} />
+    <main className="min-h-screen bg-background overflow-x-hidden">
+      {/* ═══════════════════════ HERO ═══════════════════════ */}
+      <section className="relative pt-16 pb-20 lg:pt-20 lg:pb-24 overflow-hidden">
+        {/* Animated Background */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[140px] animate-pulse duration-[7000ms]" />
+          <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] animate-pulse duration-[5000ms]" />
         </div>
 
-        {/* Decorative Blob */}
-        <div className="absolute top-20 right-0 w-96 h-96 bg-[#3495EB]/5 rounded-full blur-3xl -mr-48" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#8B5CF6]/5 rounded-full blur-3xl -ml-48" />
-
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 px-4 py-1.5 mb-6 inline-flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center mb-14 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-primary/10 text-primary-text border border-primary/20 px-3 py-1 mb-5 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <Sparkles className="w-3.5 h-3.5" />
               About Hassan Digital Skills
             </Badge>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#111827] dark:text-white leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
               Empowering Pakistan Through{" "}
-              <span className="text-[#3495EB]">Digital Skills</span>
+              <span className="text-gradient">Digital Skills</span>
             </h1>
 
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto mb-10">
-              From a small initiative to a nationwide movement. We&apos;re building Pakistan&apos;s 
-              largest free digital education ecosystem that turns learners into earners.
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+              Since 2023, HDS has trained <strong className="text-foreground">15,000+ students</strong> in
+              practical, income-focused digital skills through live mentorship,
+              real projects, and verifiable certification.
             </p>
 
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/courses">
-                <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white px-8 h-12 text-base font-semibold rounded-lg shadow-lg shadow-[#3495EB]/20 inline-flex items-center gap-2">
-                  Explore Courses
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link href="/mentorships">
+                <Button className="gradient-primary text-white px-6 h-11 text-sm font-bold rounded-xl shadow-glow hover:scale-105 transition-all inline-flex items-center gap-2">
+                  Explore Mentorships
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/founder-story">
-                <Button variant="outline" className="border-[#E5E7EB] dark:border-[#1F2937] text-[#111827] dark:text-white px-8 h-12 text-base font-semibold rounded-lg hover:bg-[#F9FAFB] dark:hover:bg-[#111827] inline-flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  className="border-border text-foreground px-6 h-11 text-sm font-semibold rounded-xl hover:bg-muted transition-all"
+                >
                   Meet the Founder
                 </Button>
               </Link>
             </div>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          {/* ═══ Stats ═══ */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
             {impactStats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <Card key={index} className="bg-white dark:bg-[#0B1220] border-[#E5E7EB] dark:border-[#1F2937] hover:shadow-xl hover:border-[#3495EB]/20 transition-all duration-300 group">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: `${stat.color}15` }}>
-                      <IconComponent className="w-8 h-8" style={{ color: stat.color }} />
+                <Card
+                  key={index}
+                  className="bg-card border-border hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group animate-in fade-in slide-in-from-bottom-4"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="p-4 sm:p-5 text-center">
+                    <div
+                      className="w-11 h-11 mx-auto mb-3 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: `${stat.color}15` }}
+                    >
+                      <IconComponent
+                        className="w-5 h-5"
+                        style={{ color: stat.color }}
+                      />
                     </div>
-                    <div className="text-3xl sm:text-4xl font-bold mb-1" style={{ color: stat.color }}>
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                    <div
+                      className="text-xl sm:text-2xl font-bold mb-0.5"
+                      style={{ color: stat.color }}
+                    >
+                      {stat.isYear ? (
+                        <span>{stat.value}</span>
+                      ) : (
+                        <AnimatedCounter
+                          value={stat.value}
+                          suffix={stat.suffix}
+                          prefix={stat.prefix}
+                        />
+                      )}
                     </div>
-                    <div className="font-semibold text-[#111827] dark:text-white mb-1">{stat.label}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">{stat.description}</div>
+                    <div className="text-[11px] sm:text-xs font-semibold text-foreground mb-0.5">
+                      {stat.label}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">
+                      {stat.description}
+                    </div>
                   </CardContent>
                 </Card>
               );
@@ -348,130 +394,181 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who We Are & The Challenge */}
-      <section className="py-24 bg-white dark:bg-[#0B1220]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
-
-            {/* Left: Who We Are */}
-            <div className="space-y-6">
-              <Badge className="bg-[#8B5CF6]/10 dark:bg-[#8B5CF6]/20 text-[#8B5CF6] border-0 inline-flex items-center gap-2">
-                <Target className="w-4 h-4" />
+      {/* ═══════════════════════ WHO WE ARE ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-muted/20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Left */}
+            <div className="animate-in fade-in slide-in-from-left-8 duration-700">
+              <Badge className="bg-accent/10 text-accent border border-accent/20 mb-4 inline-flex items-center gap-1.5 text-[11px] font-bold">
+                <Target className="w-3.5 h-3.5" />
                 Who We Are
               </Badge>
 
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight">
                 Built to Solve a Real Challenge in Pakistan
               </h2>
 
-              <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+              <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>
-                  Hassan Digital Skills (HDS) was established with a single vision: to equip individuals 
-                  across Pakistan with the right skills, practical tools, and continuous support needed 
-                  to earn online, advance their careers, and build a stable future.
+                  <strong className="text-foreground">Hassan Digital Skills (HDS)</strong> was
+                  established in 2023 by{" "}
+                  <strong className="text-foreground">Ali Hassan</strong> (Meta & Google
+                  Certified) with a clear vision: to equip individuals across
+                  Pakistan with the practical skills, tools, and support needed
+                  to earn online and build a stable future.
                 </p>
                 <p>
-                  Starting with a scholarship-based model and live online sessions, HDS gradually 
-                  evolved into a structured platform focused on skill development, practical exposure, 
-                  and digital growth. We identified the gap between traditional education and industry needs.
+                  Starting with live online mentorship, HDS gradually evolved
+                  into a structured platform focused on skill development,
+                  practical exposure, and real growth. We identified the gap
+                  between traditional education and industry needs — and built
+                  a solution around it.
                 </p>
                 <p>
-                  Today, HDS continues to expand with a growing network of students, training programs, 
-                  and a supportive learning community that celebrates every success story. Our graduates 
-                  are working with international clients, top local companies, and building their own startups.
+                  Today, HDS continues to grow with a network of{" "}
+                  <strong className="text-foreground">15,000+ students</strong>,
+                  live mentorships, real client projects, and a supportive
+                  learning community.
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 pt-4">
-                <div className="flex -space-x-3">
-                  {[Zap, Users, GraduationCap, UserCheck].map((IconComponent, i) => (
-                    <div key={i} className="w-10 h-10 rounded-full bg-[#F9FAFB] dark:bg-[#111827] border-2 border-white dark:border-[#0B1220] flex items-center justify-center">
-                      <IconComponent className="w-5 h-5 text-[#3495EB]" />
-                    </div>
-                  ))}
+              {/* Founder credit */}
+              <div className="mt-6 flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <UserCheck className="w-5 h-5 text-primary-text" />
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">
-                  <span className="font-semibold text-[#111827] dark:text-white">15,000+</span> students joined already
+                <div>
+                  <p className="text-xs font-bold text-foreground">Ali Hassan</p>
+                  <p className="text-[10px] text-muted-foreground">
+                    Founder & Mentor · Meta & Google Certified
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Right: The Problem Cards */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-[#111827] dark:text-white mb-6 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-[#3495EB]" />
-                The Challenge We Address
+            {/* Right — Real Challenges Solved */}
+            <div className="space-y-3 animate-in fade-in slide-in-from-right-8 duration-700">
+              <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                <Lightbulb className="w-4 h-4 text-primary" />
+                The Gap We Fill
               </h3>
 
-              {challenges.map((challenge, index) => {
-                const IconComponent = challenge.icon;
-                const isSolution = challenge.type === "solution";
-                return (
-                  <Card key={index} className={`border-l-4 ${isSolution ? 'border-l-[#3495EB]' : 'border-l-red-400'} bg-[#F9FAFB] dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:shadow-md transition-shadow`}>
-                    <CardContent className="p-5 flex gap-4">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isSolution ? 'bg-[#3495EB]/10' : 'bg-red-50'}`}>
-                        <IconComponent className={`w-5 h-5 ${isSolution ? 'text-[#3495EB]' : 'text-red-500'}`} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-[#111827] dark:text-white mb-1">{challenge.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">{challenge.description}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+              {[
+                {
+                  title: "Theory Without Practice",
+                  description:
+                    "Traditional courses teach concepts but leave students without real-world experience. HDS adds live projects, assignments, and internships.",
+                },
+                {
+                  title: "High-Cost Barriers",
+                  description:
+                    "Quality digital skills training was expensive. Our scholarship model makes mentorship accessible for just Rs. 200 seat confirmation fee.",
+                },
+                {
+                  title: "No Guidance After Learning",
+                  description:
+                    "Most students learn alone and get stuck. HDS provides direct mentor support, private community, and internship pathways.",
+                },
+              ].map((item, i) => (
+                <Card
+                  key={i}
+                  className="border-l-4 border-l-primary bg-card border-border hover:shadow-md transition-all"
+                >
+                  <CardContent className="p-4 flex gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <CheckCircle className="w-4 h-4 text-primary-text" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground mb-0.5">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="py-24 bg-[#F9FAFB] dark:bg-[#111827] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="bg-[#3495EB]/10 dark:bg-[#3495EB]/20 text-[#3495EB] border-0 mb-4 inline-flex items-center gap-2">
-              <Clock className="w-4 h-4" />
+      {/* ═══════════════════════ TIMELINE ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-background relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-primary/10 text-primary-text border border-primary/20 mb-3 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <Clock className="w-3.5 h-3.5" />
               Our Journey
             </Badge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-4">
-              From Concept to <span className="text-[#3495EB]">Impact</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+              From 2023 to <span className="text-gradient">Vision X 2030</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Six years of relentless dedication to transforming how Pakistan learns and earns digitally.
+            <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+              Real milestones, real progress — building Pakistan's digital
+              workforce one batch at a time.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto relative">
+          <div className="relative">
             {/* Vertical Line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#3495EB] via-[#8B5CF6] to-[#10B981] md:-translate-x-1/2" />
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-[#10B981] md:-translate-x-1/2" />
 
-            <div className="space-y-12">
+            <div className="space-y-8">
               {timelineData.map((item, index) => {
                 const isLeft = index % 2 === 0;
                 const IconComponent = item.icon;
                 return (
-                  <div key={index} className={`relative flex items-center md:gap-8 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-
+                  <div
+                    key={index}
+                    className={`relative flex items-center md:gap-6 ${
+                      isLeft ? "md:flex-row" : "md:flex-row-reverse"
+                    } animate-in fade-in slide-in-from-bottom-4`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                     {/* Content */}
-                    <div className={`flex-1 md:w-1/2 ${isLeft ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                      <Card className={`bg-white dark:bg-[#0B1220] border-[#E5E7EB] dark:border-[#1F2937] hover:shadow-lg transition-all duration-300 ${isLeft ? 'md:ml-auto' : 'md:mr-auto'} max-w-md`}>
-                        <CardContent className="p-6">
-                          <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
-                            <span className="text-2xl font-bold text-[#3495EB]">{item.year}</span>
-                            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 text-xs inline-flex items-center gap-1">
-                              <CheckCircle className="w-3 h-3" />
+                    <div
+                      className={`flex-1 md:w-1/2 pl-12 md:pl-0 ${
+                        isLeft ? "md:pr-8 md:text-right" : "md:pl-8"
+                      }`}
+                    >
+                      <Card className="bg-card border-border hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+                        <CardContent className="p-4 sm:p-5">
+                          <div
+                            className={`flex items-center gap-2 mb-2 flex-wrap ${
+                              isLeft ? "md:justify-end" : ""
+                            }`}
+                          >
+                            <span className="text-base font-bold text-primary-text">
+                              {item.year}
+                            </span>
+                            <Badge
+                              variant="outline"
+                              className="bg-primary/5 text-primary-text border-primary/20 text-[9px] inline-flex items-center gap-1"
+                            >
+                              <Zap className="w-2.5 h-2.5" />
                               {item.highlight}
                             </Badge>
                           </div>
-                          <h3 className="text-lg font-bold text-[#111827] dark:text-white mb-2">{item.title}</h3>
-                          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.description}</p>
+                          <h3 className="text-sm font-bold text-foreground mb-1">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            {item.description}
+                          </p>
                         </CardContent>
                       </Card>
                     </div>
 
                     {/* Center Icon */}
-                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white dark:bg-[#0B1220] border-2 border-[#3495EB] flex items-center justify-center shadow-lg z-10">
-                      <IconComponent className="w-5 h-5 text-[#3495EB]" />
+                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-background border-2 border-primary flex items-center justify-center shadow-md z-10">
+                      <IconComponent className="w-3.5 h-3.5 text-primary-text" />
                     </div>
 
                     {/* Spacer */}
@@ -484,41 +581,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission, Vision, Purpose */}
-      <section className="py-24 bg-white dark:bg-[#0B1220]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="bg-[#10B981]/10 dark:bg-[#10B981]/20 text-[#10B981] border-0 mb-4 inline-flex items-center gap-2">
-              <Target className="w-4 h-4" />
+      {/* ═══════════════════════ PILLARS ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-muted/20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 mb-3 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <Target className="w-3.5 h-3.5" />
               Our Foundation
             </Badge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-4">
-              What Drives Us <span className="text-[#3495EB]">Forward</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
+              What Drives Us <span className="text-gradient">Forward</span>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-5">
             {pillars.map((pillar, index) => {
               const IconComponent = pillar.icon;
               return (
-                <Card key={index} className="group bg-[#F9FAFB] dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-all duration-500 overflow-hidden relative">
-                  {/* Top Gradient Bar */}
-                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${pillar.color}`} />
-
-                  <CardContent className="p-8 relative">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#3495EB]/10 to-[#8B5CF6]/10 dark:from-[#3495EB]/20 dark:to-[#8B5CF6]/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-8 h-8 text-[#3495EB]" />
+                <Card
+                  key={index}
+                  className="group relative bg-card border-border hover:border-primary/30 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-lg animate-in fade-in slide-in-from-bottom-4"
+                  style={{ animationDelay: `${index * 120}ms` }}
+                >
+                  <div
+                    className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${pillar.gradient}`}
+                  />
+                  <CardContent className="p-5 sm:p-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <IconComponent className="w-6 h-6 text-primary-text" />
                     </div>
 
-                    <div className="text-sm font-semibold text-[#3495EB] mb-2 uppercase tracking-wide">
+                    <div className="text-[10px] font-bold text-primary-text uppercase tracking-wider mb-1">
                       {pillar.subtitle}
                     </div>
 
-                    <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-4">
+                    <h3 className="text-lg font-bold text-foreground mb-2">
                       {pillar.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       {pillar.description}
                     </p>
                   </CardContent>
@@ -529,43 +630,50 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Why HDS Section */}
-      <section className="py-24 bg-[#F9FAFB] dark:bg-[#111827]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="bg-[#F59E0B]/10 dark:bg-[#F59E0B]/20 text-[#F59E0B] border-0 mb-4 inline-flex items-center gap-2">
-              <Award className="w-4 h-4" />
-              Why Choose Us
+      {/* ═══════════════════════ WHY HDS ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-background">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20 mb-3 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <Award className="w-3.5 h-3.5" />
+              Why Choose HDS
             </Badge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-4">
-              The HDS <span className="text-[#3495EB]">Advantage</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+              The HDS <span className="text-gradient">Advantage</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              We don&apos;t just teach skills — we build complete earning systems for every student.
+            <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+              Real features included in every mentorship — no add-ons, no
+              hidden costs.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {differentiators.map((item, index) => {
               const IconComponent = item.icon;
               return (
-                <Card key={index} className="group bg-white dark:bg-[#0B1220] border-[#E5E7EB] dark:border-[#1F2937] hover:shadow-xl hover:border-[#3495EB]/20 transition-all duration-300">
-                  <CardContent className="p-8">
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="w-14 h-14 rounded-xl bg-[#3495EB]/10 dark:bg-[#3495EB]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <IconComponent className="w-7 h-7 text-[#3495EB]" />
+                <Card
+                  key={index}
+                  className="group bg-card border-border hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  <CardContent className="p-5">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <IconComponent className="w-5 h-5 text-primary-text" />
                       </div>
-                      <Badge variant="outline" className="border-[#3495EB]/30 text-[#3495EB] text-xs inline-flex items-center gap-1">
-                        <TrendingUp className="w-3 h-3" />
+                      <Badge
+                        variant="outline"
+                        className="border-primary/20 text-primary-text text-[10px]"
+                      >
                         {item.stat}
                       </Badge>
                     </div>
 
-                    <h3 className="text-xl font-bold text-[#111827] dark:text-white mb-3">
+                    <h3 className="text-sm font-bold text-foreground mb-1.5">
                       {item.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       {item.description}
                     </p>
                   </CardContent>
@@ -575,12 +683,16 @@ export default function AboutPage() {
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-16 flex flex-wrap justify-center gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
             {trustBadges.map((badge, index) => {
               const IconComponent = badge.icon;
               return (
-                <div key={index} className="px-6 py-3 bg-white dark:bg-[#0B1220] rounded-full border border-[#E5E7EB] dark:border-[#1F2937] text-[#111827] dark:text-gray-300 font-medium text-sm shadow-sm inline-flex items-center gap-2 hover:border-[#3495EB]/30 transition-colors">
-                  <IconComponent className="w-4 h-4 text-[#3495EB]" />
+                <div
+                  key={index}
+                  className="px-3 py-1.5 bg-card rounded-full border border-border text-foreground font-medium text-[11px] inline-flex items-center gap-1.5 hover:border-primary/30 transition-all animate-in fade-in duration-500"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <IconComponent className="w-3 h-3 text-primary-text" />
                   {badge.text}
                 </div>
               );
@@ -589,92 +701,109 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Ecosystem Visualization */}
-      <section className="py-24 bg-white dark:bg-[#0B1220]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4">
-                The HDS <span className="text-[#3495EB]">Ecosystem</span>
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                A complete cycle from learning to earning — designed for real results
-              </p>
-            </div>
+      {/* ═══════════════════════ ECOSYSTEM ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-muted/20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+              The HDS <span className="text-gradient">Ecosystem</span>
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              A complete cycle from learning to real opportunity
+            </p>
+          </div>
 
-            <div className="relative">
-              {/* Connection Line */}
-              <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-[#3495EB] via-[#8B5CF6] to-[#10B981] -translate-y-1/2 z-0" />
+          <div className="relative">
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-[#10B981] -translate-y-1/2 z-0" />
 
-              <div className="grid lg:grid-cols-4 gap-6 relative z-10">
-                {ecosystemSteps.map((item, index) => {
-                  const IconComponent = item.icon;
-                  return (
-                    <div key={index} className="text-center">
-                      <div className="bg-white dark:bg-[#0B1220] p-6 rounded-2xl border border-[#E5E7EB] dark:border-[#1F2937] shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: `${item.color}15` }}>
-                          <IconComponent className="w-8 h-8" style={{ color: item.color }} />
-                        </div>
-                        <div className="text-sm font-bold mb-1" style={{ color: item.color }}>Step {item.step}</div>
-                        <h3 className="text-xl font-bold text-[#111827] dark:text-white mb-2">{item.title}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 relative z-10">
+              {ecosystemSteps.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <div
+                    key={index}
+                    className="text-center animate-in fade-in slide-in-from-bottom-4"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div className="bg-card p-4 sm:p-5 rounded-xl border border-border shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+                      <div
+                        className="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center"
+                        style={{ backgroundColor: `${item.color}15` }}
+                      >
+                        <IconComponent
+                          className="w-6 h-6"
+                          style={{ color: item.color }}
+                        />
                       </div>
+                      <div
+                        className="text-[10px] font-bold mb-0.5"
+                        style={{ color: item.color }}
+                      >
+                        Step {item.step}
+                      </div>
+                      <h3 className="text-sm font-bold text-foreground mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-[#0B1220] to-[#111827] relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #3495EB 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} />
+      {/* ═══════════════════════ CTA ═══════════════════════ */}
+      <section className="py-16 lg:py-20 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:32px_32px]" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              <span className="text-white">Ready to Start Your </span><span className="text-[#3495EB]">Digital Journey</span>?
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+              Ready to Start Your Digital Journey?
             </h2>
-            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-              Join 15,000+ students who transformed their careers with HDS. 
-              Free education, real internships, and lifetime community support awaits.
+            <p className="text-sm sm:text-base text-white/85 mb-8 max-w-xl mx-auto leading-relaxed">
+              Join Batch 18 — three top mentorships starting{" "}
+              <strong className="text-white">6 December 2026</strong>. Market
+              value Rs. 25,000, scholarship seat fee just Rs. 200.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
               <Link href="/enroll">
-                <Button className="bg-[#3495EB] hover:bg-[#347ce0] text-white px-10 h-14 text-lg font-semibold rounded-lg shadow-lg shadow-[#3495EB]/25 w-full sm:w-auto inline-flex items-center gap-2">
-                  <Rocket className="w-5 h-5" />
-                  Enroll Now - It&apos;s Free
+                <Button className="bg-white text-primary hover:bg-white/90 px-6 h-11 text-sm font-bold rounded-xl shadow-lg w-full sm:w-auto inline-flex items-center gap-2">
+                  <Rocket className="w-4 h-4" />
+                  Enroll in Batch 18
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" className="border-gray-600 text-white hover:bg-white/10 px-10 h-14 text-lg font-semibold rounded-lg w-full sm:w-auto inline-flex items-center gap-2">
-                  <MapPin className="w-5 h-5" />
-                  Contact Franchise
+                <Button
+                  variant="outline"
+                  className="border-white/40 text-black hover:bg-white/10 px-6 h-11 text-sm font-semibold rounded-xl w-full sm:w-auto inline-flex items-center gap-2 backdrop-blur-sm"
+                >
+                  <MapPin className="w-4 h-4" />
+                  Contact Us
                 </Button>
               </Link>
             </div>
 
-            <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-400 text-sm">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#10B981]" />
-                No Hidden Fees
+            <div className="flex flex-wrap justify-center gap-4 text-white/70 text-[11px]">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-white" />
+                Rs. 200 seat fee
               </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#10B981]" />
-                Govt Verified Certificate
+              <div className="flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-white" />
+                HDS Certified e-Certificate
               </div>
-              <div className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-[#10B981]" />
-                1-Month Internship Included
+              <div className="flex items-center gap-1.5">
+                <Briefcase className="w-3.5 h-3.5 text-white" />
+                Internship opportunities
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { FounderStoryPage } from "@/components/founderStory/founderstory";
+import  FounderStoryPage  from "@/components/founderStory/founderstory";
 
 export default function (){
   return(
