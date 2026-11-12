@@ -2,107 +2,98 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, User, ArrowRight, CheckCircle, GraduationCap, Award } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { EnrollmentTypeSelection } from './enrollment-type-selection';
-import { CourseSelection } from './course-selection';
-import { ScholarshipSelection } from './scholarship-selection';
+import { MentorshipSelection } from './mentorship-selection';
 import { EnrollmentForm } from './enrollment-form';
 import { SubmitSuccess } from './submit-success';
-import { coursesData } from '@/lib/CourseData';
-import { scholarshipsData } from '@/lib/scholarshipData';
+import { mentorships } from '@/data/mentorship';
 
-export type EnrollmentStep = 'type' | 'course' | 'scholarship' | 'form' | 'success';
+export type EnrollmentStep = 'type' | 'mentorship' | 'form' | 'success';
 
 export interface EnrollmentData {
   type: 'REGULAR' | 'ONE_TO_ONE' | null;
-  courseId: string | null;
-  scholarshipId: string | null;
+  mentorshipSlug: string | null;
 }
 
 export function EnrollmentWizard() {
   const [step, setStep] = useState<EnrollmentStep>('type');
   const [data, setData] = useState<EnrollmentData>({
     type: null,
-    courseId: null,
-    scholarshipId: null,
+    mentorshipSlug: null,
   });
 
-  // Filter only available courses
-  const availableCourses = coursesData.filter(course => course.isAvailable);
-
-  // Filter only available scholarships
-  const availableScholarships = scholarshipsData.filter(scholarship => scholarship.isAvailable);
+  const availableMentorships = mentorships;
 
   const handleTypeSelect = (type: 'REGULAR' | 'ONE_TO_ONE') => {
-    setData(prev => ({ ...prev, type }));
-    setStep('course');
+    setData((prev) => ({ ...prev, type }));
+    setStep('mentorship');
   };
 
-  const handleCourseSelect = (courseId: string) => {
-    setData(prev => ({ ...prev, courseId }));
-    // If scholarships available, go to scholarship step, else go to form
-    if (availableScholarships.length > 0) {
-      setStep('scholarship');
-    } else {
-      setStep('form');
-    }
-  };
-
-  const handleScholarshipSelect = (scholarshipId: string | null) => {
-    setData(prev => ({ ...prev, scholarshipId }));
+  const handleMentorshipSelect = (slug: string) => {
+    setData((prev) => ({ ...prev, mentorshipSlug: slug }));
     setStep('form');
   };
 
   const handleBack = () => {
-    if (step === 'course') setStep('type');
-    if (step === 'scholarship') setStep('course');
-    if (step === 'form') {
-      if (availableScholarships.length > 0) {
-        setStep('scholarship');
-      } else {
-        setStep('course');
-      }
-    }
+    if (step === 'mentorship') setStep('type');
+    if (step === 'form') setStep('mentorship');
   };
 
-  const handleSuccess = () => {
-    setStep('success');
-  };
+  const handleSuccess = () => setStep('success');
 
   const getStepNumber = () => {
     switch (step) {
-      case 'type': return 1;
-      case 'course': return 2;
-      case 'scholarship': return 3;
-      case 'form': return availableScholarships.length > 0 ? 4 : 3;
-      case 'success': return availableScholarships.length > 0 ? 5 : 4;
+      case 'type':
+        return 1;
+      case 'mentorship':
+        return 2;
+      case 'form':
+        return 3;
+      case 'success':
+        return 4;
     }
   };
 
-  const totalSteps = availableScholarships.length > 0 ? 4 : 3;
+  const totalSteps = 3;
+
+  const stepLabels = [
+    { key: 'type', label: 'Learning Type' },
+    { key: 'mentorship', label: 'Select Mentorship' },
+    { key: 'form', label: 'Your Details' },
+  ] as const;
 
   return (
     <div className="space-y-8">
       {/* Progress Bar */}
       {step !== 'success' && (
-        <div className="flex items-center justify-center space-x-4 mb-8">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-4 mb-6">
           {Array.from({ length: totalSteps }, (_, i) => i + 1).map((num) => (
             <div key={num} className="flex items-center">
-              <div className={`
-                w-10 h-10 rounded-full flex items-center justify-center font-semibold
-                ${getStepNumber() >= num 
-                  ? 'bg-[#3495EB] text-white' 
-                  : 'bg-[#E5E7EB] dark:bg-[#1F2937] text-[#111827]/50 dark:text-white/50'}
-              `}>
-                {getStepNumber() > num ? <CheckCircle className="w-5 h-5" /> : num}
+              <div
+                className={`
+                  flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full text-sm font-semibold
+                  transition-all duration-300
+                  ${
+                    getStepNumber() >= num
+                      ? 'bg-primary text-white shadow-glow scale-100'
+                      : 'bg-muted text-muted-foreground scale-90'
+                  }
+                `}
+              >
+                {getStepNumber() > num ? (
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                ) : (
+                  num
+                )}
               </div>
               {num < totalSteps && (
-                <div className={`
-                  w-16 h-1 mx-2 rounded
-                  ${getStepNumber() > num 
-                    ? 'bg-[#3495EB]' 
-                    : 'bg-[#E5E7EB] dark:bg-[#1F2937]'}
-                `} />
+                <div
+                  className={`
+                    mx-1 sm:mx-2 h-1 w-8 sm:w-16 rounded transition-colors duration-300
+                    ${getStepNumber() > num ? 'bg-primary' : 'bg-muted'}
+                  `}
+                />
               )}
             </div>
           ))}
@@ -111,13 +102,17 @@ export function EnrollmentWizard() {
 
       {/* Step Labels */}
       {step !== 'success' && (
-        <div className="flex justify-center space-x-8 text-sm text-[#111827]/70 dark:text-white/70 mb-8">
-          <span className={step === 'type' ? 'text-[#3495EB] font-semibold' : ''}>Learning Type</span>
-          <span className={step === 'course' ? 'text-[#3495EB] font-semibold' : ''}>Select Course</span>
-          {availableScholarships.length > 0 && (
-            <span className={step === 'scholarship' ? 'text-[#3495EB] font-semibold' : ''}>Scholarship</span>
-          )}
-          <span className={step === 'form' ? 'text-[#3495EB] font-semibold' : ''}>Your Details</span>
+        <div className="flex justify-center gap-4 sm:gap-8 text-[11px] sm:text-xs text-muted-foreground mb-8">
+          {stepLabels.map((s) => (
+            <span
+              key={s.key}
+              className={
+                step === s.key ? 'text-primary-text font-semibold' : ''
+              }
+            >
+              {s.label}
+            </span>
+          ))}
         </div>
       )}
 
@@ -129,52 +124,40 @@ export function EnrollmentWizard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
           >
             <EnrollmentTypeSelection onSelect={handleTypeSelect} />
           </motion.div>
         )}
 
-        {step === 'course' && (
+        {step === 'mentorship' && data.type && (
           <motion.div
-            key="course"
+            key="mentorship"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
           >
-            <CourseSelection 
-              onSelect={handleCourseSelect} 
+            <MentorshipSelection
+              onSelect={handleMentorshipSelect}
               onBack={handleBack}
-              courses={availableCourses} // Only available courses
+              mentorships={availableMentorships}
+              type={data.type} // 🆕 Pass type
             />
           </motion.div>
         )}
 
-        {step === 'scholarship' && availableScholarships.length > 0 && (
-          <motion.div
-            key="scholarship"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <ScholarshipSelection 
-              onSelect={handleScholarshipSelect}
-              onBack={handleBack}
-              scholarships={availableScholarships}
-            />
-          </motion.div>
-        )}
-
-        {step === 'form' && data.type && data.courseId && (
+        {step === 'form' && data.type && data.mentorshipSlug && (
           <motion.div
             key="form"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
           >
             <EnrollmentForm
               type={data.type}
-              courseId={data.courseId}
-              scholarshipId={data.scholarshipId}
+              mentorshipSlug={data.mentorshipSlug}
               onBack={handleBack}
               onSuccess={handleSuccess}
             />
@@ -186,6 +169,7 @@ export function EnrollmentWizard() {
             key="success"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
           >
             <SubmitSuccess />
           </motion.div>

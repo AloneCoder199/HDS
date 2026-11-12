@@ -1,3 +1,11 @@
+/* =========================================================
+   HASSAN DIGITAL SKILLS — Professional Learning Platform
+   Tailwind CSS v4 — Globals
+   ========================================================= */
+
+/* 🔤 Fonts — MUST be before @import "tailwindcss" */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -5,294 +13,348 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================
-   SAAS PROFESSIONAL COLOR SCHEME
-   Light Mode: BG #FFFFFF | Card #F9FAFB | Text #111827
-   Dark Mode: BG #0B1220 | Card #111827 | Text #FFFFFF
-   Primary: #3495EB | RoyalBlue: #347ce0 | Accent: #8B5CF6
+   COLOR SCHEME
    ============================================ */
-
 :root {
-    /* Light Mode - Exact Colors */
-    --background: #FFFFFF;
-    --foreground: #111827;
-    --card: #F9FAFB;
-    --card-foreground: #111827;
-    --popover: #FFFFFF;
-    --popover-foreground: #111827;
-    --primary: #3495EB;
-    --primary-foreground: #FFFFFF;
-    --secondary: #F9FAFB;
-    --secondary-foreground: #111827;
-    --muted: #F3F4F6;
-    --muted-foreground: #6B7280;
-    --accent: #8B5CF6;
-    --accent-foreground: #FFFFFF;
-    --destructive: #EF4444;
-    --border: #E5E7EB;
-    --input: #E5E7EB;
-    --ring: #3495EB;
-    --royalblue: #347ce0;
-    
-    /* Chart Colors */
-    --chart-1: #3495EB;
-    --chart-2: #347ce0;
-    --chart-3: #8B5CF6;
-    --chart-4: #06B6D4;
-    --chart-5: #10B981;
-    
-    /* Radius */
-    --radius: 0.625rem;
-    
-    /* Sidebar */
-    --sidebar: #F9FAFB;
-    --sidebar-foreground: #111827;
-    --sidebar-primary: #3495EB;
-    --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #F9FAFB;
-    --sidebar-accent-foreground: #111827;
-    --sidebar-border: #E5E7EB;
-    --sidebar-ring: #3495EB;
+  --background: #FFFFFF;
+  --foreground: #111827;
+  --card: #F9FAFB;
+  --card-foreground: #111827;
+  --popover: #FFFFFF;
+  --popover-foreground: #111827;
+  --primary: #3495EB;
+  --primary-hover: #2A7AD1;
+  --primary-text: #1E6FCC;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F9FAFB;
+  --secondary-foreground: #111827;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --accent: #8B5CF6;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #3495EB;
+  --royalblue: #347ce0;
+
+  --chart-1: #3495EB;
+  --chart-2: #347ce0;
+  --chart-3: #8B5CF6;
+  --chart-4: #06B6D4;
+  --chart-5: #10B981;
+
+  --radius: 0.625rem;
+
+  --sidebar: #F9FAFB;
+  --sidebar-foreground: #111827;
+  --sidebar-primary: #3495EB;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F9FAFB;
+  --sidebar-accent-foreground: #111827;
+  --sidebar-border: #E5E7EB;
+  --sidebar-ring: #3495EB;
 }
 
 .dark {
-    /* Dark Mode - Exact Colors */
-    --background: #0B1220;
-    --foreground: #FFFFFF;
-    --card: #111827;
-    --card-foreground: #FFFFFF;
-    --popover: #111827;
-    --popover-foreground: #FFFFFF;
-    --primary: #3495EB;
-    --primary-foreground: #FFFFFF;
-    --secondary: #1F2937;
-    --secondary-foreground: #FFFFFF;
-    --muted: #1F2937;
-    --muted-foreground: #9CA3AF;
-    --accent: #8B5CF6;
-    --accent-foreground: #FFFFFF;
-    --destructive: #EF4444;
-    --border: #1F2937;
-    --input: #1F2937;
-    --ring: #3495EB;
-    --royalblue: #347ce0;
-    
-    /* Chart Colors - Same but adapted for dark */
-    --chart-1: #3495EB;
-    --chart-2: #347ce0;
-    --chart-3: #8B5CF6;
-    --chart-4: #06B6D4;
-    --chart-5: #10B981;
-    
-    /* Sidebar Dark */
-    --sidebar: #111827;
-    --sidebar-foreground: #FFFFFF;
-    --sidebar-primary: #3495EB;
-    --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #1F2937;
-    --sidebar-accent-foreground: #FFFFFF;
-    --sidebar-border: #1F2937;
-    --sidebar-ring: #3495EB;
+  --background: #0B1220;
+  --foreground: #FFFFFF;
+  --card: #111827;
+  --card-foreground: #FFFFFF;
+  --popover: #111827;
+  --popover-foreground: #FFFFFF;
+  --primary: #3495EB;
+  --primary-hover: #4DA5F0;
+  --primary-text: #6BB5F2;
+  --primary-foreground: #FFFFFF;
+  --secondary: #1F2937;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1F2937;
+  --muted-foreground: #9CA3AF;
+  --accent: #8B5CF6;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --border: #1F2937;
+  --input: #1F2937;
+  --ring: #3495EB;
+  --royalblue: #347ce0;
+
+  --chart-1: #3495EB;
+  --chart-2: #347ce0;
+  --chart-3: #8B5CF6;
+  --chart-4: #06B6D4;
+  --chart-5: #10B981;
+
+  --sidebar: #111827;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #3495EB;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1F2937;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #1F2937;
+  --sidebar-ring: #3495EB;
 }
 
+/* ============================================
+   THEME TOKENS — FONTS + TYPE SCALE
+   ============================================ */
 @theme inline {
-    --font-sans: var(--font-sans);
-    
-    /* Core Colors */
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-destructive: var(--destructive);
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-    --color-royalblue: var(--royalblue);
-    
-    /* Chart Colors */
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
-    
-    /* Sidebar */
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
-    
-    /* Radius Scale */
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  /* ✅ Real font stacks — no circular reference */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  /* 🆕 Typography Scale — NORMAL (learning site standard) */
+  --text-xs: 0.75rem;    --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;   --text-sm--line-height: 1.5;
+  --text-base: 1rem;     --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;   --text-lg--line-height: 1.6;
+  --text-xl: 1.25rem;    --text-xl--line-height: 1.5;
+  --text-2xl: 1.5rem;    --text-2xl--line-height: 1.4;
+  --text-3xl: 1.875rem;  --text-3xl--line-height: 1.3;
+  --text-4xl: 2.25rem;   --text-4xl--line-height: 1.2;
+  --text-5xl: 3rem;      --text-5xl--line-height: 1.1;
+
+  /* 🆕 Letter spacing presets */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+
+  /* Core Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-text: var(--primary-text);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-royalblue: var(--royalblue);
+
+  /* Chart Colors */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius Scale */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ============================================
+   BASE STYLES — Typography polish
+   ============================================ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  
+
   html {
     @apply font-sans;
     transition: background-color 0.3s ease, color 0.3s ease;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
-  
+
   html.dark {
     color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "cv11" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ✅ Headings — NORMAL sizes */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: var(--tracking-tight);
+    font-weight: 700;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  h1 { @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight; }
+  h2 { @apply text-2xl md:text-3xl font-bold tracking-tight; }
+  h3 { @apply text-xl md:text-2xl font-semibold; }
+  h4 { @apply text-lg md:text-xl font-semibold; }
+  h5 { @apply text-base md:text-lg font-semibold; }
+  h6 { @apply text-sm md:text-base font-semibold; }
+
+  /* ✅ Paragraphs */
+  p {
+    text-wrap: pretty;
+    @apply text-base leading-relaxed;
+  }
+
+  /* ✅ Links */
+  a {
+    color: var(--primary-text);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+  }
+
+  /* ✅ Selection */
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* ✅ Code blocks */
+  code, pre {
+    font-family: var(--font-mono);
+    @apply text-sm;
   }
 }
 
 /* ============================================
-   CUSTOM SCROLLBAR - SaaS Style
+   CUSTOM UTILITIES
    ============================================ */
 @layer utilities {
+  /* ✅ Display heading — NORMAL (fluid) */
+  .heading-display {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw + 1rem, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  .heading-section {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 2vw + 0.5rem, 2.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  /* ✅ Eyebrow / label text */
+  .text-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--primary-text);
+  }
+
+  /* ✅ Lead paragraph */
+  .text-lead {
+    @apply text-base md:text-lg leading-relaxed text-muted-foreground;
+    max-width: 65ch;
+  }
+
+  /* ✅ Prose content */
+  .prose-content {
+    max-width: 72ch;
+    @apply text-base leading-relaxed;
+  }
+  .prose-content p { @apply my-4; }
+  .prose-content h2 { @apply mt-10 mb-4; }
+  .prose-content h3 { @apply mt-8 mb-3; }
+  .prose-content ul { @apply my-4 pl-6 list-disc space-y-2; }
+  .prose-content ol { @apply my-4 pl-6 list-decimal space-y-2; }
+  .prose-content a { @apply font-medium underline; }
+
+  /* --- Scrollbar --- */
   .scrollbar-thin {
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
   }
-  
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
+  .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
+    background: var(--border); border-radius: 4px;
   }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-  }
-}
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-/* ============================================
-   SMOOTH THEME TRANSITIONS
-   ============================================ */
-@layer utilities {
+  /* --- Theme transitions --- */
   .theme-transition {
-    transition: background-color 0.3s ease, 
-                color 0.3s ease, 
-                border-color 0.3s ease, 
-                box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease,
+                border-color 0.3s ease, box-shadow 0.3s ease;
   }
-}
 
-/* ============================================
-   GLOW EFFECTS - Primary Color Based
-   ============================================ */
-@layer utilities {
-  .glow-primary {
-    box-shadow: 0 0 20px rgba(52, 149, 235, 0.3);
-  }
-  
-  .glow-accent {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-  }
-  
-  .glow-primary-lg {
-    box-shadow: 0 0 40px rgba(52, 149, 235, 0.4);
-  }
-}
+  /* --- Glow --- */
+  .glow-primary { box-shadow: 0 0 20px rgba(52, 149, 235, 0.3); }
+  .glow-accent  { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+  .glow-primary-lg { box-shadow: 0 0 40px rgba(52, 149, 235, 0.4); }
 
-/* ============================================
-   GRADIENT UTILITIES
-   ============================================ */
-@layer utilities {
-  .gradient-primary {
-    background: linear-gradient(135deg, #3495EB 0%, #347ce0 100%);
-  }
-  
-  .gradient-accent {
-    background: linear-gradient(135deg, #3495EB 0%, #8B5CF6 100%);
-  }
-  
-  .gradient-dark {
-    background: linear-gradient(135deg, #0B1220 0%, #111827 100%);
-  }
-  
-  .text-gradient {
-    background: linear-gradient(135deg, #3495EB 0%, #8B5CF6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-}
+  /* --- Gradients --- */
+  .gradient-primary { background: linear-gradient(135deg, #3495EB 0%, #347ce0 100%); }
+  .gradient-accent  { background: linear-gradient(135deg, #3495EB 0%, #8B5CF6 100%); }
+  .gradient-dark    { background: linear-gradient(135deg, #0B1220 0%, #111827 100%); }
 
-
-/* Add these to your existing globals.css */
-
-@layer utilities {
-  /* Soft Gradient Backgrounds */
-  .bg-gradient-soft {
-    background: linear-gradient(135deg, rgba(52, 149, 235, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
-  }
-  
-  /* Glass Effect */
-  .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  
-  .dark .glass {
-    background: rgba(11, 18, 32, 0.7);
-  }
-  
-  /* Premium Shadows */
-  .shadow-soft {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-  
-  .shadow-glow {
-    box-shadow: 0 0 40px rgba(52, 149, 235, 0.15);
-  }
-  
-  /* Text Gradients */
+  .text-gradient,
   .text-gradient-primary {
     background: linear-gradient(135deg, #3495EB 0%, #8B5CF6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  /* Smooth Transitions */
-  .transition-smooth {
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+  .bg-gradient-soft {
+    background: linear-gradient(135deg,
+      rgba(52, 149, 235, 0.05) 0%,
+      rgba(139, 92, 246, 0.05) 100%);
   }
-  
-  /* Hover Lift Effect */
-  .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* --- Glass --- */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
-  
+  .dark .glass { background: rgba(11, 18, 32, 0.7); }
+
+  /* --- Shadows --- */
+  .shadow-soft { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+  .shadow-glow { box-shadow: 0 0 40px rgba(52, 149, 235, 0.15); }
+
+  /* --- Motion --- */
+  .transition-smooth { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+  .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
   .hover-lift:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 40px rgba(52, 149, 235, 0.2);
