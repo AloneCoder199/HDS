@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
-export type CourseLevel = "Advanced";
+export type CourseLevel = "Beginner" | "Intermediate" | "Advanced";
 export type CourseCategory =
   | "Development"
   | "Design"
