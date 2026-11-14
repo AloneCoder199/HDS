@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import { Providers } from "./providers"
 import { Shell } from "@/components/layout/shell"
 
 export const metadata: Metadata = {
@@ -17,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <Providers>
           <Shell>{children}</Shell>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
