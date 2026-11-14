@@ -1,14 +1,20 @@
 "use client"
 
-import { useState } from "react"
-import { Play, Sparkles, X } from "lucide-react"
+import { useRef, useState, useCallback } from "react"
+import { Loader2, Play, Sparkles, X } from "lucide-react"
 import { videoReviews } from "@/data/reviews"
 
 export function VideoReviews() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null)
-
-  // First video = featured (large), rest = small
   const [featured, ...rest] = videoReviews
+
+  const handlePlay = useCallback((id: string) => {
+    setActiveVideo(id)
+  }, [])
+
+  const handleClose = useCallback(() => {
+    setActiveVideo(null)
+  }, [])
 
   return (
     <section className="py-14 lg:py-20 bg-background relative overflow-hidden">
@@ -29,24 +35,24 @@ export function VideoReviews() {
             Video <span className="text-gradient">Reviews</span>
           </h2>
           <p className="text-sm text-muted-foreground max-w-md mx-auto">
-            Watch real students share their journey with HDS.
+            Hover to preview · Click to play with sound
           </p>
         </div>
 
         {/* ─── Bento Grid Layout ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-3 gap-4 lg:gap-5">
-
-          {/* ═══ FEATURED VIDEO (Large — Left side, spans 2 cols & 2 rows) ═══ */}
+          {/* ═══ FEATURED (Large) ═══ */}
           <div className="lg:col-span-2 lg:row-span-2 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <VideoCard
               video={featured}
               activeVideo={activeVideo}
-              setActiveVideo={setActiveVideo}
+              onPlay={handlePlay}
+              onClose={handleClose}
               isFeatured
             />
           </div>
 
-          {/* ═══ Rest of Videos (Smaller) ═══ */}
+          {/* ═══ Rest (Small) ═══ */}
           {rest.map((video, i) => (
             <div
               key={video.id}
@@ -59,76 +65,157 @@ export function VideoReviews() {
               <VideoCard
                 video={video}
                 activeVideo={activeVideo}
-                setActiveVideo={setActiveVideo}
+                onPlay={handlePlay}
+                onClose={handleClose}
               />
             </div>
           ))}
         </div>
+
+        <p className="text-center text-[11px] text-muted-foreground mt-6">
+          Hover over any video to preview · Click to play with full controls
+        </p>
       </div>
     </section>
   )
 }
 
-// ─── Reusable Video Card Component ───
+// ═══════════════════════════════════════════════════════════════════════
+// VideoCard — Real video thumbnails + hover preview + fast preload
+// ═══════════════════════════════════════════════════════════════════════
 function VideoCard({
   video,
   activeVideo,
-  setActiveVideo,
+  onPlay,
+  onClose,
   isFeatured = false,
 }: {
-  video: (typeof import("@/data/reviews").videoReviews)[number]
+  video: (typeof videoReviews)[number]
   activeVideo: string | null
-  setActiveVideo: (id: string | null) => void
+  onPlay: (id: string) => void
+  onClose: () => void
   isFeatured?: boolean
 }) {
+  const previewRef = useRef<HTMLVideoElement>(null)
+  const [isHovering, setIsHovering] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [hasError, setHasError] = useState(false)
+
   const isPlaying = activeVideo === video.id
+
+  // ─── Hover handlers ───
+  const handleMouseEnter = () => {
+    if (isPlaying) return
+    setIsHovering(true)
+    const vid = previewRef.current
+    if (vid && isLoaded) {
+      vid.currentTime = 0
+      vid.play().catch(() => {})
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+    const vid = previewRef.current
+    if (vid) {
+      vid.pause()
+      try {
+        vid.currentTime = 0.5 // back to good thumbnail frame
+      } catch {}
+    }
+  }
+
+  // ─── On metadata load → seek to a good first frame ───
+  const handleLoadedMetadata = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const vid = e.currentTarget
+    try {
+      // Seek to 0.5s — skips black intro frame
+      vid.currentTime = 0.5
+    } catch {}
+    setIsLoaded(true)
+  }
 
   return (
     <div
-      className={`group relative w-full overflow-hidden rounded-2xl border border-border bg-card shadow-md transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 hover:border-primary/30 ${
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`group relative w-full overflow-hidden rounded-2xl border border-border bg-slate-950 shadow-md transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 hover:border-primary/30 ${
         isFeatured ? "aspect-video h-full min-h-[280px]" : "aspect-video"
       }`}
     >
       {isPlaying ? (
-        // ═══ Playing State ═══
+        // ═══ Full Player (with sound + controls) ═══
         <>
-          <iframe
-            src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
-            title={video.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 h-full w-full animate-in fade-in duration-500"
-          />
+          <video
+            src={video.videoUrl}
+            poster={video.thumbnail}
+            controls
+            autoPlay
+            playsInline
+            preload="auto"
+            className="absolute inset-0 h-full w-full bg-black object-contain animate-in fade-in duration-300"
+          >
+            Your browser does not support the video tag.
+          </video>
           <button
-            onClick={() => setActiveVideo(null)}
-            className="absolute top-2 right-2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 hover:rotate-90"
+            onClick={onClose}
+            className="absolute top-2 right-2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 hover:rotate-90"
             aria-label="Close video"
           >
             <X className="h-4 w-4" />
           </button>
         </>
       ) : (
-        // ═══ Thumbnail State ═══
+        // ═══ Preview (thumbnail + hover autoplay) ═══
         <>
-          {/* Thumbnail Image with zoom */}
+          {/* Fallback poster — loads instantly while video metadata loads */}
           <img
             src={video.thumbnail}
             alt={video.title}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+              isLoaded && !hasError ? "opacity-0" : "opacity-100"
+            }`}
           />
 
-          {/* Dark Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
+          {/* Real video thumbnail — first frame, loads via preload="metadata" */}
+          {!hasError && (
+            <video
+              ref={previewRef}
+              src={video.videoUrl}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onLoadedMetadata={handleLoadedMetadata}
+              onError={() => setHasError(true)}
+              className={`absolute inset-0 h-full w-full object-cover transition-all duration-500 ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              } ${isHovering ? "scale-105" : "scale-100"}`}
+            />
+          )}
 
-          {/* Shimmer Sweep Effect */}
+          {/* Loading spinner while metadata loads */}
+          {!isLoaded && !hasError && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <Loader2 className="h-6 w-6 text-white/70 animate-spin" />
+            </div>
+          )}
+
+          {/* Dark overlay — lighter on hover to reveal preview */}
+          <div
+            className={`absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/20 transition-opacity duration-500 pointer-events-none ${
+              isHovering ? "opacity-50" : "opacity-100"
+            }`}
+          />
+
+          {/* Shimmer sweep on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1500ms]" />
           </div>
 
-          {/* Featured Badge */}
+          {/* Featured badge */}
           {isFeatured && (
-            <div className="absolute top-3 left-3 z-10 animate-in fade-in slide-in-from-top-2 duration-700 delay-300">
+            <div className="absolute top-3 left-3 z-10">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 px-2.5 py-1 text-[10px] font-bold text-slate-950 shadow-lg">
                 <Sparkles className="h-3 w-3 animate-pulse" />
                 FEATURED
@@ -136,7 +223,7 @@ function VideoCard({
             </div>
           )}
 
-          {/* Mentorship Badge (Top Right for non-featured) */}
+          {/* Mentorship badge (non-featured) */}
           {!isFeatured && (
             <div className="absolute top-2.5 right-2.5 z-10">
               <span className="inline-flex items-center rounded-full bg-primary/90 backdrop-blur-sm px-2 py-0.5 text-[9px] font-bold text-white shadow-sm">
@@ -145,24 +232,28 @@ function VideoCard({
             </div>
           )}
 
-          {/* Play Button with Pulse Ring */}
+          {/* Play button — shrinks when hovering (preview is playing) */}
           <button
-            onClick={() => setActiveVideo(video.id)}
+            onClick={() => onPlay(video.id)}
             className="absolute inset-0 flex items-center justify-center z-10"
-            aria-label={`Play ${video.title}`}
+            aria-label={`Play ${video.title} with sound`}
           >
-            <div className="relative">
-              {/* Pulsing ring */}
+            <div
+              className={`relative transition-all duration-500 ${
+                isHovering ? "scale-75 opacity-70" : "scale-100 opacity-100"
+              }`}
+            >
+              {/* Pulse ring */}
               <span className="absolute inset-0 rounded-full bg-white/30 animate-ping" />
-              
-              {/* Play button */}
+
+              {/* Play circle */}
               <div
-                className={`relative flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border-2 border-white/40 transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:border-primary ${
+                className={`relative flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border-2 border-white/40 transition-all duration-500 group-hover:bg-primary group-hover:border-primary ${
                   isFeatured ? "h-20 w-20" : "h-14 w-14"
                 }`}
               >
                 <Play
-                  className={`text-white fill-white ml-1 transition-transform duration-300 group-hover:scale-110 ${
+                  className={`text-white fill-white ml-1 ${
                     isFeatured ? "h-8 w-8" : "h-6 w-6"
                   }`}
                 />
@@ -170,17 +261,25 @@ function VideoCard({
             </div>
           </button>
 
-          {/* Bottom Info */}
-          <div className="absolute bottom-0 left-0 right-0 z-10 p-3 sm:p-4">
-            {/* Featured: Mentorship badge inline */}
+          {/* Bottom info */}
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-3 sm:p-4 pointer-events-none">
             {isFeatured && (
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-flex items-center gap-1 rounded-full bg-primary/90 backdrop-blur-sm px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm">
                   {video.mentorship}
                 </span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-white/15 backdrop-blur-sm px-2 py-0.5 text-[10px] font-semibold text-white border border-white/20">
-                  <Play className="h-2.5 w-2.5 fill-current" />
-                  Watch Now
+                  {isHovering ? (
+                    <>
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                      Preview Playing
+                    </>
+                  ) : (
+                    <>
+                      <Play className="h-2.5 w-2.5 fill-current" />
+                      Hover to Preview
+                    </>
+                  )}
                 </span>
               </div>
             )}

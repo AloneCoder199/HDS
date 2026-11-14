@@ -1,98 +1,96 @@
 // data/reviews.ts
 
+// ═══════════════════════════════════════════════════════════════════
+// TYPES
+// ═══════════════════════════════════════════════════════════════════
 export type VideoReview = {
   id: string
   title: string
   studentName: string
   mentorship: "AI" | "SMM" | "Crypto"
-  youtubeId: string // ⚠️ Replace with real video IDs
-  thumbnail: string // ⚠️ Replace with real thumbnails
+  videoUrl: string     // local .mp4 file
+  thumbnail: string    // poster image
 }
 
 export type ScreenshotReview = {
   id: string
-  image: string // ⚠️ Replace with real screenshot paths
+  image: string
   mentorship: "AI" | "SMM" | "Crypto"
   batch: string
-  aspect?: "portrait" | "square" // for masonry variety
 }
 
-// ─── 6 VIDEO REVIEWS (Brief ke mutabiq) ───
+// ═══════════════════════════════════════════════════════════════════
+// 4 VIDEO REVIEWS — Real MP4 files from /public/Video Feedback/
+// Thumbnails use /public/st1-4.jpg (student photos)
+// ═══════════════════════════════════════════════════════════════════
 export const videoReviews: VideoReview[] = [
   {
     id: "v1",
     title: "How I started freelancing with AI",
-    studentName: "Ahmed Khan",
+    studentName: "HDS Student",
     mentorship: "AI",
-    youtubeId: "dQw4w9WgXcQ", // ⚠️ Replace
-    thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
+    videoUrl: "/Video Feedback/WhatsApp Video 2025-08-13 at 02.51.55_8e9aef3e.mp4",
+    thumbnail: "/st1.jpg",
   },
   {
     id: "v2",
-    title: "Meta Ads ne meri business badal di",
-    studentName: "Fatima Sheikh",
+    title: "Meta Ads transformed my business",
+    studentName: "HDS Student",
     mentorship: "SMM",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=800&auto=format&fit=crop",
+    videoUrl: "/Video Feedback/WhatsApp Video 2026-03-14 at 5.51.46 PM.mp4",
+    thumbnail: "/st2.jpg",
   },
   {
     id: "v3",
-    title: "From beginner to profitable trader",
-    studentName: "Bilal Hussain",
+    title: "From beginner to disciplined trader",
+    studentName: "HDS Student",
     mentorship: "Crypto",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=800&auto=format&fit=crop",
+    videoUrl: "/Video Feedback/WhatsApp Video 2026-04-23 at 5.53.36 PM.mp4",
+    thumbnail: "/st3.jpg",
   },
   {
     id: "v4",
-    title: "AI automation ne mera time bacha liya",
-    studentName: "Sara Malik",
+    title: "AI automation saved me hours",
+    studentName: "HDS Student",
     mentorship: "AI",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "v5",
-    title: "First client mila Rs. 40,000 ka",
-    studentName: "Usman Ali",
-    mentorship: "SMM",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "v6",
-    title: "Risk management kaise seekhi",
-    studentName: "Hassan Raza",
-    mentorship: "Crypto",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
+    videoUrl: "/Video Feedback/WhatsApp Video 2026-07-15 at 5.18.35 PM.mp4",
+    thumbnail: "/st4.jpg",
   },
 ]
 
-// ─── 24 SCREENSHOT REVIEWS (20–30 ke darmiyan) ───
+// ═══════════════════════════════════════════════════════════════════
+// 30 SCREENSHOT REVIEWS — Real images from /public/reviews/
+// Distributed: 10 AI · 10 SMM · 10 Crypto
+// ═══════════════════════════════════════════════════════════════════
+const aiImages: ScreenshotReview[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+  (n) => ({
+    id: `s-ai-${n}`,
+    image: `/reviews/review (${n}).jpeg`,
+    mentorship: "AI",
+    batch: "Batch 18",
+  })
+)
+
+const smmImages: ScreenshotReview[] = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
+  (n) => ({
+    id: `s-smm-${n}`,
+    image: `/reviews/review (${n}).jpeg`,
+    mentorship: "SMM",
+    batch: "Batch 17",
+  })
+)
+
+const cryptoImages: ScreenshotReview[] = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30].map(
+  (n) => ({
+    id: `s-crypto-${n}`,
+    image: `/reviews/review (${n}).jpeg`,
+    mentorship: "Crypto",
+    batch: "Batch 18",
+  })
+)
+
 export const screenshotReviews: ScreenshotReview[] = [
-  { id: "s1", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 18", aspect: "portrait" },
-  { id: "s2", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 17", aspect: "square" },
-  { id: "s3", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 18", aspect: "portrait" },
-  { id: "s4", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 17", aspect: "square" },
-  { id: "s5", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 18", aspect: "portrait" },
-  { id: "s6", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 18", aspect: "square" },
-  { id: "s7", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 17", aspect: "portrait" },
-  { id: "s8", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 16", aspect: "square" },
-  { id: "s9", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 18", aspect: "portrait" },
-  { id: "s10", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 18", aspect: "square" },
-  { id: "s11", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 17", aspect: "portrait" },
-  { id: "s12", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 17", aspect: "square" },
-  { id: "s13", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 18", aspect: "portrait" },
-  { id: "s14", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 17", aspect: "square" },
-  { id: "s15", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 18", aspect: "portrait" },
-  { id: "s16", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 16", aspect: "square" },
-  { id: "s17", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 18", aspect: "portrait" },
-  { id: "s18", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 17", aspect: "square" },
-  { id: "s19", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 18", aspect: "portrait" },
-  { id: "s20", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 17", aspect: "square" },
-  { id: "s21", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 17", aspect: "portrait" },
-  { id: "s22", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "SMM", batch: "Batch 18", aspect: "square" },
-  { id: "s23", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "Crypto", batch: "Batch 18", aspect: "portrait" },
-  { id: "s24", image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=600&auto=format&fit=crop", mentorship: "AI", batch: "Batch 16", aspect: "square" },
+  ...aiImages,
+  ...smmImages,
+  ...cryptoImages,
 ]
