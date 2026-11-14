@@ -7,8 +7,13 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hello HDS Team! I want to apply for the Batch 18 mentorship. Please guide me."
 )
 
-// Real student avatars
-const studentAvatars = ["/st1.jpg", "/st2.jpg", "/st3.jpg", "/st4.jpg"]
+// Real student avatars with details for hover bubble
+const studentAvatars = [
+  { src: "/st1.jpg", name: "HDS Student", tag: "AI Mentorship" },
+  { src: "/st2.jpg", name: "HDS Student", tag: "SMM Mentorship" },
+  { src: "/st3.jpg", name: "HDS Student", tag: "Crypto Trading" },
+  { src: "/st4.jpg", name: "HDS Student", tag: "AI Mentorship" },
+]
 
 export function Hero() {
   return (
@@ -69,27 +74,74 @@ export function Hero() {
               </Link>
             </div>
 
-            {/* Trust Indicators — Real student photos */}
+            {/* ═══ Trust Indicators — Hover Bubbles ═══ */}
             <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-              <div className="flex -space-x-3">
-                {studentAvatars.map((src, i) => (
+              {/* Avatar Stack with Bubbles */}
+              <div className="flex items-center -space-x-3">
+                {studentAvatars.map((student, i) => (
                   <div
                     key={i}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-muted overflow-hidden transition-transform duration-300 hover:scale-110 hover:z-10"
+                    className="group/avatar relative inline-flex transition-all duration-300 hover:z-30 hover:-translate-y-1"
                   >
-                    <Image
-                      src={src}
-                      alt={`HDS Student ${i + 1}`}
-                      width={36}
-                      height={36}
-                      className="h-full w-full object-cover"
-                    />
+                    {/* Avatar — circular photo */}
+                    <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-background bg-muted overflow-hidden shadow-sm ring-2 ring-primary/0 transition-all duration-300 group-hover/avatar:ring-primary/40 cursor-pointer">
+                      <Image
+                        src={student.src}
+                        alt={`${student.name} — ${student.tag}`}
+                        width={40}
+                        height={40}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover/avatar:scale-110"
+                      />
+                    </div>
+
+                    {/* ═══ Hover Bubble ═══ */}
+                    <div className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-3 -translate-x-1/2 opacity-0 scale-90 translate-y-1 transition-all duration-300 group-hover/avatar:opacity-100 group-hover/avatar:scale-100 group-hover/avatar:translate-y-0">
+                      {/* Bubble Card */}
+                      <div className="relative w-[140px] overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
+                        {/* Large Student Image */}
+                        <div className="relative aspect-square overflow-hidden bg-muted">
+                          <Image
+                            src={student.src}
+                            alt={`${student.name} — ${student.tag}`}
+                            width={140}
+                            height={140}
+                            className="h-full w-full object-cover"
+                          />
+                          {/* Gradient overlay for text */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                          {/* Small badge top */}
+                          <div className="absolute top-2 left-2">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-black/60 backdrop-blur-sm px-1.5 py-0.5 text-[8px] font-bold text-white border border-white/20">
+                              <CheckCircle2 className="h-2 w-2 text-green-400" />
+                              Verified
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Info footer */}
+                        <div className="p-2 text-center">
+                          <p className="text-[11px] font-bold text-foreground leading-tight truncate">
+                            {student.name}
+                          </p>
+                          <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight truncate">
+                            {student.tag}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Arrow pointing down */}
+                      <div className="absolute left-1/2 top-full -mt-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-border bg-background" />
+                    </div>
                   </div>
                 ))}
-                <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-primary/10 text-[10px] font-bold text-primary-text">
+
+                {/* "+15k" badge */}
+                <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-background bg-primary/10 text-[10px] font-bold text-primary-text shadow-sm ring-2 ring-primary/0 transition-all duration-300 hover:ring-primary/40 hover:-translate-y-1 hover:z-30 cursor-pointer">
                   15k+
                 </div>
               </div>
+
+              {/* Trust Text */}
               <div className="text-sm font-medium text-muted-foreground flex items-center gap-1.5">
                 <Star className="h-4 w-4 fill-accent text-accent" />
                 Trusted by 15,000+ students across Pakistan
