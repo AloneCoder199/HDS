@@ -27,11 +27,10 @@ const quickLinks = [
   { href: "/contact", label: "Contact" },
 ]
 
+// ✅ Only Privacy + Terms (removed Refund, Risk Disclaimer)
 const legalLinks = [
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
-  { href: "/refund-policy", label: "Refund Policy" },
-  { href: "/risk-disclaimer", label: "Risk Disclaimer" },
 ]
 
 const socials = [
@@ -45,7 +44,8 @@ const socials = [
     href: "https://www.instagram.com/hds_pakistan_/?hl=en",
     label: "Instagram",
     icon: Instagram,
-    color: "hover:bg-gradient-to-br hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF] hover:border-transparent hover:text-white",
+    color:
+      "hover:bg-gradient-to-br hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF] hover:border-transparent hover:text-white",
   },
   {
     href: "https://youtube.com/@hassandigitalskills?si=rwQfPRvRc7MPciiL",
@@ -60,7 +60,7 @@ const WHATSAPP_URL =
   encodeURIComponent("Hello HDS Team! I want to know more about your mentorships.")
 
 // ═══════════════════════════════════════════════════════════════════
-// ACCORDION SECTION — Desktop open, mobile collapsible
+// ACCORDION SECTION
 // ═══════════════════════════════════════════════════════════════════
 function FooterSection({
   title,
@@ -107,7 +107,12 @@ export function Footer() {
         <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+      {/*
+        ✅ Mobile bottom margin:
+        - pb-28 → extra space for fixed bottom nav + breathing room
+        - lg:pb-10 → normal on desktop
+      */}
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 pb-28 sm:pb-24 lg:pt-10 lg:pb-10">
         {/* ═══ TOP ROW — Brand + CTA ═══ */}
         <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8">
           {/* ─── Brand Column ─── */}
@@ -118,7 +123,6 @@ export function Footer() {
               Empowering Youth With Digital Skills.
             </p>
 
-            {/* Tagline */}
             <p className="text-[11px] font-medium text-primary-text/90 italic">
               One Nation, One Platform, One Mission, One Revolution.
             </p>
@@ -133,7 +137,7 @@ export function Footer() {
               <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            {/* ─── Social Icons ─── */}
+            {/* Social Icons */}
             <div className="flex items-center gap-1.5 pt-2">
               {socials.map((s) => {
                 const Icon = s.icon
@@ -150,7 +154,6 @@ export function Footer() {
                   </a>
                 )
               })}
-              {/* WhatsApp as 4th icon */}
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
@@ -182,7 +185,7 @@ export function Footer() {
             </FooterSection>
           </div>
 
-          {/* ─── Legal ─── */}
+          {/* ─── Legal (only Privacy + Terms) ─── */}
           <div className="border-b border-border lg:border-0">
             <FooterSection title="Legal">
               <ul className="space-y-2 pl-0.5">
@@ -231,21 +234,21 @@ export function Footer() {
           </div>
         </div>
 
-        {/* ═══ BOTTOM BAR ═══ */}
-        <div className="mt-6 flex flex-col gap-3 border-t border-border pt-5 text-[10.5px] leading-relaxed text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        {/* ═══ BOTTOM BAR — subtle, small, low-key ═══ */}
+        <div className="mt-6 flex flex-col gap-1.5 border-t border-border pt-4 text-[9.5px] leading-relaxed text-muted-foreground/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} Hassan Digital Skills. All rights reserved.
+            © {new Date().getFullYear()} Hassan Digital Skills. All rights
+            reserved.
           </p>
           <p className="flex items-center gap-1">
-            Hassan Digital Skills is a brand owned and operated by{" "}
+            Owned & operated by{" "}
             <a
               href="https://codearntech.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-foreground underline-offset-2 transition-colors hover:text-primary-text hover:underline inline-flex items-center gap-0.5"
+              className="font-medium text-muted-foreground/80 underline-offset-2 transition-colors hover:text-muted-foreground hover:underline inline-flex items-center gap-0.5"
             >
               CodEarn Tech
-              <Heart className="h-2.5 w-2.5 text-destructive fill-current" />
             </a>
           </p>
         </div>

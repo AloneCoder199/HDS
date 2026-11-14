@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Shield, Sparkles, Users, Award } from 'lucide-react';
-import { EnrollmentWizard } from '@/components/enrollment/enrollment-wizard'; // ⚠️ PATH CHECK KAREIN
+import { EnrollmentWizard } from '@/components/enrollment/enrollment-wizard';
+import { AdmissionNoticePopup } from '@/components/enrollment/admission-notice-popup';
 
 export const metadata: Metadata = {
   title: 'Enroll Now — Hassan Digital Skills',
@@ -11,6 +12,9 @@ export const metadata: Metadata = {
 export default function EnrollPage() {
   return (
     <main className="relative min-h-screen bg-background overflow-hidden">
+      {/* ✅ Admission notice popup — page open hote hi show hogi */}
+      <AdmissionNoticePopup />
+
       {/* Background Orbs */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[140px] animate-pulse duration-[7000ms]" />
