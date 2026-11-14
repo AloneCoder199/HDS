@@ -359,4 +359,12 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 40px rgba(52, 149, 235, 0.2);
   }
+  
+}
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0);
 }

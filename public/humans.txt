@@ -1,0 +1,45 @@
+/* ═══════════════════════════════════════════════════════════════
+   HUMANS.TXT — Credits for hassandigitalskills.com
+   ═══════════════════════════════════════════════════════════════ */
+
+/* DEVELOPED BY */
+  Agency: CodEarn Tech
+  Website: https://codearntech.com
+  Contact: codearntech@gmail.com
+  Founded: 2020
+  Model: Remote-first engineering team
+  Serving: UAE · Saudi Arabia · Bahrain · Worldwide
+  Philosophy: You own your code · Direct access to engineers
+  Services: Custom SaaS · Web Platforms · Mobile Apps · Business Automation
+
+/* CLIENT */
+  Organization: Hassan Digital Skills (HDS)
+  Founder: Ali Hassan
+  Tagline: Empowering Youth With Digital Skills
+  Website: https://hassandigitalskills.com
+  Sector: Digital Skills Education · Pakistan
+
+/* SITE */
+  Last update: 2026/11/14
+  Language: English / Roman Urdu
+  Doctype: HTML5
+  Standards: W3C · SEO-optimized · Mobile-first
+
+/* TECHNOLOGY STACK */
+  Framework: Next.js (App Router)
+  Language: TypeScript
+  Library: React
+  Styling: Tailwind CSS
+  UI Components: shadcn/ui
+  Animation: Framer Motion
+  Database: MongoDB
+  ORM: Prisma
+  Auth: NextAuth.js
+  AI: Groq SDK (Llama models)
+  Media: Cloudinary
+  Payments: Stripe-ready
+  Deployment: Vercel
+
+/* ACKNOWLEDGMENTS */
+  Design, development, and deployment handled end-to-end
+  by CodEarn Tech — a small engineering team that ships.
