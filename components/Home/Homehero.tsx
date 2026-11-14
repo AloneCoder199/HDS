@@ -1,10 +1,14 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, CheckCircle2, MessageCircle, ShieldCheck, Star } from "lucide-react"
 
 const WHATSAPP_NUMBER = "923271543140"
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hello HDS Team! I want to apply for the Batch 18 mentorship. Please guide me."
 )
+
+// Real student avatars
+const studentAvatars = ["/st1.jpg", "/st2.jpg", "/st3.jpg", "/st4.jpg"]
 
 export function Hero() {
   return (
@@ -17,8 +21,7 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-          
-          {/* Left Side: Text Content */}
+          {/* ═══ LEFT: Text Content ═══ */}
           <div className="flex flex-col justify-center text-center lg:text-left">
             {/* Top Badge */}
             <div className="mx-auto lg:mx-0 mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary-text">
@@ -54,7 +57,7 @@ export function Hero() {
                 Apply Now
                 <ArrowRight className="h-5 w-5" />
               </Link>
-              
+
               <Link
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                 target="_blank"
@@ -66,13 +69,21 @@ export function Hero() {
               </Link>
             </div>
 
-            {/* Trust Indicators */}
+            {/* Trust Indicators — Real student photos */}
             <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
               <div className="flex -space-x-3">
-                {/* Dummy avatars for trust */}
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-muted overflow-hidden">
-                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`} alt="Student" className="h-full w-full object-cover" />
+                {studentAvatars.map((src, i) => (
+                  <div
+                    key={i}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-muted overflow-hidden transition-transform duration-300 hover:scale-110 hover:z-10"
+                  >
+                    <Image
+                      src={src}
+                      alt={`HDS Student ${i + 1}`}
+                      width={36}
+                      height={36}
+                      className="h-full w-full object-cover"
+                    />
                   </div>
                 ))}
                 <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-primary/10 text-[10px] font-bold text-primary-text">
@@ -86,22 +97,25 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Side: Image & Floating Badges */}
+          {/* ═══ RIGHT: Founder Image & Floating Badges ═══ */}
           <div className="relative mx-auto w-full max-w-lg lg:ml-auto">
             {/* Image Frame with Glass Effect */}
             <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square overflow-hidden rounded-3xl border border-border/50 bg-card shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent mix-blend-overlay z-10" />
-              
-              {/* ⚠️ Yahan Ali Hassan ya students ki real photo aayegi */}
-              <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop"
-                alt="Ali Hassan - Founder & Mentor"
-                className="h-full w-full object-cover"
+
+              {/* ✅ Real Founder Photo */}
+              <Image
+                src="/founder.jpeg"
+                alt="Ali Hassan — Founder & Mentor, HDS"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
-              
+
               {/* Dark gradient overlay at bottom for text readability */}
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent z-10" />
-              
+
               <div className="absolute bottom-6 left-6 z-20">
                 <p className="text-white font-bold text-xl">Ali Hassan</p>
                 <p className="text-white/80 text-sm">Founder & Mentor</p>
@@ -130,7 +144,6 @@ export function Hero() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

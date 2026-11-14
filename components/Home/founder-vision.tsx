@@ -18,7 +18,7 @@ export function FounderVision() {
             {/* Image Frame */}
             <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl border border-border shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop"
+                src="/founder.jpeg"
                 alt="Ali Hassan - Founder & Mentor"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
