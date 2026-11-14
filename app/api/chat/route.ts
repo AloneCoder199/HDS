@@ -7,9 +7,9 @@ export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 export const maxDuration = 60
 
-const MAX_MESSAGES = 8
+const MAX_MESSAGES = 12
 const MAX_CONTENT_LENGTH = 1500
-const MAX_TOKENS_OUT = 300          // ⬇️ was 600 — shorter, faster responses
+const MAX_TOKENS_OUT = 400          // ⬇️ was 600 — shorter, faster responses
 
 const FIRST_CHUNK_TIMEOUT = 15_000
 const IDLE_TIMEOUT = 15_000          // ⬇️ was 20s
