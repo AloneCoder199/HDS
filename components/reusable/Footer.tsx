@@ -218,7 +218,7 @@ export function Footer() {
                 </li>
                 <li className="flex items-start gap-1.5">
                   <MapPin className="mt-0.5 h-3 w-3 shrink-0" />
-                  Burion Center
+                  Samundri
                 </li>
                 <li className="pt-1">
                   <span className="inline-flex items-center gap-1 rounded-full bg-[#25D366]/10 px-2 py-0.5 text-[10px] font-bold text-[#25D366]">
