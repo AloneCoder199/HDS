@@ -240,17 +240,6 @@ export function Footer() {
             © {new Date().getFullYear()} Hassan Digital Skills. All rights
             reserved.
           </p>
-          <p className="flex items-center gap-1">
-            Owned & operated by{" "}
-            <a
-              href="https://codearntech.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-muted-foreground/80 underline-offset-2 transition-colors hover:text-muted-foreground hover:underline inline-flex items-center gap-0.5"
-            >
-              CodEarn Tech
-            </a>
-          </p>
         </div>
       </div>
     </footer>
