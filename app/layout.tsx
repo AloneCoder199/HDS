@@ -247,7 +247,7 @@ export default function RootLayout({
         />
 
         {/* ═══ PWA: Apple touch icon + Splash ═══ */}
-        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="apple-touch-icon" href="/icon-192.jpg" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>

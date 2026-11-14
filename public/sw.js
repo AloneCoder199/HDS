@@ -12,7 +12,7 @@ self.addEventListener('install', (event) => {
         '/',
         '/offline.html',
         '/logo.jpeg',
-        '/icon-192.png',
+        '/icon-192.jpg',
         '/icon-512.jpg',
       ])
     })
