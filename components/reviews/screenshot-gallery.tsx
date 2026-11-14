@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import {
   ChevronLeft,
   ChevronRight,
+  ImageOff,
   MessageSquare,
   Sparkles,
   X,
@@ -18,6 +19,7 @@ export function ScreenshotGallery() {
   const [activeFilter, setActiveFilter] = useState<Filter>("All")
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const [filterKey, setFilterKey] = useState(0)
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
   const touchStartX = useRef<number | null>(null)
   const touchEndX = useRef<number | null>(null)
 
@@ -30,7 +32,9 @@ export function ScreenshotGallery() {
   const closeLightbox = () => setLightboxIndex(null)
 
   const nextImage = useCallback(() => {
-    setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % filtered.length))
+    setLightboxIndex((prev) =>
+      prev === null ? null : (prev + 1) % filtered.length
+    )
   }, [filtered.length])
 
   const prevImage = useCallback(() => {
@@ -41,7 +45,15 @@ export function ScreenshotGallery() {
 
   const handleFilterChange = (f: Filter) => {
     setActiveFilter(f)
-    setFilterKey((k) => k + 1) // triggers re-animation
+    setFilterKey((k) => k + 1)
+  }
+
+  const markFailed = (id: string) => {
+    setFailedImages((prev) => {
+      const next = new Set(prev)
+      next.add(id)
+      return next
+    })
   }
 
   // ─── Keyboard + scroll lock ───
@@ -60,15 +72,13 @@ export function ScreenshotGallery() {
     }
   }, [lightboxIndex, nextImage, prevImage])
 
-  // ─── Swipe handlers (mobile) ───
+  // ─── Swipe handlers ───
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
   }
-
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX
   }
-
   const handleTouchEnd = () => {
     if (touchStartX.current === null || touchEndX.current === null) return
     const diff = touchStartX.current - touchEndX.current
@@ -80,6 +90,9 @@ export function ScreenshotGallery() {
   }
 
   const activeReview = lightboxIndex !== null ? filtered[lightboxIndex] : null
+  const activeImageFailed = activeReview
+    ? failedImages.has(activeReview.id)
+    : false
 
   return (
     <>
@@ -101,7 +114,8 @@ export function ScreenshotGallery() {
               What Students <span className="text-gradient">Are Saying</span>
             </h2>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              Real conversations, real results. Tap any screenshot to view it larger.
+              Real conversations, real results. Tap any screenshot to view it
+              larger.
             </p>
           </div>
 
@@ -123,11 +137,9 @@ export function ScreenshotGallery() {
                       : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground hover:scale-105"
                   }`}
                 >
-                  {/* Shimmer on active */}
                   {isActive && (
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
                   )}
-
                   <span className="relative z-10 flex items-center gap-1.5">
                     {isActive && <Sparkles className="h-3.5 w-3.5 animate-pulse" />}
                     {f === "All" ? "All Reviews" : f}
@@ -151,61 +163,82 @@ export function ScreenshotGallery() {
             key={filterKey}
             className="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4 [&>*]:break-inside-avoid [&>*]:mb-3 sm:[&>*]:mb-4"
           >
-            {filtered.map((review, i) => (
-              <button
-                key={review.id}
-                onClick={() => openLightbox(i)}
-                className="group relative block w-full overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-card shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 hover:border-primary/30 animate-in fade-in slide-in-from-bottom-6"
-                style={{
-                  animationDelay: `${i * 50}ms`,
-                  animationDuration: "600ms",
-                }}
-              >
-                {/* Image with zoom */}
-                <img
-                  src={review.image}
-                  alt={`${review.mentorship} review`}
-                  loading="lazy"
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+            {filtered.map((review, i) => {
+              const failed = failedImages.has(review.id)
+              return (
+                <button
+                  key={review.id}
+                  onClick={() => !failed && openLightbox(i)}
+                  disabled={failed}
+                  className={`group relative block w-full overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-card shadow-sm transition-all duration-500 animate-in fade-in slide-in-from-bottom-6 ${
+                    failed
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:shadow-2xl hover:-translate-y-1 hover:border-primary/30"
+                  }`}
+                  style={{
+                    animationDelay: `${i * 50}ms`,
+                    animationDuration: "600ms",
+                  }}
+                >
+                  {failed ? (
+                    // ═══ Fallback ═══
+                    <div className="flex aspect-[3/4] flex-col items-center justify-center gap-2 p-4 bg-muted/50">
+                      <ImageOff className="h-6 w-6 text-muted-foreground/60" />
+                      <p className="text-[10px] text-muted-foreground text-center">
+                        Image unavailable
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Image — already URL-encoded from data file */}
+                      <img
+                        src={review.image}
+                        alt={`${review.mentorship} student review`}
+                        loading="lazy"
+                        onError={() => markFailed(review.id)}
+                        className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
 
-                {/* Shimmer sweep on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]" />
-                </div>
+                      {/* Shimmer sweep on hover */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]" />
+                      </div>
 
-                {/* Hover overlay with label */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-md bg-white/20 backdrop-blur-md px-2 py-1 text-[10px] font-bold text-white border border-white/20">
-                    <MessageSquare className="h-2.5 w-2.5" />
-                    {review.mentorship} · {review.batch}
-                  </span>
-                </div>
+                      {/* Hover overlay with label */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span className="inline-flex items-center gap-1.5 rounded-md bg-white/20 backdrop-blur-md px-2 py-1 text-[10px] font-bold text-white border border-white/20">
+                          <MessageSquare className="h-2.5 w-2.5" />
+                          {review.mentorship} · {review.batch}
+                        </span>
+                      </div>
 
-                {/* Always-visible badge */}
-                <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 transition-transform duration-300 group-hover:scale-110">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-950/75 backdrop-blur-sm px-2 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-bold text-white border border-white/20">
-                    <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                    {review.mentorship}
-                  </span>
-                </div>
+                      {/* Always-visible badge */}
+                      <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 transition-transform duration-300 group-hover:scale-110">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-slate-950/75 backdrop-blur-sm px-2 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-bold text-white border border-white/20">
+                          <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                          {review.mentorship}
+                        </span>
+                      </div>
 
-                {/* Zoom icon on hover (top right) */}
-                <div className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/25 backdrop-blur-md border border-white/30">
-                    <svg
-                      className="h-3.5 w-3.5 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                    </svg>
-                  </div>
-                </div>
-              </button>
-            ))}
+                      {/* Zoom icon on hover */}
+                      <div className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/25 backdrop-blur-md border border-white/30">
+                          <svg
+                            className="h-3.5 w-3.5 text-white"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                          >
+                            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </button>
+              )
+            })}
           </div>
 
           {/* ─── Empty State ─── */}
@@ -225,8 +258,8 @@ export function ScreenshotGallery() {
         </div>
       </section>
 
-      {/* ═══════════════ LIGHTBOX MODAL ═══════════════ */}
-      {activeReview && (
+      {/* ═══════════════ LIGHTBOX ═══════════════ */}
+      {activeReview && !activeImageFailed && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-in fade-in duration-300"
           onClick={closeLightbox}
@@ -234,7 +267,7 @@ export function ScreenshotGallery() {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Close button */}
+          {/* Close */}
           <button
             onClick={closeLightbox}
             className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 hover:rotate-90"
@@ -249,7 +282,7 @@ export function ScreenshotGallery() {
             {lightboxIndex! + 1} / {filtered.length}
           </div>
 
-          {/* Prev button */}
+          {/* Prev */}
           {filtered.length > 1 && (
             <button
               onClick={(e) => {
@@ -263,7 +296,7 @@ export function ScreenshotGallery() {
             </button>
           )}
 
-          {/* Next button */}
+          {/* Next */}
           {filtered.length > 1 && (
             <button
               onClick={(e) => {
@@ -277,7 +310,7 @@ export function ScreenshotGallery() {
             </button>
           )}
 
-          {/* Image Container */}
+          {/* Image */}
           <div
             key={lightboxIndex}
             className="relative max-h-[85vh] max-w-full animate-in zoom-in-95 slide-in-from-bottom-4 duration-500"
@@ -288,8 +321,6 @@ export function ScreenshotGallery() {
               alt={`${activeReview.mentorship} review`}
               className="max-h-[85vh] w-auto rounded-xl object-contain shadow-2xl"
             />
-
-            {/* Bottom Label */}
             <div className="absolute bottom-3 left-3 right-3 flex justify-center animate-in fade-in slide-in-from-bottom-2 duration-500 delay-200">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-black/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold text-white border border-white/20 shadow-lg">
                 <MessageSquare className="h-3 w-3" />
@@ -298,7 +329,7 @@ export function ScreenshotGallery() {
             </div>
           </div>
 
-          {/* Swipe hint (mobile only, bottom) */}
+          {/* Swipe hint */}
           {filtered.length > 1 && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-[10px] text-white/50 font-medium sm:hidden">
               <ChevronLeft className="h-3 w-3" />
@@ -309,7 +340,7 @@ export function ScreenshotGallery() {
         </div>
       )}
 
-      {/* Shimmer keyframe animation (global) */}
+      {/* Shimmer keyframe */}
       <style jsx global>{`
         @keyframes shimmer {
           0% {
