@@ -49,6 +49,11 @@ const SUGGESTIONS = [
 
 const STORAGE_KEY = "hds-agent-chat"
 
+// ⏱️ Safety timeouts
+const CLIENT_SAFETY_TIMEOUT = 60_000 // 60s — abort entire request
+const READ_TIMEOUT = 25_000         // 25s — max gap between chunks
+const FLUSH_INTERVAL = 50           // 50ms — batch state updates (smooth streaming)
+
 function uid() {
   return typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
@@ -82,13 +87,18 @@ export function AgentChat() {
     } catch {}
   }, [messages, mounted])
 
-  // Auto-scroll
+  // Auto-scroll (throttled for smoothness)
   useEffect(() => {
-    scrollRef.current?.scrollTo({
-      top: scrollRef.current.scrollHeight,
-      behavior: "smooth",
+    const el = scrollRef.current
+    if (!el) return
+    const raf = requestAnimationFrame(() => {
+      el.scrollTo({
+        top: el.scrollHeight,
+        behavior: isStreaming ? "auto" : "smooth",
+      })
     })
-  }, [messages])
+    return () => cancelAnimationFrame(raf)
+  }, [messages, isStreaming])
 
   // Auto-resize textarea
   useEffect(() => {
@@ -113,10 +123,14 @@ export function AgentChat() {
     } catch {}
   }
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // ✅ COMPLETE FIXED handleSend — proper setup, throttled updates, safe
+  // ═══════════════════════════════════════════════════════════════════════
   const handleSend = async (text: string) => {
     const trimmed = text.trim()
     if (!trimmed || isStreaming) return
 
+    // ─── 1. Create user + assistant messages ───
     const userMsg: Message = {
       id: uid(),
       role: "user",
@@ -136,10 +150,45 @@ export function AgentChat() {
     setInput("")
     setIsStreaming(true)
 
+    // ─── 2. Abort controllers + safety timeout ───
     const controller = new AbortController()
     abortRef.current = controller
 
+    const safetyTimer = setTimeout(() => {
+      if (!controller.signal.aborted) {
+        console.warn("[client] Safety timeout fired — aborting")
+        controller.abort()
+      }
+    }, CLIENT_SAFETY_TIMEOUT)
+
+    // ─── 3. Throttled flush state ───
+    let accumulated = ""
+    let lastFlush = 0
+    let pendingFlush = false
+
+    const flushNow = () => {
+      pendingFlush = false
+      lastFlush = Date.now()
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === assistantId ? { ...m, content: accumulated } : m
+        )
+      )
+    }
+
+    const scheduleFlush = () => {
+      if (pendingFlush) return
+      const elapsed = Date.now() - lastFlush
+      if (elapsed >= FLUSH_INTERVAL) {
+        flushNow()
+      } else {
+        pendingFlush = true
+        setTimeout(flushNow, FLUSH_INTERVAL - elapsed)
+      }
+    }
+
     try {
+      // ─── 4. Fetch ───
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -152,39 +201,55 @@ export function AgentChat() {
         signal: controller.signal,
       })
 
-      if (!res.ok || !res.body) throw new Error("Chat request failed")
+      if (!res.ok || !res.body) {
+        throw new Error(`Chat request failed: ${res.status}`)
+      }
 
+      // ─── 5. Read stream with per-chunk timeout ───
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
-      let accumulated = ""
 
       while (true) {
-        const { value, done } = await reader.read()
+        // Race read() against timeout
+        const readPromise = reader.read()
+        const timeoutPromise = new Promise<{ __timeout: true }>((resolve) => {
+          setTimeout(() => resolve({ __timeout: true }), READ_TIMEOUT)
+        })
+
+        const result = await Promise.race([readPromise, timeoutPromise])
+
+        if ("__timeout" in result) {
+          console.warn("[client] Read timeout — no data for 25s")
+          controller.abort()
+          break
+        }
+
+        const { value, done } = result
         if (done) break
+
         accumulated += decoder.decode(value, { stream: true })
-        setMessages((prev) =>
-          prev.map((m) =>
-            m.id === assistantId ? { ...m, content: accumulated } : m
-          )
-        )
+        scheduleFlush()
       }
+
+      // Final flush — make sure everything is rendered
+      flushNow()
     } catch (err: any) {
-      if (err.name !== "AbortError") {
-        setMessages((prev) =>
-          prev.map((m) =>
-            m.id === assistantId
-              ? {
-                  ...m,
-                  content:
-                    m.content +
-                    (m.content ? "\n\n" : "") +
-                    "⚠️ Connection issue. Please try again or WhatsApp 0327 1543140.",
-                }
-              : m
-          )
-        )
+      const isAbort = err?.name === "AbortError"
+
+      if (!isAbort) {
+        console.error("[client] Fetch error:", err)
+        accumulated =
+          (accumulated ? accumulated + "\n\n" : "") +
+          "⚠️ Connection issue. Please try again or WhatsApp 0327 1543140."
+      } else if (accumulated.length === 0) {
+        accumulated = "⚠️ Response interrupted. Please try again."
+      } else {
+        accumulated += "\n\n⚠️ Response was interrupted."
       }
+
+      flushNow()
     } finally {
+      clearTimeout(safetyTimer)
       abortRef.current = null
       setIsStreaming(false)
     }
@@ -233,7 +298,9 @@ export function AgentChat() {
               <p className="text-[13px] font-bold text-foreground">
                 HDS Assistant
               </p>
-              <p className="text-[10px] text-green-500 font-medium">Online</p>
+              <p className="text-[10px] text-green-500 font-medium">
+                {isStreaming ? "Typing..." : "Online"}
+              </p>
             </div>
           </div>
         </div>
@@ -397,7 +464,6 @@ function MessageRow({
   const isUser = message.role === "user"
   const isEmpty = !message.content && !isUser
 
-  // ── User: right-aligned bubble ──
   if (isUser) {
     return (
       <div className="flex justify-end animate-in fade-in slide-in-from-bottom-2 duration-300">
@@ -410,7 +476,6 @@ function MessageRow({
     )
   }
 
-  // ── Assistant: flat full-width with markdown ──
   return (
     <div className="group flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full gradient-primary text-white shadow-glow">

@@ -1,30 +1,28 @@
 "use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-// Import Lucide React icons
 import {
   Phone,
   Mail,
   MapPin,
   Clock,
-  Zap,
   MessageCircle,
   Rocket,
   Send,
@@ -35,124 +33,126 @@ import {
   GraduationCap,
   Wrench,
   CreditCard,
-  Store,
   Users,
   FileText,
   ChevronDown,
   HeadphonesIcon,
-  ArrowRight
-} from 'lucide-react';
+  ArrowRight,
+  ShieldCheck,
+  Video,
+  Award,
+  AlertTriangle,
+  Sparkles,
+} from "lucide-react";
 
-// Contact Info
+// ═══════════════════════════════════════════════════════════════════════
+// REAL CONTACT INFO (from brief)
+// ═══════════════════════════════════════════════════════════════════════
 const contactDetails = {
-  phone: "03271543140",
-  email: "hassandigitalskills@mail.com",
-  whatsapp: "03271543140",
-  address: "Samundri, Faisalabad, Punjab, Pakistan",
-  hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+  whatsapp: "0327 1543140", // Official number from brief
+  whatsappRaw: "923271543140",
+  accountTitle: "Ali Hassan",
+  address: "Burion Center", // Full address TBD
+  responseTime: "Usually within a few hours",
 };
 
-// FAQ Data (20 Items)
+// ═══════════════════════════════════════════════════════════════════════
+// REAL FAQ (only from brief, no fake claims)
+// ═══════════════════════════════════════════════════════════════════════
 const faqs = [
   {
-    question: "What is Hassan Digital Skills (HDS)?",
-    answer: "HDS is Pakistan's largest scholarship-based digital education platform offering practical training in Social Media Marketing, Web Development, and Freelancing with just PKR 200 registration fee."
+    question: "What is the actual fee for HDS mentorships?",
+    answer:
+      "Each mentorship has a market value of Rs. 25,000. Under our scholarship program, you only pay a one-time seat confirmation fee of Rs. 200 per mentorship.",
   },
   {
-    question: "How can I contact HDS support?",
-    answer: "You can reach us via WhatsApp/Phone at 03271543140, email at hassandigitalskills@mail.com, or fill out the contact form above. We typically respond within 24-48 hours."
+    question: "Which mentorships are currently available?",
+    answer:
+      "We offer 3 top-demand mentorships: Artificial Intelligence (9:15 PM PKT), Social Media Marketing (8:00 PM PKT), and Crypto Trading (10:15 PM PKT).",
   },
   {
-    question: "What courses does HDS offer?",
-    answer: "We offer AI Social Media Marketing, Meta Ads Mastery, SEO Content Writing, Graphic Design, WordPress Development, and YouTube Content Creation - all with 1-month internship included."
+    question: "When does the next batch start?",
+    answer:
+      "Batch 18 starts on 6 December 2026. Total seats: 10,000. Registration is currently open.",
   },
   {
-    question: "Is the scholarship really only PKR 200?",
-    answer: "Yes! We charge only PKR 200 as a registration fee to ensure serious learners. The actual course worth thousands is provided under our scholarship model."
+    question: "What is the duration and how many lectures are included?",
+    answer:
+      "Each mentorship runs for 1 to 1.5 months and includes 14 live lectures on Zoom. Recordings are available for all sessions.",
   },
   {
-    question: "How do I enroll in a course?",
-    answer: "Click 'Apply Now', fill the form, pay PKR 200 registration fee, and you'll receive access to your private WhatsApp group and learning materials within 24 hours."
+    question: "Are the classes online or physical?",
+    answer:
+      "All classes are 100% online via Zoom (live). Recordings are provided so you can watch anytime if you miss a session.",
   },
   {
-    question: "Are the courses online or physical?",
-    answer: "All courses are 100% online with live Google Meet sessions and recorded access. You can learn from anywhere in Pakistan with just a smartphone or laptop."
+    question: "Is this suitable for complete beginners?",
+    answer:
+      "Yes. Every mentorship starts from fundamentals — no prior experience is required. We guide you step-by-step from basics to advanced.",
   },
   {
-    question: "What is the duration of courses?",
-    answer: "Most courses are 4-6 weeks long, followed by a 1-month real internship where you work on actual client projects."
+    question: "Will I receive a certificate?",
+    answer:
+      "Yes. After completing your training, you receive an HDS Certified e-Certificate with a unique ID and QR code. It can be verified online at /verify-certificate.",
   },
   {
-    question: "Will I get a certificate?",
-    answer: "Yes! Upon completion, you receive a Government Verified Certificate that adds credibility to your professional profile and helps in job applications."
-  },
-  {
-    question: "Can I earn after completing the course?",
-    answer: "Absolutely! Our system is designed to take you from learning to earning. Many students start freelancing and get their first clients within 30 days of completion."
-  },
-  {
-    question: "Who can apply for HDS courses?",
-    answer: "Anyone! Students, job seekers, housewives, freelancers looking to upgrade skills - no prior experience required. Just commitment to learn."
-  },
-  {
-    question: "How does the internship program work?",
-    answer: "After 4-6 weeks of training, you enter a 1-month internship where you work on real projects, gain practical experience, and build your portfolio."
+    question: "How do I enroll?",
+    answer:
+      "Visit /enroll, select your mentorship, fill the form, pay Rs. 200 to 0327 1543140 (JazzCash/Easypaisa, Account Title: Ali Hassan), upload your payment screenshot, and submit. Our team verifies within 24 hours.",
   },
   {
     question: "What if I miss a live class?",
-    answer: "No worries! All sessions are recorded and available for lifetime access. You can watch anytime and learn at your own pace."
+    answer:
+      "Don't worry. All 14 live lectures are recorded. You get access to the recordings and can watch them anytime in your student portal.",
   },
   {
-    question: "Is there any refund policy?",
-    answer: "Due to the scholarship-based model and minimal registration fee, we don't offer refunds. However, we ensure quality education and support throughout."
+    question: "Can I enroll in more than one mentorship?",
+    answer:
+      "Yes. Each mentorship has its own Rs. 200 seat fee. You can enroll in multiple mentorships if you wish — each one is Rs. 200.",
   },
   {
-    question: "Can I pay the fee in installments?",
-    answer: "The PKR 200 registration is a one-time small fee. For any additional services, contact our support team for flexible options."
+    question: "How do I make the payment?",
+    answer:
+      "Send Rs. 200 to the official JazzCash / Easypaisa number: 0327 1543140 (Account Title: Ali Hassan). ⚠️ Payment only to this official number — HDS has no other number.",
   },
   {
-    question: "Do you offer franchise opportunities?",
-    answer: "Yes! We have 20+ franchise partners across Pakistan. Contact us via phone or email to discuss franchise partnership opportunities."
+    question: "Is crypto trading safe? What about losses?",
+    answer:
+      "⚠️ Crypto trading involves risk of loss. Our Crypto Trading mentorship is purely educational — it teaches technical analysis and risk management, but does NOT guarantee any profit.",
   },
   {
-    question: "What makes HDS different from other institutes?",
-    answer: "We focus on practical execution, not just theory. Live mentorship, real internship, income-focused skills, and a complete earning ecosystem - all for just PKR 200."
+    question: "Is there an internship?",
+    answer:
+      "Yes. Students who complete the training are eligible for a 1-month internship path with real project work, portfolio building, and freelancing/job guidance.",
   },
   {
-    question: "How many students have you trained?",
-    answer: "We've trained 10,000+ students across 50+ cities in Pakistan with a 95% success rate in helping them start earning."
+    question: "What is the refund policy?",
+    answer:
+      "The exact refund policy for the Rs. 200 seat fee is being finalized. Please confirm with our team on WhatsApp 0327 1543140 before enrolling.",
   },
   {
-    question: "Is HDS registered?",
-    answer: "Yes! Hassan Digital Skills is SECP registered, Google Partner, and Meta Certified training institute."
+    question: "How can I contact the HDS team?",
+    answer:
+      "The fastest way is WhatsApp at 0327 1543140. You can also use the contact form on this page — we respond within 24-48 hours.",
   },
-  {
-    question: "What support do you provide after course completion?",
-    answer: "Lifetime access to community, job placement assistance, freelance guidance, continuous mentorship, and updates on new opportunities."
-  },
-  {
-    question: "How can I become a mentor at HDS?",
-    answer: "If you have 2+ years of industry experience and passion for teaching, send your CV to hassandigitalskills@mail.com with subject 'Mentorship Application'."
-  }
 ];
 
 const subjects = [
-  { value: 'course-inquiry', label: 'Course Inquiry', icon: BookOpen },
-  { value: 'enrollment-help', label: 'Enrollment Help', icon: GraduationCap },
-  { value: 'technical-support', label: 'Technical Support', icon: Wrench },
-  { value: 'payment-question', label: 'Payment Question', icon: CreditCard },
-  { value: 'franchise', label: 'Franchise Partnership', icon: Store },
-  { value: 'mentorship', label: 'Become a Mentor', icon: Users },
-  { value: 'other', label: 'Other', icon: FileText },
+  { value: "course-inquiry", label: "Mentorship Inquiry", icon: BookOpen },
+  { value: "enrollment-help", label: "Enrollment Help", icon: GraduationCap },
+  { value: "payment-question", label: "Payment Question", icon: CreditCard },
+  { value: "technical-support", label: "Technical Support", icon: Wrench },
+  { value: "franchise", label: "Franchise Inquiry", icon: Users },
+  { value: "other", label: "Other", icon: FileText },
 ];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -164,19 +164,16 @@ export default function ContactPage() {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim() || formData.name.length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
+      newErrors.name = "Name must be at least 2 characters";
     }
-
     if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
+      newErrors.email = "Please enter a valid email";
     }
-
     if (!formData.subject) {
-      newErrors.subject = 'Please select a subject';
+      newErrors.subject = "Please select a subject";
     }
-
     if (!formData.message.trim() || formData.message.length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+      newErrors.message = "Message must be at least 10 characters";
     }
 
     setErrors(newErrors);
@@ -185,15 +182,14 @@ export default function ContactPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -201,239 +197,311 @@ export default function ContactPage() {
 
       if (data.success) {
         setIsSuccess(true);
-        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
       } else {
-        setErrors({ submit: data.error || 'Failed to send message. Please try again.' });
+        setErrors({ submit: data.error || "Failed to send message. Please try again." });
       }
-    } catch (error) {
-      setErrors({ submit: 'Network error. Please check your connection.' });
+    } catch {
+      setErrors({ submit: "Network error. Please check your connection." });
     }
 
     setIsSubmitting(false);
   }
 
   function handleChange(field: string, value: string) {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   }
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0B1220]">
+    <main className="relative min-h-screen bg-background overflow-hidden">
+      {/* ═══ Animated Background ═══ */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[140px] animate-pulse duration-[7000ms]" />
+        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] animate-pulse duration-[5000ms]" />
+      </div>
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-16 bg-[#F9FAFB] dark:bg-[#111827]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto">
-            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 mb-4 inline-flex items-center gap-2">
-              <HeadphonesIcon className="w-4 h-4" />
+      {/* ═══════════════════════ HERO ═══════════════════════ */}
+      <section className="relative pt-12 pb-10 lg:pt-16 lg:pb-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-primary/10 text-primary-text border border-primary/20 px-3 py-1 mb-4 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <HeadphonesIcon className="w-3.5 h-3.5" />
               Get in Touch
             </Badge>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] dark:text-white mb-4">
-              Contact <span className="text-[#3495EB]">HDS</span>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-3 leading-tight">
+              Contact <span className="text-gradient">HDS</span>
             </h1>
-            <p className="text-gray-600 dark:text-gray-300">
-              Have questions? We&apos;re here to help. Reach out to us for course inquiries, 
-              enrollment support, or partnership opportunities.
+
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              Have questions about mentorships, enrollment, or payment?
+              WhatsApp is the fastest way to reach us.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 -mt-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-
-            {/* Contact Info Cards */}
-            <div className="lg:col-span-1 space-y-4">
-              {/* Phone */}
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#3495EB]/30 transition-colors group">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#3495EB]/10 flex items-center justify-center group-hover:bg-[#3495EB]/20 transition-colors">
-                      <Phone className="w-6 h-6 text-[#3495EB]" />
+      {/* ═══════════════════════ CONTACT GRID ═══════════════════════ */}
+      <section className="relative pb-16 lg:pb-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[380px_1fr] gap-5 lg:gap-6">
+            {/* ─── LEFT: Contact Cards ─── */}
+            <div className="space-y-3 animate-in fade-in slide-in-from-left-8 duration-700">
+              {/* WhatsApp (Primary) */}
+              <Card className="border-primary/30 bg-card hover:shadow-lg transition-all group">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#25D366]/10 group-hover:scale-110 transition-transform">
+                      <MessageCircle className="h-5 w-5 text-[#25D366]" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-[#111827] dark:text-white mb-1">Phone/WhatsApp</h3>
-                      <a 
-                        href={`tel:+92${contactDetails.phone}`}
-                        className="text-[#3495EB] font-bold text-lg hover:underline"
-                      >
-                        {contactDetails.phone}
-                      </a>
-                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        Available 9AM - 6PM
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-primary-text mb-0.5">
+                        WhatsApp (Primary)
                       </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Email */}
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#8B5CF6]/30 transition-colors group">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center group-hover:bg-[#8B5CF6]/20 transition-colors">
-                      <Mail className="w-6 h-6 text-[#8B5CF6]" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#111827] dark:text-white mb-1">Email</h3>
-                      <a 
-                        href={`mailto:${contactDetails.email}`}
-                        className="text-[#8B5CF6] font-medium text-sm hover:underline break-all"
+                      <a
+                        href={`https://wa.me/${contactDetails.whatsappRaw}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-base font-bold text-foreground hover:text-primary-text transition-colors block"
                       >
-                        {contactDetails.email}
+                        {contactDetails.whatsapp}
                       </a>
-                      <p className="text-xs text-gray-500 mt-1">24-48 hour response</p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-1">
+                        <Clock className="h-2.5 w-2.5" />
+                        {contactDetails.responseTime}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Address */}
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] hover:border-[#10B981]/30 transition-colors group">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#10B981]/10 flex items-center justify-center group-hover:bg-[#10B981]/20 transition-colors">
-                      <MapPin className="w-6 h-6 text-[#10B981]" />
+              <Card className="border-border bg-card hover:shadow-md transition-all group">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 group-hover:scale-110 transition-transform">
+                      <MapPin className="h-5 w-5 text-accent" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-[#111827] dark:text-white mb-1">Location</h3>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">
+                        Location
+                      </p>
+                      <p className="text-sm font-bold text-foreground">
                         {contactDetails.address}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">Main Campus</p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Full address & map coming soon
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Account Title */}
+              <Card className="border-border bg-card hover:shadow-md transition-all group">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 group-hover:scale-110 transition-transform">
+                      <CreditCard className="h-5 w-5 text-amber-600 dark:text-amber-500" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">
+                        Payment Account
+                      </p>
+                      <p className="text-sm font-bold text-foreground">
+                        {contactDetails.accountTitle}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        JazzCash / Easypaisa
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Quick Actions */}
-              <div className="bg-gradient-to-br from-[#3495EB] to-[#347ce0] rounded-xl p-5 text-white">
-                <h3 className="font-bold mb-3 flex items-center gap-2">
-                  <Zap className="w-5 h-5" /> Quick Actions
-                </h3>
-                <div className="space-y-2">
-                  <a 
-                    href={`https://wa.me/92${contactDetails.whatsapp}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 py-2.5 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
-                  </a>
-                  <Link 
-                    href="/enroll"
-                    className="flex items-center justify-center gap-2 bg-white text-[#3495EB] py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-colors"
-                  >
-                    <Rocket className="w-4 h-4" /> Apply Now
-                  </Link>
+              <div className="rounded-2xl bg-gradient-to-br from-primary via-primary to-primary/90 p-4 text-white overflow-hidden relative">
+                <div className="pointer-events-none absolute inset-0 opacity-10">
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:24px_24px]" />
                 </div>
+                <div className="relative">
+                  <h3 className="font-bold mb-2.5 flex items-center gap-1.5 text-sm">
+                    <Sparkles className="w-4 h-4" /> Quick Actions
+                  </h3>
+                  <div className="space-y-2">
+                    <a
+                      href={`https://wa.me/${contactDetails.whatsappRaw}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1.5 bg-white/20 hover:bg-white/30 py-2 rounded-lg text-xs font-semibold transition-colors backdrop-blur-sm"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" /> Chat on WhatsApp
+                    </a>
+                    <Link
+                      href="/enroll"
+                      className="flex items-center justify-center gap-1.5 bg-white text-primary hover:bg-white/90 py-2 rounded-lg text-xs font-bold transition-colors"
+                    >
+                      <Rocket className="w-3.5 h-3.5" /> Enroll in Batch 18
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Warning */}
+              <div className="flex items-start gap-2 rounded-xl border border-destructive/20 bg-destructive/10 p-3">
+                <AlertTriangle className="h-4 w-4 shrink-0 text-destructive mt-0.5" />
+                <p className="text-[11px] text-destructive/90 leading-relaxed">
+                  <strong>Payment only to 0327 1543140 (Ali Hassan).</strong>{" "}
+                  HDS has no other number.
+                </p>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <Card className="bg-white dark:bg-[#111827] border-[#E5E7EB] dark:border-[#1F2937] shadow-lg">
-                <CardContent className="p-6 md:p-8">
-
+            {/* ─── RIGHT: Contact Form ─── */}
+            <div className="animate-in fade-in slide-in-from-right-8 duration-700">
+              <Card className="border-border bg-card shadow-sm">
+                <CardContent className="p-5 sm:p-6">
                   {isSuccess ? (
-                    <div className="text-center py-12">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <CheckCircle className="w-8 h-8 text-green-600" />
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-10"
+                    >
+                      <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <CheckCircle className="w-8 h-8 text-green-500" />
                       </div>
-                      <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">
+                      <h3 className="text-xl font-bold text-foreground mb-2">
                         Message Sent!
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-6">
-                        Thank you for contacting us. We&apos;ll get back to you within 24-48 hours.
+                      <p className="text-sm text-muted-foreground mb-5 max-w-sm mx-auto">
+                        Thank you. We'll get back to you within 24-48 hours.
+                        For faster response, WhatsApp us at 0327 1543140.
                       </p>
-                      <Button 
-                        onClick={() => setIsSuccess(false)}
-                        variant="outline"
-                        className="border-[#3495EB] text-[#3495EB] hover:bg-[#3495EB]/10"
-                      >
-                        Send Another Message
-                      </Button>
-                    </div>
+                      <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                        <Button
+                          onClick={() => setIsSuccess(false)}
+                          variant="outline"
+                          size="sm"
+                          className="rounded-lg"
+                        >
+                          Send Another
+                        </Button>
+                        <a
+                          href={`https://wa.me/${contactDetails.whatsappRaw}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
+                            size="sm"
+                            className="gradient-primary text-white rounded-lg"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 mr-1.5" />
+                            WhatsApp Now
+                          </Button>
+                        </a>
+                      </div>
+                    </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      <div className="grid md:grid-cols-2 gap-5">
-                        <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
-                            <Users className="w-4 h-4 text-gray-400" />
-                            Full Name *
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <div className="mb-4">
+                        <h2 className="text-lg font-bold text-foreground mb-1">
+                          Send a Message
+                        </h2>
+                        <p className="text-xs text-muted-foreground">
+                          Fill the form below. For urgent matters, WhatsApp is faster.
+                        </p>
+                      </div>
+
+                      {/* Name + Email */}
+                      <div className="grid md:grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                          <Label className="text-[11px] font-semibold flex items-center gap-1">
+                            <Users className="w-3 h-3" />
+                            Full Name <span className="text-destructive">*</span>
                           </Label>
                           <Input
                             placeholder="Your name"
                             value={formData.name}
-                            onChange={(e) => handleChange('name', e.target.value)}
+                            onChange={(e) => handleChange("name", e.target.value)}
                             className={cn(
-                              "h-11 rounded-lg",
-                              errors.name ? 'border-red-500' : 'border-[#E5E7EB]'
+                              "h-10 text-sm rounded-lg",
+                              errors.name
+                                ? "border-destructive"
+                                : "border-border focus:border-primary"
                             )}
                           />
-                          {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+                          {errors.name && (
+                            <p className="text-[10px] text-destructive">{errors.name}</p>
+                          )}
                         </div>
 
-                        <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
-                            <Mail className="w-4 h-4 text-gray-400" />
-                            Email Address *
+                        <div className="space-y-1.5">
+                          <Label className="text-[11px] font-semibold flex items-center gap-1">
+                            <Mail className="w-3 h-3" />
+                            Email <span className="text-destructive">*</span>
                           </Label>
                           <Input
                             type="email"
                             placeholder="you@example.com"
                             value={formData.email}
-                            onChange={(e) => handleChange('email', e.target.value)}
+                            onChange={(e) => handleChange("email", e.target.value)}
                             className={cn(
-                              "h-11 rounded-lg",
-                              errors.email ? 'border-red-500' : 'border-[#E5E7EB]'
+                              "h-10 text-sm rounded-lg",
+                              errors.email
+                                ? "border-destructive"
+                                : "border-border focus:border-primary"
                             )}
                           />
-                          {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+                          {errors.email && (
+                            <p className="text-[10px] text-destructive">{errors.email}</p>
+                          )}
                         </div>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-5">
-                        <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
-                            <Phone className="w-4 h-4 text-gray-400" />
-                            Phone Number
+                      {/* Phone + Subject */}
+                      <div className="grid md:grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                          <Label className="text-[11px] font-semibold flex items-center gap-1">
+                            <Phone className="w-3 h-3" />
+                            WhatsApp Number
                           </Label>
                           <Input
-                            placeholder="03XX XXXXXXX"
+                            placeholder="03271543140"
                             value={formData.phone}
-                            onChange={(e) => handleChange('phone', e.target.value)}
-                            className="h-11 rounded-lg border-[#E5E7EB]"
+                            onChange={(e) => handleChange("phone", e.target.value)}
+                            className="h-10 text-sm rounded-lg border-border focus:border-primary"
                           />
                         </div>
 
-                        <div className="space-y-2">
-                          <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
-                            <HelpCircle className="w-4 h-4 text-gray-400" />
-                            Subject *
+                        <div className="space-y-1.5">
+                          <Label className="text-[11px] font-semibold flex items-center gap-1">
+                            <HelpCircle className="w-3 h-3" />
+                            Subject <span className="text-destructive">*</span>
                           </Label>
-                          <Select 
-                            value={formData.subject} 
-                            onValueChange={(value) => handleChange('subject', value)}
+                          <Select
+                            value={formData.subject}
+                            onValueChange={(value) => handleChange("subject", value)}
                           >
-                            <SelectTrigger className={cn(
-                              "h-11 rounded-lg",
-                              errors.subject ? 'border-red-500' : 'border-[#E5E7EB]'
-                            )}>
+                            <SelectTrigger
+                              className={cn(
+                                "h-10 text-sm rounded-lg",
+                                errors.subject
+                                  ? "border-destructive"
+                                  : "border-border focus:border-primary"
+                              )}
+                            >
                               <SelectValue placeholder="Select topic" />
                             </SelectTrigger>
                             <SelectContent>
                               {subjects.map((subject) => {
-                                const IconComponent = subject.icon;
+                                const Icon = subject.icon;
                                 return (
                                   <SelectItem key={subject.value} value={subject.value}>
-                                    <div className="flex items-center gap-2">
-                                      <IconComponent className="w-4 h-4 text-[#3495EB]" />
+                                    <div className="flex items-center gap-2 text-sm">
+                                      <Icon className="w-3.5 h-3.5 text-primary-text" />
                                       {subject.label}
                                     </div>
                                   </SelectItem>
@@ -441,30 +509,37 @@ export default function ContactPage() {
                               })}
                             </SelectContent>
                           </Select>
-                          {errors.subject && <p className="text-xs text-red-500">{errors.subject}</p>}
+                          {errors.subject && (
+                            <p className="text-[10px] text-destructive">{errors.subject}</p>
+                          )}
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label className="text-[#111827] dark:text-white text-sm font-medium flex items-center gap-2">
-                          <MessageCircle className="w-4 h-4 text-gray-400" />
-                          Message *
+                      {/* Message */}
+                      <div className="space-y-1.5">
+                        <Label className="text-[11px] font-semibold flex items-center gap-1">
+                          <MessageCircle className="w-3 h-3" />
+                          Message <span className="text-destructive">*</span>
                         </Label>
                         <Textarea
-                          placeholder="How can we help you?"
+                          placeholder="Tell us how we can help..."
                           rows={5}
                           value={formData.message}
-                          onChange={(e) => handleChange('message', e.target.value)}
+                          onChange={(e) => handleChange("message", e.target.value)}
                           className={cn(
-                            "rounded-lg resize-none",
-                            errors.message ? 'border-red-500' : 'border-[#E5E7EB]'
+                            "text-sm rounded-lg resize-none",
+                            errors.message
+                              ? "border-destructive"
+                              : "border-border focus:border-primary"
                           )}
                         />
-                        {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
+                        {errors.message && (
+                          <p className="text-[10px] text-destructive">{errors.message}</p>
+                        )}
                       </div>
 
                       {errors.submit && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                        <div className="p-2.5 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-xs">
                           {errors.submit}
                         </div>
                       )}
@@ -472,22 +547,27 @@ export default function ContactPage() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full h-12 bg-[#3495EB] hover:bg-[#347ce0] text-white font-semibold rounded-lg shadow-lg shadow-[#3495EB]/20"
+                        className="w-full h-11 gradient-primary text-white font-bold rounded-lg shadow-glow hover:scale-[1.01] transition-all disabled:opacity-60"
                       >
                         {isSubmitting ? (
-                          <span className="flex items-center gap-2">
-                            <Loader2 className="w-5 h-5 animate-spin" /> Sending...
+                          <span className="flex items-center gap-2 text-sm">
+                            <Loader2 className="w-4 h-4 animate-spin" /> Sending...
                           </span>
                         ) : (
-                          <span className="flex items-center gap-2">
+                          <span className="flex items-center gap-2 text-sm">
                             Send Message <Send className="w-4 h-4" />
                           </span>
                         )}
                       </Button>
 
-                      <p className="text-center text-xs text-gray-500">
-                        By submitting, you agree to our{' '}
-                        <Link href="/privacy" className="text-[#3495EB] hover:underline">Privacy Policy</Link>
+                      <p className="text-center text-[10px] text-muted-foreground">
+                        By submitting, you agree to our{" "}
+                        <Link
+                          href="/privacy-policy"
+                          className="text-primary-text hover:underline"
+                        >
+                          Privacy Policy
+                        </Link>
                       </p>
                     </form>
                   )}
@@ -498,44 +578,69 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-[#F9FAFB] dark:bg-[#111827]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 max-w-2xl mx-auto">
-            <Badge className="bg-[#3495EB]/10 text-[#3495EB] border-0 mb-4 inline-flex items-center gap-2">
-              <HelpCircle className="w-4 h-4" />
+      {/* ═══════════════════════ FAQ ═══════════════════════ */}
+      <section className="relative py-16 lg:py-20 bg-muted/20">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Badge className="bg-primary/10 text-primary-text border border-primary/20 mb-3 inline-flex items-center gap-1.5 text-[11px] font-bold">
+              <HelpCircle className="w-3.5 h-3.5" />
               FAQ
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4">
-              Frequently Asked <span className="text-[#3495EB]">Questions</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+              Frequently Asked <span className="text-gradient">Questions</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              Find answers to common questions about HDS courses, enrollment, and support
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              Real answers about mentorships, fees, batches, and enrollment.
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-3">
+          {/* FAQ List */}
+          <div className="space-y-2.5">
             {faqs.map((faq, index) => (
-              <div 
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.04 }}
                 className={cn(
-                  "bg-white dark:bg-[#0B1220] rounded-xl border border-[#E5E7EB] dark:border-[#1F2937] overflow-hidden transition-all duration-300",
-                  openFaq === index ? "shadow-md border-[#3495EB]/30" : "hover:border-[#3495EB]/20"
+                  "rounded-xl border bg-card overflow-hidden transition-all duration-300",
+                  openFaq === index
+                    ? "border-primary/30 shadow-md"
+                    : "border-border hover:border-primary/20"
                 )}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full p-5 text-left flex items-start justify-between gap-4"
+                  className="w-full p-4 text-left flex items-start justify-between gap-3"
                 >
-                  <span className="font-semibold text-[#111827] dark:text-white text-sm md:text-base pr-8">
-                    {index + 1}. {faq.question}
-                  </span>
-                  <div className={cn(
-                    "w-6 h-6 rounded-full bg-[#3495EB]/10 flex items-center justify-center flex-shrink-0 transition-all duration-300",
-                    openFaq === index ? "bg-[#3495EB] text-white rotate-180" : "text-[#3495EB]"
-                  )}>
-                    <ChevronDown className="w-4 h-4" />
+                  <div className="flex items-start gap-2.5 min-w-0">
+                    <span
+                      className={cn(
+                        "flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[10px] font-bold transition-colors",
+                        openFaq === index
+                          ? "bg-primary text-white"
+                          : "bg-muted text-muted-foreground"
+                      )}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-sm font-semibold text-foreground pt-0.5">
+                      {faq.question}
+                    </span>
                   </div>
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 shrink-0 mt-0.5 transition-transform duration-300",
+                      openFaq === index
+                        ? "rotate-180 text-primary"
+                        : "text-muted-foreground"
+                    )}
+                  />
                 </button>
 
                 <AnimatePresence>
@@ -545,40 +650,70 @@ export default function ContactPage() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5">
-                        <div className="pt-2 border-t border-[#E5E7EB] dark:border-[#1F2937]">
-                          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed pt-3">
-                            {faq.answer}
-                          </p>
-                        </div>
+                      <div className="px-4 pb-4 pl-13">
+                        <p className="text-xs text-muted-foreground leading-relaxed pl-11">
+                          {faq.answer}
+                        </p>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Still have questions */}
-          <div className="mt-12 text-center">
-            <p className="text-gray-600 dark:text-gray-300 mb-4">Still have questions?</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a 
-                href={`tel:${contactDetails.phone}`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#3495EB] text-white rounded-lg font-semibold hover:bg-[#347ce0] transition-colors"
-              >
-                <Phone className="w-4 h-4" /> Call Us Now
-              </a>
-              <a 
-                href={`https://wa.me/92${contactDetails.whatsapp}`}
+          <div className="mt-10 text-center animate-in fade-in duration-700 delay-500">
+            <p className="text-sm text-muted-foreground mb-3">
+              Still have questions? We're one message away.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2.5 justify-center">
+              <a
+                href={`https://wa.me/${contactDetails.whatsappRaw}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-lg font-semibold hover:bg-[#22c35e] transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#25D366] text-white rounded-xl font-semibold hover:bg-[#1ebe5d] transition-all hover:scale-105 text-sm shadow-md"
               >
-                <MessageCircle className="w-4 h-4" /> WhatsApp
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp Now
               </a>
+              <Link
+                href="/enroll"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 gradient-primary text-white rounded-xl font-semibold hover:scale-105 transition-all text-sm shadow-md"
+              >
+                <Rocket className="w-4 h-4" />
+                Enroll Now
+              </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ FOOTER CTA ═══════════════════════ */}
+      <section className="py-14 lg:py-16 bg-background">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 text-center shadow-sm">
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-3">
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
+                Secure enrollment
+              </div>
+              <div className="h-3 w-px bg-border" />
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Video className="w-3.5 h-3.5 text-primary-text" />
+                100% Live on Zoom
+              </div>
+              <div className="h-3 w-px bg-border" />
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Award className="w-3.5 h-3.5 text-amber-500" />
+                HDS Certified e-Certificate
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Batch 18 · Starts <strong className="text-foreground">6 December 2026</strong> · 10,000 seats available
+            </p>
           </div>
         </div>
       </section>
