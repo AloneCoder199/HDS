@@ -51,7 +51,7 @@ const steps = [
     icon: Briefcase,
     color: "text-teal-500",
     image:
-      "/Certificate & Internship Letter/Internship Letter B#16 mahnoor shahraiz.png",
+      "/Certificate & Internship Letter/internshp.png",
   },
   {
     title: "Portfolio Building",
