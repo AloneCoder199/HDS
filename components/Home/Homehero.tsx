@@ -7,12 +7,31 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hello HDS Team! I want to apply for the Batch 18 mentorship. Please guide me."
 )
 
-// Real student avatars with details for hover bubble
+// ═══════════════════════════════════════════════════════════════════
+// REAL STUDENT PHOTOS — from /public/Hero Page Students Pics/
+// URLs are pre-encoded to safely handle spaces
+// ═══════════════════════════════════════════════════════════════════
 const studentAvatars = [
-  { src: "/st1.jpg", name: "HDS Student", tag: "AI Mentorship" },
-  { src: "/st2.jpg", name: "HDS Student", tag: "SMM Mentorship" },
-  { src: "/st3.jpg", name: "HDS Student", tag: "Crypto Trading" },
-  { src: "/st4.jpg", name: "HDS Student", tag: "AI Mentorship" },
+  {
+    src: encodeURI("/Hero Page Students Pics/WhatsApp Image 2026-11-14 at 1.03.24 PM.jpeg"),
+    name: "HDS Student",
+    tag: "AI Mentorship",
+  },
+  {
+    src: encodeURI("/Hero Page Students Pics/WhatsApp Image 2026-11-14 at 1.03.25 PM.jpeg"),
+    name: "HDS Student",
+    tag: "SMM Mentorship",
+  },
+  {
+    src: encodeURI("/Hero Page Students Pics/WhatsApp Image 2026-11-14 at 1.03.28 PM.jpeg"),
+    name: "HDS Student",
+    tag: "Crypto Trading",
+  },
+  {
+    src: encodeURI("/Hero Page Students Pics/WhatsApp Image 2026-11-14 at 1.03.34 PM.jpeg"),
+    name: "HDS Student",
+    tag: "AI Mentorship",
+  },
 ]
 
 export function Hero() {
@@ -90,13 +109,13 @@ export function Hero() {
                         alt={`${student.name} — ${student.tag}`}
                         width={40}
                         height={40}
+                        unoptimized
                         className="h-full w-full object-cover transition-transform duration-300 group-hover/avatar:scale-110"
                       />
                     </div>
 
                     {/* ═══ Hover Bubble ═══ */}
                     <div className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-3 -translate-x-1/2 opacity-0 scale-90 translate-y-1 transition-all duration-300 group-hover/avatar:opacity-100 group-hover/avatar:scale-100 group-hover/avatar:translate-y-0">
-                      {/* Bubble Card */}
                       <div className="relative w-[140px] overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
                         {/* Large Student Image */}
                         <div className="relative aspect-square overflow-hidden bg-muted">
@@ -105,11 +124,10 @@ export function Hero() {
                             alt={`${student.name} — ${student.tag}`}
                             width={140}
                             height={140}
+                            unoptimized
                             className="h-full w-full object-cover"
                           />
-                          {/* Gradient overlay for text */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                          {/* Small badge top */}
                           <div className="absolute top-2 left-2">
                             <span className="inline-flex items-center gap-1 rounded-full bg-black/60 backdrop-blur-sm px-1.5 py-0.5 text-[8px] font-bold text-white border border-white/20">
                               <CheckCircle2 className="h-2 w-2 text-green-400" />
@@ -129,7 +147,7 @@ export function Hero() {
                         </div>
                       </div>
 
-                      {/* Arrow pointing down */}
+                      {/* Arrow */}
                       <div className="absolute left-1/2 top-full -mt-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-border bg-background" />
                     </div>
                   </div>
@@ -151,11 +169,9 @@ export function Hero() {
 
           {/* ═══ RIGHT: Founder Image & Floating Badges ═══ */}
           <div className="relative mx-auto w-full max-w-lg lg:ml-auto">
-            {/* Image Frame with Glass Effect */}
             <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square overflow-hidden rounded-3xl border border-border/50 bg-card shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent mix-blend-overlay z-10" />
 
-              {/* ✅ Real Founder Photo */}
               <Image
                 src="/founder.jpeg"
                 alt="Ali Hassan — Founder & Mentor, HDS"
@@ -165,7 +181,6 @@ export function Hero() {
                 className="object-cover"
               />
 
-              {/* Dark gradient overlay at bottom for text readability */}
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent z-10" />
 
               <div className="absolute bottom-6 left-6 z-20">

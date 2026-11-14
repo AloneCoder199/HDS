@@ -7,14 +7,13 @@ export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 export const maxDuration = 60
 
-const MAX_MESSAGES = 12
+const MAX_MESSAGES = 8
 const MAX_CONTENT_LENGTH = 1500
-const MAX_TOKENS_OUT = 600
+const MAX_TOKENS_OUT = 300          // ⬇️ was 600 — shorter, faster responses
 
-// ⏱️ Timeouts
-const FIRST_CHUNK_TIMEOUT = 15_000   // 15s — wait for first token
-const IDLE_TIMEOUT = 20_000          // 20s — max gap between chunks
-const TOTAL_TIMEOUT = 45_000         // 45s — hard cap on entire stream
+const FIRST_CHUNK_TIMEOUT = 15_000
+const IDLE_TIMEOUT = 15_000          // ⬇️ was 20s
+const TOTAL_TIMEOUT = 40_000         // ⬇️ was 45s
 
 // ─── Rate limiting ───
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
@@ -27,7 +26,7 @@ function getClientIp(req: NextRequest): string {
   return req.headers.get("x-real-ip") || "unknown"
 }
 
-function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
+function checkRateLimit(ip: string) {
   const now = Date.now()
   if (rateLimitMap.size > 2000) {
     for (const [k, v] of rateLimitMap) {
@@ -46,29 +45,22 @@ function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
   return { allowed: true }
 }
 
-// ─── Model aliases ───
 const MODEL_ALIASES: Record<string, string> = {
   "gpt-oss-120b": "openai/gpt-oss-120b",
   "gpt-oss-20b": "openai/gpt-oss-20b",
   "llama-3.3-70b": "llama-3.3-70b-versatile",
   "llama-3.1-8b": "llama-3.1-8b-instant",
-  "llama-3.1-70b": "llama-3.1-70b-versatile",
-  "llama3-70b": "llama3-70b-8192",
-  "llama3-8b": "llama3-8b-8192",
-  "mixtral-8x7b": "mixtral-8x7b-32768",
 }
 
 function resolveModel(raw: string): string {
-  const trimmed = raw.trim()
-  if (!trimmed) return trimmed
-  if (MODEL_ALIASES[trimmed]) return MODEL_ALIASES[trimmed]
-  return trimmed
+  const t = raw.trim()
+  if (!t) return t
+  return MODEL_ALIASES[t] ?? t
 }
 
 type IncomingMessage = { role: "user" | "assistant"; content: string }
 
 export async function POST(req: NextRequest) {
-  // ═══ RATE LIMIT ═══
   const ip = getClientIp(req)
   const rl = checkRateLimit(ip)
   if (!rl.allowed) {
@@ -81,9 +73,7 @@ export async function POST(req: NextRequest) {
   try {
     const apiKey = process.env.GROQ_API_KEY
     const rawModel = process.env.GROQ_MODEL
-
     if (!apiKey || !rawModel) {
-      console.error("[chat] Missing env vars")
       return new Response(
         "Chat service is not configured. Contact HDS on WhatsApp 0327 1543140.",
         { status: 500 }
@@ -117,23 +107,21 @@ export async function POST(req: NextRequest) {
       return new Response("No valid messages provided.", { status: 400 })
     }
 
-    // ═══ GROQ CLIENT ═══
     const groq = new Groq({
       apiKey,
-      timeout: FIRST_CHUNK_TIMEOUT, // initial connection timeout
+      timeout: FIRST_CHUNK_TIMEOUT,
       maxRetries: 0,
     })
 
-    // ═══ ABORT CONTROLLER — wired to BOTH client disconnect AND our timeouts ═══
+    // ═══ ABORT CONTROLLER ═══
     const abortController = new AbortController()
 
-    // Abort when client disconnects
     req.signal.addEventListener("abort", () => {
       console.log("[chat] Client disconnected — aborting upstream")
-      abortController.abort()
+      try { abortController.abort() } catch {}
     })
 
-    // ═══ CALL GROQ (with first-chunk timeout) ═══
+    // ═══ CALL GROQ ═══
     let stream: AsyncIterable<any>
     try {
       stream = await groq.chat.completions.create(
@@ -151,7 +139,6 @@ export async function POST(req: NextRequest) {
       )
     } catch (err: any) {
       if (err?.name === "TimeoutError" || err?.name === "AbortError") {
-        console.error("[chat] First-chunk timeout")
         return new Response(
           "Response is taking too long. Please try again or WhatsApp 0327 1543140.",
           { status: 504 }
@@ -162,8 +149,6 @@ export async function POST(req: NextRequest) {
 
     // ═══ STREAM RESPONSE ═══
     const encoder = new TextEncoder()
-    const startTime = Date.now()
-    let lastChunkTime = Date.now()
     let closed = false
 
     const readable = new ReadableStream({
@@ -185,38 +170,51 @@ export async function POST(req: NextRequest) {
           }
         }
 
+        // ═══ WATCHDOG TIMERS — the real fix ═══
+        let idleTimer: NodeJS.Timeout | null = null
+        let totalTimer: NodeJS.Timeout | null = null
+
+        const clearTimers = () => {
+          if (idleTimer) { clearTimeout(idleTimer); idleTimer = null }
+          if (totalTimer) { clearTimeout(totalTimer); totalTimer = null }
+        }
+
+        const resetIdleTimer = () => {
+          if (idleTimer) clearTimeout(idleTimer)
+          idleTimer = setTimeout(() => {
+            console.warn("[chat] IDLE_TIMEOUT — no chunk for 15s, aborting")
+            safeEnqueue(
+              "\n\n⚠️ Connection went silent. Please try again or WhatsApp 0327 1543140."
+            )
+            try { abortController.abort() } catch {}
+          }, IDLE_TIMEOUT)
+        }
+
+        // Hard cap
+        totalTimer = setTimeout(() => {
+          console.warn("[chat] TOTAL_TIMEOUT — 40s exceeded, aborting")
+          safeEnqueue(
+            "\n\n⚠️ Response took too long. Please try a shorter question."
+          )
+          try { abortController.abort() } catch {}
+        }, TOTAL_TIMEOUT)
+
+        // Start idle watchdog immediately (waiting for first chunk)
+        resetIdleTimer()
+
         try {
           for await (const chunk of stream) {
-            // ❌ Client aborted?
+            resetIdleTimer() // ✅ reset every chunk
+
             if (req.signal.aborted || abortController.signal.aborted) {
               console.log("[chat] Aborted — stopping stream")
               break
             }
 
-            // ⏱️ Total timeout?
-            if (Date.now() - startTime > TOTAL_TIMEOUT) {
-              console.warn("[chat] TOTAL_TIMEOUT exceeded")
-              safeEnqueue(
-                "\n\n⚠️ Response took too long. Please try a shorter question or WhatsApp 0327 1543140."
-              )
-              break
-            }
-
-            // ⏱️ Idle timeout? (no chunk for IDLE_TIMEOUT ms)
-            if (Date.now() - lastChunkTime > IDLE_TIMEOUT) {
-              console.warn("[chat] IDLE_TIMEOUT exceeded")
-              safeEnqueue(
-                "\n\n⚠️ Connection went silent. Please try again or WhatsApp 0327 1543140."
-              )
-              break
-            }
-
             const delta = chunk.choices?.[0]?.delta?.content || ""
             if (delta) {
-              lastChunkTime = Date.now()
               if (!safeEnqueue(delta)) break
             }
-
             if (chunk.choices?.[0]?.finish_reason) break
           }
         } catch (err: any) {
@@ -226,13 +224,14 @@ export async function POST(req: NextRequest) {
               "\n\n⚠️ Connection issue. Please try again or WhatsApp 0327 1543140."
             )
           }
+          // AbortError — timer already handled the user message
         } finally {
+          clearTimers()
           safeClose()
         }
       },
 
       cancel() {
-        // ✅ Actually abort the upstream Groq stream — prevents leaked connections
         closed = true
         try { abortController.abort() } catch {}
         console.log("[chat] Stream cancelled by client")
